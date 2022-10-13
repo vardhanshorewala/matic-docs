@@ -1,7 +1,7 @@
 ---
 id: validator-hosting
-title:
-description: ""
+title: Hosting de validador
+description: "Requisitos de hosting para Polygon Edge"
 keywords:
 - docs
 - polygon
@@ -12,27 +12,29 @@ keywords:
 - validator
 ---
 
+A continuación, te acercamos sugerencias Presta especial atención a todos los elementos que se indican abajo para asegurarte
+ de que tu configuración de validador se realizó de forma adecuada para que sea segura, estable y eficiente.
 
+## Base de conocimiento {#knowledge-base}
 
-##  {#knowledge-base}
+   Antes de intentar ejecutar el nodo validador, lee a fondo este documento.
+ Documentos adicionales que podrían resultarte útiles:
 
+- [Instalación](get-started/installation)
+- [Configuración en la nube](get-started/set-up-ibft-on-the-cloud)
+- [Comandos CLI](get-started/cli-commands)
+- Servidor del archivo config
+- [Claves privadas](configuration/manage-private-keys)
+- Indicadores de Prometheus
+- [Secrets manager](/docs/category/secret-managers)
+- [Copia de seguridad/restauración](working-with-node/backup-restore)
 
+## Requisitos de sistema mínimos {#minimum-system-requirements}
 
--
--
--
--
--
--
--
--
-
-##  {#minimum-system-requirements}
-
-|  |  |  |
+| Tipo | Valor | Influenciado por |
 |------|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
-|  |  | <ul><li></li><li></li><li></li><li></li></ul> |
-|  |  | <ul><li></li><li></li><li></li></ul> |
+| CPU |  | <ul><li></li><li></li><li>Límite de gas del bloque</li><li>Tiempo del bloque</li></ul> |
+|  |  | <ul><li></li><li></li><li>Límite de gas del bloque</li></ul> |
 |  | <ul><li></li><li></li></ul> | <ul><li></li></ul> |
 
 
