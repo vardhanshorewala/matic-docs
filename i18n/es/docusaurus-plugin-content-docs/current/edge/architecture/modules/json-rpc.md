@@ -17,14 +17,15 @@ keywords:
 El módulo **JSON RPC** implementa la **capa JSON RPC API**, algo que los desarrolladores de aplicaciones descentralizadas que usan para interactuar con
  La cadena de bloques.
 
-Esta incluye soporte para terminales estándar **[json-rpc](https://eth.wiki/json-rpc/API)**,
+Esta incluye soporte para terminales estándar **[json-rpc](https://eth.wiki/json-rpc/API)**, así como enchufes para web
+ terminales.
 
+## Interfaz para Cadena de Bloques  {#blockchain-interface}
 
-##  {#blockchain-interface}
+El Polygon Edge utiliza la***Interfase para cadena de bloques*** para definir todos los métodos que el módulo JSON RPC necesita usar, en
+ una orden de entregar sus terminales.
 
-
-
-
+La interfaz de cadena de bloques es implementada por el **[Minimal](/docs/edge/architecture/modules/minimal)** servidor. Es la base de implementación que pasa en la capa de JSON RPC.
 
 ````go title="jsonrpc/blockchain.go"
 type blockchainInterface interface {
@@ -62,21 +63,22 @@ type blockchainInterface interface {
 }
 ````
 
-##  {#eth-endpoints}
+## Terminales ETH  {#eth-endpoints}
 
-
+Todas las terminales estándar de JSON RPC se implementan en:
 
 ````bash
 jsonrpc/eth_endpoint.go
 ````
 
-##  {#filter-manager}
+## Administración de Filtros {#filter-manager}
 
+La **administración de filtros** es un servicio que se ejecuta junto con el servidor JSON RPC.
 
+Brinda soporte para filtrar bloques en la cadena de bloques.<br />
+ Específicamente, incluye tanto un **acceso** y un **filtro de bloque** de nivel.
 
-
-
-
+La administración de filtros depende en gran medida de los eventos de suscripción, mencionados en la sección [de cadena de bloques](blockchain#blockchain-subscriptions)
 
 ````go title="jsonrpc/filter_manager.go"
 type Filter struct {
@@ -122,7 +124,7 @@ type FilterManager struct {
 
 ````
 
-
+Los eventos de la administración de filtros se despachan en el *método* de ejecución:
 
 ````go title="jsonrpc/filter_manager.go"
 func (f *FilterManager) Run() {
@@ -173,5 +175,5 @@ func (f *FilterManager) Run() {
 }
 ````
 
-##  {#resources}
-*
+## 📜 Recursos {#resources}
+* **[Ethereum JSON-RPC](https://eth.wiki/json-rpc/API)**
