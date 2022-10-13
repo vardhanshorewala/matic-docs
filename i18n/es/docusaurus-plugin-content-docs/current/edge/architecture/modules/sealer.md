@@ -1,7 +1,7 @@
 ---
 id: sealer
-title:
-description:
+title: Sealer
+description: Explicación para el módulo Sealer de Polygon Edge.
 keywords:
   - docs
   - polygon
@@ -12,13 +12,14 @@ keywords:
   - sealing
 ---
 
-##  {#overview}
+## Resumen {#overview}
 
+El **Sealer** es una entidad que reúne las transacciones y crea un nuevo bloque.<br />
+ Luego, ese bloque se envía al módulo **Consensus** para sellarlo.
 
+La lógica de sellado final se encuentra dentro del módulo **Consensus**.
 
-
-
-##  {#run-method}
+## Ejecutar Método {#run-method}
 
 ````go title="sealer/sealer.go"
 func (s *Sealer) run(ctx context.Context) {
@@ -59,12 +60,14 @@ func (s *Sealer) run(ctx context.Context) {
 }
 ````
 
-:::caution
+:::caution Trabajo en progreso
 
+Los módulos **Sealer** y **Consensus** se combinarán en una sola entidad en un futuro próximo.
 
+El nuevo módulo incorporará una lógica modular para diferentes tipos de mecanismos consensus que requieren diferentes implementaciones de sellado:
+* **PoS** (Prueba de Participación)
+* **PoA** (Prueba de Autoridad)
 
-*
-*
-
+Actualmente, los módulos **Sealer** y **Consensus** funcionan con PoW (Prueba de Funcionamiento).
 
 :::
