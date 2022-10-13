@@ -1,7 +1,7 @@
 ---
 id: storage
-title:
-description:
+title: Almacenamiento
+description: Explicación para el módulo de almacenamiento de JSON RPC de Polygon Edge.
 keywords:
   - docs
   - polygon
@@ -12,15 +12,15 @@ keywords:
   - LevelDB
 ---
 
-##  {#overview}
+## Resumen {#overview}
 
+El Polygon Edge actualmente utiliza **LevelDB** para almacenar datos, así como una **in-memory** almacenadora de datos.
 
+A lo largo de Polygon Edge, cuando los módulos necesitan interactuar con el almacenamiento subyacente, de datos, no necesitan saber de cuál motor o servicio DB están hablando.
 
+La capa DB se abstrae entre un módulo llamado **Storage**, el cual exporta interfaces que consultan los módulos.
 
-
-
-
-
+Cada capa de base de datos, solo por ahora **LevelDB**, implementa estos métodos por separado, asegurándose de que encajen con su implementación.
 
 ````go title="blockchain/storage/storage.go"
 // Storage is a generic blockchain storage
@@ -60,11 +60,11 @@ type Storage interface {
 }
 ````
 
-##  {#leveldb}
+## LevelDB {#leveldb}
 
-###  {#prefixes}
+### Prefijos {#prefixes}
 
-
+Para realizar consultas del almacenamiento de LevelDB que sea determinista y para evitar conflictos de almacenamiento de claves, Polygon Edge aprovecha prefijos y sub-prefijos cuando se almacenan datos
 
 ````go title="blockchain/storage/keyvalue.go"
 // Prefixes for the key-value store
@@ -105,12 +105,12 @@ var (
 )
 ````
 
-##  {#future-plans}
+## Planes Futuros {#future-plans}
+
+Los planes para un futuro cercano incluyen agregar algunas de las soluciones de DB más populares, tales como:
+* PostgreSQL
+* MySQL
 
 
-*
-*
-
-
-##  {#resources}
-*
+## 📜 Recursos {#resources}
+* **[LevelDB](https://github.com/google/leveldb)**
