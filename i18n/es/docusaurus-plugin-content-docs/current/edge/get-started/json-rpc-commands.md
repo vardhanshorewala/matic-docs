@@ -1,7 +1,7 @@
 ---
 id: json-rpc-commands
-title:
-description: ""
+title: Comandos de JSON RPC
+description: "Lista de comandos de JSON RPC para Polygon Edge."
 keywords:
   - docs
   - polygon
@@ -10,18 +10,64 @@ keywords:
   - rpc
   - commands
 ---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import {useState} from 'react';
 
-
+export const JsonRpcTerminal = (props) => {
+ const [value, setValue] = useState("");
+ const { method, params, network } = props;
+ return (
 <div>
-<div><pre className="json_rpc_terminal"></pre></div>
-<div></div>
+<div>
+{value ! = "" ? <pre className="json_rpc_terminal"></pre>{value} : null}
 </div>
+<div>
+{value == "" ? (
+ <button
+className="json_rpc_terminal_button"
+onClick={() => {
+ fetch(network, {
+ method: "POST",
+ headers: {
+ Accept: "application/json",
+ "Content-Type": "application/json",
+ },
+ body: JSON.stringify({
+ jsonrpc: "2.0",
+ method: method,
+ params: params,
+ id: 1,
+}),
+ })
+ .then((res) => res.json())
+ .then((response) => {
+ setValue(JSON.stringify(response));
+ });
+ }}
+ >
+ Ejecutar comando
+</button>
+ ) : (
+ <button
+className="json_rpc_terminal_button"
+onClick={() => {
+ setValue("");
+ }}
+ >
+ Borrar terminal
+</button>
+ )}
+</div>
+</div>
+);
+ };
 
-##  {#eth}
+## eth {#eth}
 
-###  {#eth_chainid}
+### eth_chainId {#eth_chainid}
 
-
+Regresa la identificación de la cadena que se está configurando actualmente, un valor utilizado en una transacción con protección de repetición con la firma que se introdujo en EIP-155.
 
 ---
 
