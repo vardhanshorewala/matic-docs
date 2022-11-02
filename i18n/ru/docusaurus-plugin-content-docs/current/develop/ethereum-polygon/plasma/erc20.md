@@ -1,48 +1,48 @@
 ---
 id: erc20
-title: ERC20 Deposit and Withdraw Guide
+title: Руководство по депозиту и выводу ERC20
 sidebar_label: ERC20
-description: Build your next blockchain app on Polygon.
+description:  "Депозит и вывод токенов ERC20 в сети Polygon."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Please check the latest [Matic.js documentation on Plasma ERC20](https://maticnetwork.github.io/matic.js/docs/plasma/erc20/) to get started and view the up-to-date methods.
+Ознакомьтесь с актуальной [документацией Matic.js по Plasma ERC20](https://maticnetwork.github.io/matic.js/docs/plasma/erc20/), чтобы начать работу и посмотреть актуальные методы.
 
-### High Level Flow
+### Поток высокого уровня {#high-level-flow}
 
-#### **Deposit ERC20 (2 step process)**
+#### **Депозит ERC20 (процесс из 2 шагов)**
 
-1. The tokens need to be first approved to the Polygon rootchain contract on Parent Chain (Ethereum/Goerli).
-2. Once approved, the **deposit** function is to be invoked where the tokens get deposited to the Polygon contract, and are available for use in Polygon.
+1. Предварительно необходимо одобрить токены в корневом контракте Polygon в родительской цепочке (Ethereum/Goerli).
+2. После одобрения функция **депозита** вызывается тогда, когда токены вносятся на депозит на контракт Polygon и становятся доступными для использования в сети Polygon.
 
-#### **Transfer ERC20**
+#### **Трансфер ERC20**
 
-Once you have funds on Polygon, you can use those funds to send to others instantly.
+После получения средств в Polygon вы сможете использовать эти средства для мгновенной отправки другим.
 
-#### **Withdraw ERC20 (3 step process)**
+#### **Вывод ERC20 (процесс из 3 шагов)**
 
-1. Withdrawal of funds is initiated from Polygon. A checkpoint interval of 30 mins(For testnets wait for ~10 minutes) is set, where all the blocks on the Polygon block layer are validated since the last checkpoint.
-2. Once the checkpoint is submitted to the mainchain ERC20 contract, an NFT Exit (ERC721) token is created of equivalent value.
-3. The withdrawn funds can be claimed back to your ERC20 acccount from the mainchain contract using a process-exit procedure.
+1. Вывод средств инициируется Polygon. Устанавливается интервал checkpoint в 30 минут (для тестовых сетей подождать ~10), когда все блоки на уровне блоков Polygon сверяются с последним checkpoint.
+2. После отправки checkpoint в контракт основной цепочки ERC20 создается токен NFT Exit (ERC721) эквивалентной ценности.
+3. Выведенные средства можно затребовать обратно на аккаунт ERC20 из контракта основной цепочки с использованием процедуры процесс-выход.
 
-## Setup Details
+## Настройка деталей {#setup-details}
 
 ---
 
-### Configuring Polygon Edge
+### Настройка Polygon Edge {#configuring-polygon-edge}
 
-Install Matic SDK (**_3.0.0)_**
+Установите Matic SDK (**_3.0.0)_**
 
 ```bash
 npm i @maticnetwork/maticjs-plasma
 ```
 
-### util.js
+### util.js {#util-js}
 
-Initiating Maticjs client
+Инициирование клиента Maticjs
 
 ```js
 // const use = require('@maticnetwork/maticjs').use
@@ -83,9 +83,9 @@ async function getPlasmaClient (network = 'testnet', version = 'mumbai') {
 }
 ```
 
-### process.env
+### process.env {#process-env}
 
-Create a new file in root directory name it process.env
+Создайте в корневом каталоге новый файл с именем process.env
 
 ```bash
 USER1_FROM =
@@ -97,15 +97,15 @@ MATIC_RPC =
 
 ---
 
-## deposit.js
+## deposit.js {#deposit-js}
 
-**Approve**: This is a normal ERC20 approval so that **_depositManagerContract_** can call **_transferFrom_** function. Polygon Plasma client exposes **_erc20Token.approve_** method to make this call.
+**Одобрение**: Это нормальное одобрение ERC20, позволяющее **_depositManagerContract_** вызывать функцию **_transferFrom_**. Клиент Polygon Plasma открывает метод **_erc20Token.approve_** для осуществления этого вызова.
 
-**deposit**: Deposit can be done by calling **_depositERC20ForUser_** on depositManagerContract contract.
+**Депозит**: депозит может выполняться посредством вызова **_depositERC20ForUser_** в контракте depositManagerContract.
 
-> Note that token needs to be mapped and approved for transfer beforehand.
+> Обратите внимание, что сопоставление и утверждение токена для передачи необходимо выполнить заранее.
 
-**_erc20Token.deposit_** method to make this call.
+Метод **_erc20Token.deposit_** для выполнения этого вызова.
 
 ```js
 const { getPlasmaClient, plasma, from } = require('../utils')
@@ -129,9 +129,9 @@ execute().then(() => {
 })
 ```
 
-> NOTE: Deposits from Ethereum to Polygon happen using a state sync mechanism and takes about ~5-7 minutes. After waiting for this time interval, it is recommended to check the balance using web3.js/matic.js library or using Metamask. The explorer will show the balance only if at least one asset transfer has happened on the child chain. This [link](/docs/develop/ethereum-polygon/plasma/deposit-withdraw-event-plasma) explains how to track the deposit events.
+> ПРИМЕЧАНИЕ. Депозиты из Ethereum в Polygon выполняются с использованием механизма синхронизации состояния, и это занимает примерно ~5-7 минут. После ожидания в течение этого временного интервала рекомендуется проверить баланс с помощью библиотеки web3.js/matic.js или Metamask. Баланс будет показан в обозревателе, только в дочерней цепочке была выполнена только одна передача активов. По этой [ссылке](/docs/develop/ethereum-polygon/plasma/deposit-withdraw-event-plasma) вы узнаете, как отслеживать события депозита.
 
-## transfer.js
+## transfer.js {#transfer-js}
 
 ```js
 
@@ -160,11 +160,11 @@ execute().then(() => {
 })
 ```
 
-## Withdraw
+## Вывод {#withdraw}
 
-### 1. Burn
+### 1. Сжигание {#1-burn}
 
-User can call **_withdraw_** function of **_getERC20TokenContract_** child token contract. This function should burn the tokens. Polygon Plasma client exposes **_withdrawStart_** method to make this call.
+Пользователь может вызвать функцию **_withdraw_** контракта дочернего токена **_getERC20TokenContract_**. Эта функция должна сжечь токены. Клиент Polygon Plasma открывает метод **_withdrawStart_** для выполнения этого вызова.
 
 ```js
 const { getPlasmaClient, from, plasma } = require('../utils')
@@ -186,10 +186,10 @@ execute().then(() => {
 
 ```
 
-### 2. confirm-withdraw.js
+### 2. confirm-withdraw.js {#2-confirm-withdraw-js}
 
 
-User can call **_startExitWithBurntTokens_** function of **_erc20Predicate_** contract. This function should burn the tokens. Polygon Plasma client exposes **_withdrawConfirm_** method to make this call. This function can be called only after the checkpoint is included in the main chain. The checkpoint inclusion can be tracked by following this [guide](/docs/develop/ethereum-polygon/plasma/deposit-withdraw-event-plasma#checkpoint-events).
+Пользователь может вызвать функцию **_startExitWithBurntTokens_** контракта**_erc20Predicate_**. Эта функция должна сжечь токены. Клиент Polygon Plasma открывает метод **_withdrawConfirm_** для выполнения этого вызова. Эту функцию можно вызвать только после включения контрольной точки в основную цепочку. Включение контрольной точки можно отследить с помощью этого [руководства](/docs/develop/ethereum-polygon/plasma/deposit-withdraw-event-plasma#checkpoint-events).
 
 
 ```js
@@ -210,9 +210,9 @@ execute().then(_ => {
 })
 ```
 
-### 3. Process Exit
+### 3. Выход из процесса {#3-process-exit}
 
-A user should call the **_processExits_** function of **_withdrawManager_** contract and submit the proof of burn. Upon submitting valid proof tokens are transferred to the user. Polygon Plasma client exposes **_withdrawExit_** method to make this call.
+Пользователь должен вызвать функцию **_processExits_** контракта **_withdrawManager_** и отправить доказательство сжигания. После отправки корректного доказательства токены передаются пользователю. Клиент Polygon Plasma открывает метод **_withdrawExit_** для выполнения этого вызова.
 
 ```js
 const { getPlasmaClient, from, plasma } = require('../utils')
@@ -231,4 +231,4 @@ execute().then(_ => {
 })
 ```
 
-_Note: A checkpoint, which is a representation of all transactions happening on the Polygon Network to the ERC20 chain every ~30 minutes, is submitted to the mainchain ERC20 contract._
+_Примечание. Контрольная точка checkpoint, отражающая все транзакции Polygon в цепочке erc20 приблизительно за каждые 30 минут, отправляется в контракт erc20 в mainchain._

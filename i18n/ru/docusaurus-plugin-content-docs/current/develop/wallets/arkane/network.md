@@ -1,25 +1,26 @@
 ---
 id: network
-title: Network
+title: Сеть
 sidebar_label: Network
-description: How to switch between Polygon testnet and mainnet.
+description: Как переключиться между тестовой сетью Polygon и сетью mainnet.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-> More detail about environments and networks
+> Более подробная информация о средах и сетях
 
-Depending on which Arkane environment you or your application connect, your blockchain transactions will be directed to a specific blockchain network. Connect to the Arkane production environment and you will be contacting to the Polygon Mainnet, connect to the Arkane staging environment and you will be connected to the Polygon testnet (Mumbai).
+В зависимости от того, к какой среде Arkane подключаетесь вы или ваше приложение, ваши транзакции в блокчейне будут направляться в определенную сеть блокчейна.
+ Подключитесь к рабочей среде Arkane для взаимодействия с сетью Polygon Mainnet, подключитесь к тестовой среде Arkane для связи с тестовой сетью Polygon (Mumbai).
 
-Below you find an overview of the public Arkane environments and to which network they are connecting.
+Ниже вы найдете обзор публичных сред Arkane с информацией о том, к какой сети они подключаются.
 
-**Note:** If you are a developer it is possible to use different networks or even your own infrastructure, for more information we refere you to [the Arkane documentation](https://arkane.gitbook.io/widget/).
+**Примечание.** Если вы разработчик, вы сможете использовать разные сети или даже собственную инфраструктуру. Дополнительную информацию можно найти в [документации по Arkane](https://arkane.gitbook.io/widget/).
 
-| Environment | Polygon Network | Arkane Service Link             |
-| ----------- | --------------- | ------------------------------- |
-| Production  | Mainnet         | https://app.arkane.network      |
-| Staging     | Mumbai testnet  | https://staging.arkane.network/ |
+| Среда | Сеть Polygon | Ссылка на сервис Arkane |
+--- | --- |---
+| Производственная | Mainnet | https://app.arkane.network |
+| Тестовая | Тестовая сеть Mumbai | https://staging.arkane.network/ |
 
 

@@ -1,7 +1,7 @@
 ---
 id: fx-portal
 title: Fx-Portal
-description: Transfer state or data from Ethereum to Polygon without any mapping required
+description:  "Передача состояния или данных из Ethereum в Polygon без сопоставления."
 keywords:
   - docs
   - matic
@@ -9,160 +9,160 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-## Overview
+## Обзор {#overview}
 
-The usual mechanism to natively read Ethereum data from Polygon is using `State Sync`.  This enables the transfer of arbitrary data from Ethereum to Polygon. However, this approach also requires mapping of the root and child contracts if the default interface cannot be used. FxPortal offers an alternative where ERC standardized tokens can be deployed without any mapping involved, simply using the deployed base FxPortal contracts.
+Обычный механизм нативного чтения данных Ethereum из Polygon использует `State Sync`.  Это позволяет выполнять трансфер произвольных данных из Ethereum в Polygon. Однако для этого подхода требуется сопоставление корневого и дочернего контрактов, если возможности использовать интерфейс по умолчанию нет. FxPortal предлагает альтернативу, позволяющую развертывать стандартизированные токены ERC без сопоставления, просто используя развернутые базовые контракты FxPortal.
 
-## What is [Fx-Portal](https://github.com/fx-portal/contracts)?
+## Что такое [Fx-Portal](https://github.com/fx-portal/contracts)? {#}
 
-It is a powerful yet simple implementation Polygon [state sync](https://docs.polygon.technology/docs/pos/state-sync/state-sync/) mechanism. The Polygon PoS bridge is built on the same architecture. The code in the `examples` folder are some examples of usage. You can easily use these examples to build your own implementations or own custom bridge which allows any state-syncs without mapping.
+Это мощная, но простая реализация механизма [синхронизации состояния](https://docs.polygon.technology/docs/pos/state-sync/state-sync/) Polygon. Мост Polygon PoS построен на базе той же архитектуры. Код в папке `examples` содержит некоторые примеры использования. Вы можете легко использовать эти примеры для создания собственных реализаций или собственного пользовательского моста, позволяющего выполнять любые синхронизации состояния без сопоставления.
 
-## How does it work?
+## Как это работает? {#how-does-it-work}
 
-`FxChild` (FxChild.sol)  and `FxRoot` (FxRoot.sol) are the main contracts on which FxPortal works. It calls and passes data to user-defined methods on another chain without any mapping using the state sync mechanism. To use the deployed main contracts, you can implement FxPortal's base contracts in the smart contracts you deploy - [FxBaseRootTunnel](https://github.com/fx-portal/contracts/blob/main/contracts/tunnel/FxBaseRootTunnel.sol) and [FxBaseChildTunnel](https://github.com/fx-portal/contracts/blob/main/contracts/tunnel/FxBaseChildTunnel.sol). By building on these contracts, your deployed contracts will be able to communicate with each other using the data tunnel mechanism.
+`FxChild` (FxChild.sol)  и `FxRoot` (FxRoot.sol) — основные контракты, на базе которых работает FxPortal. Они вызывают и передают данные для определяемых пользователем методов в другой цепочке без сопоставления с использованием механизма синхронизации состояния. Чтобы использовать развернутые основные контракты, вы можете реализовать базовые контракты FxPortal в смарт-контрактах, которые вы развертываете - [FxBaseRootTunnel](https://github.com/fx-portal/contracts/blob/main/contracts/tunnel/FxBaseRootTunnel.sol) и [FxBaseChildTunnel](https://github.com/fx-portal/contracts/blob/main/contracts/tunnel/FxBaseChildTunnel.sol). Основываясь на этих контрактах, ваши развернутые контракты смогут взаимодействовать друг с другом, используя механизм туннеля данных.
 
-Otherwise, you can choose to map your tokens with the already deployed tunnel contracts.
+В ином случае вы сможете произвести сопоставление токенов с уже развернутыми контрактами туннелей.
 
-### ERC20 Transfer
+### Трансфер ERC20 {#erc20-transfer}
 
-The child and root tunnel contracts enable the deposit of tokens on the root chain and withdrawal on the child chain.
+Дочерние и корневые туннельные контракты открывают возможность депозита токенов в корневую цепочку и их вывода из дочерней цепочки.
 
 #### `FxERC20RootTunnel`
 
-- `mapToken(address rootToken)` You can call the function on the deployed contract to map your ERC20 token and create a corresponding child token on the child chain.
-- `deposit(address rootToken, address user, uint256 amount, bytes memory data)` Call deposit() with the address of the mapped token, the address who can withdraw with a corresponding amount (along with data if needed). You must have approved the contract using the standard ERC20 `approve` function to spend your tokens first.
+- `mapToken(address rootToken)` Вы сможете вызвать функцию развернутого контракта для сопоставления токена ERC20 и создания соответствующего дочернего токена в дочерней цепочке.
+- `deposit(address rootToken, address user, uint256 amount, bytes memory data)` Вызовите deposit() с адресом сопоставленного токена, адресом, поддерживающим вывод соответствующего количества (вместе с данными, если они необходимы). Чтобы тратить токены, вы должны предварительно утвердить контракт, используя стандартную функцию ERC20 `approve`.
 
 #### `FxERC20ChildTunnel`
 
-- `withdraw(address childToken, uint256 amount)` The address assigned in deposit() can withdraw all the amount of child token using this function. They will receive the child token created when first mapped.
-- `rootToChildToken` This public variable contains the root token to child token mapping. You can query the mapping with the address of the root token to know the address of the deployed child token.
+- `withdraw(address childToken, uint256 amount)` Указанный в deposit() адрес дает возможность вывести все количество дочерних токенов, используя эту функцию. Они получат дочерний токен, созданный при первом сопоставлении.
+- `rootToChildToken` Эта публичная переменная содержит сопоставление корневого токена и дочернего токена. Вы можете запросить сопоставление, используя адрес корневого токена для определения адреса развернутого дочернего токена.
 
-#### Steps for ERC20 transfer from Ethereum to Polygon
+#### Шаги для трансфера ERC20 из Ethereum в Polygon {#steps-for-erc20-transfer-from-ethereum-to-polygon}
 
-1. Deploy your own ERC20 token on the root chain. You will need this address later.
-2. Approve the tokens for transfer by calling the `approve()` function of the root token with the address of the root tunnel and the amount as the arguments.
-3. Proceed to call `deposit()` with the address of the receiver and amount on the root chain to receive the equivalent child token on the child chain. This will also map the token automatically. Alternatively, you can call `mapToken()` first before depositing.
-4. That's it! 🎉 After mapping, you should now be able to execute cross-chain transfers using the `deposit` and `withdraw` functions of the tunnel.
+1. Выполните развертывание своего токена ERC20 в корневой цепочке. Этот адрес потребуется вам позднее.
+2. Утвердите токены для трансфера, вызвав функцию `approve()` корневого токена, указав адрес корневого туннеля и количество как аргументы.
+3. Затем вызовите `deposit()`, указав адрес получателя и количество в корневой цепочке для получения эквивалентного количества дочернего токена в дочерней цепочке. При этом сопоставление токена будет выполнено автоматически. Также перед депозитом вы можете вызвать `mapToken()`.
+4. Готово! 🎉 После сопоставления вы должны получить возможность выполнять переводы между цепочками, используя функции туннеля `deposit` и `withdraw`.
 
-**Note:** After you have performed `deposit()` on the root chain, it will take 10-15 minutes for state sync to happen. Once  state sync happens, you will get the tokens deposited at the given address.
+**Примечание.** После выполнения `deposit()` в корневой цепочке для синхронизации состояния потребуется 10-15 минут. После синхронизации состояния токены будут внесены на депозит на указанный адрес.
 
-### Steps for ERC20 transfer from Polygon to Ethereum
+### Шаги для перевода ERC20 из Polygon в Ethereum {#steps-for-erc20-transfer-from-polygon-to-ethereum}
 
-1. Proceed to call `withdraw()` with the respective token address and amount as arguments on the child contract to move the child tokens back to the designated receiver on the root chain. **Note the tx hash** as this will be used to generate the burn proof.
+1. Вызовите `withdraw()`, указав в качестве аргументов в дочернем контракте адрес соответствующего токена и количество, чтобы вернуть дочерние токены указанному отправителю в корневой цепочке. **Обратите внимание на хэш tx,** поскольку он будет использоваться, чтобы сгенерировать доказательство сжигания.
 
-### Steps for ERC721 transfer from Ethereum to Polygon
+### Шаги для трансфера ERC721 из Ethereum в Polygon {#steps-for-erc721-transfer-from-ethereum-to-polygon}
 
-1. Deploy your own ERC721 token on the root chain. You will need this address later.
-2. Approve the tokens for transfer by calling the `approve()` function of the root token with the address of the root tunnel and the token ID as the arguments.
-3. Proceed to call `deposit()` with the address of the receiver and token ID on the root chain to receive the equivalent child token on the child chain. This will also map the token automatically. Alternatively, you can call `mapToken()` first before depositing.
+1. Разверните свой токен ERC721 в корневой цепочке. Этот адрес потребуется вам позднее.
+2. Утвердите токены для трансфера, вызвав функцию `approve()` корневого токена и укажите адрес корневого туннеля и идентификатор токена как аргументы.
+3. Вызовите `deposit()` с адресом получателя и идентификатором токена в корневой цепочке, чтобы получить эквивалентное количество дочерних токенов в дочерней цепочке. При этом сопоставление токена будет выполнено автоматически. Также перед депозитом вы можете вызвать `mapToken()`.
 
-**Note:** After you have performed `deposit()` on the root chain, it will take 10-15 minutes for state sync to happen. Once  state sync happens, you will get the tokens deposited at the given address.
+**Примечание.** После выполнения `deposit()` в корневой цепочке для синхронизации состояния потребуется 10-15 минут. После синхронизации состояния токены будут внесены на депозит на указанный адрес.
 
-#### Steps for ERC721 transfer from Polygon to Ethereum
+#### Шаги для трансфера ERC721 из Polygon в Ethereum {#steps-for-erc721-transfer-from-polygon-to-ethereum}
 
-1. Proceed to call `withdraw()` with the respective token address and token ID as arguments on the child contract to move the child tokens back to the designated receiver on the root chain. **Note the tx hash** as this will be used to generate the burn proof.
+1. Вызовите `withdraw()` и укажите адрес соответствующего токена и идентификатор токена как аргументы в дочернем контракте, чтобы вернуть дочерние токены указанному получателю в корневой цепочке. **Обратите внимание на хэш tx,** поскольку он будет использоваться, чтобы сгенерировать доказательство сжигания.
 
-### ERC1155 Transfer
+### Трансфер ERC1155 {#erc1155-transfer}
 
 #### `FxERC1155RootTunnel`
 
-- `mapToken(rootToken)`: Used to map your root ERC1155 token to child chain
-- `deposit(rootToken, user, id, amount, data)`: Function used to deposit root tokens to child chain
-- `depositBatch(rootToken, user,  ids, amounts, bytes memory data)`: Used for multiple token Ids and corresponding amounts
-- `receiveMessage(inputData)`: To be called after burn proof has been generated with the payload as `inputData`
+- `mapToken(rootToken)`: используется для сопоставления корневого токена ERC1155 с дочерней цепочкой
+- `deposit(rootToken, user, id, amount, data)`: функция, используемая для депозита корневых токенов в дочернюю цепочку
+- `depositBatch(rootToken, user,  ids, amounts, bytes memory data)`: используется для нескольких идентификаторов токенов и соответствующих количеств
+- `receiveMessage(inputData)`: вызывается после генерирования доказательства сжигания с полезной нагрузкой как `inputData`
 
 #### `FxERC1155ChildTunnel`
 
-- `withdraw(childToken, id, amount, data)`: Used to withdraw token from Polygon to Ethereum
-- `withdrawBatch(childToken, ids, amounts, data)`: Same as withdraw but for withdrawing multiple token Ids
+- `withdraw(childToken, id, amount, data)`: используется для вывода токена из Polygon в Ethereum
+- `withdrawBatch(childToken, ids, amounts, data)`: аналогично выводу, но для вывода нескольких идентификаторов токенов
 
-#### Steps for depositing ERC1155 tokens from Ethereum to Polygon
+#### Шаги для депозита токенов ERC1155 из Ethereum в Polygon {#steps-for-depositing-erc1155-tokens-from-ethereum-to-polygon}
 
-1. Deploy your ERC1155 token on the root chain. You will need this address later.
-2. Call `setApprovalForAll(operator, approved)` on the deployed token with FxERC1155RootTunnel's address as `operator` to allow FxERC1155RootTunnel to transfer your tokens to FxERC1155ChildTunnel on Polygon.
-3. Call `mapToken()` on FxERC1155RootTunnel with your deployed token's address as `rootToken`. This will send a message to FxERC1155ChildTunnel instructing it to deploy and map the ERC1155 token on Polygon. To query your child token address, call `rootToChildToken` on FxERC1155ChildTunnel.
-4. Call `deposit()` on FxERC1155RootTunnel with the address of the token on Ethereum as `rootToken`, receiver as `user`, token Id as `id` and the amount as `amount`. Alternatively, you can also call `depositBatch()` for multiple token ids.
+1. Разверните токен ERC1155 в корневой цепочке. Этот адрес потребуется вам позднее.
+2. Вызовите `setApprovalForAll(operator, approved)` на развернутом токене с адресом FxERC1155RootTunnel как `operator`, чтобы разрешить туннелю FxERC1155RootTunnel переводить токены в FxERC1155ChildTunnel на Polygon.
+3. Вызовите `mapToken()` на FxERC1155RootTunnel с адресом развернутого токена как `rootToken`. При этом FxERC1155ChildTunnel будет отправлено сообщение с указанием выполнить развертывание и сопоставление токена ERC1155 в Polygon. Чтобы запросить адрес дочернего токена, вызовите `rootToChildToken` для FxERC1155ChildTunnel.
+4. Вызовите `deposit()` для FxERC1155RootTunnel, указав адрес токена в Ethereum как `rootToken`, получателя как `user`, идентификатор токена как `id` и количество как `amount`. Также вы можете вызвать `depositBatch()` для получения нескольких идентификаторов токенов.
 
-**Note:** After you have performed `deposit()` on the root chain, it will take 10-15 minutes for state sync to happen. Once  state sync happens, you will get the tokens deposited at the given address.
+**Примечание.** После выполнения `deposit()` в корневой цепочке для синхронизации состояния потребуется 10-15 минут. После синхронизации состояния токены будут внесены на депозит на указанный адрес.
 
-#### Steps to withdraw ERC1155 tokens from Polygon to Ethereum
+#### Шаги для вывода токенов ERC1155 из Polygon в Ethereum {#steps-to-withdraw-erc1155-tokens-from-polygon-to-ethereum}
 
-1. Call `withdraw()` on FxERC1155ChildTunnel with the address of the child token deployed on Polygon as the `childToken` and the token id as `id` (the child token address can be queried from `rootToChildToken` mapping). Alternatively, you can also call `withdrawBatch()` for multiple token ids and corresponding amounts. **Note the tx hash** as this will be used to generate the burn proof.
+1. Вызовите `withdraw()` для FxERC1155ChildTunnel с адресом дочернего токена, развернутым в Polygon как `childToken` и идентификатором токена `id` (адрес дочернего токена можно запросить из сопоставления `rootToChildToken`). Также вы можете вызвать `withdrawBatch()` для получения нескольких идентификаторов токенов и соответствующих количеств. **Обратите внимание на хэш tx,** поскольку он будет использоваться, чтобы сгенерировать доказательство сжигания.
 
-### Withdrawing your tokens on the root chain
+### Вывод токенов в корневую цепочку {#withdrawing-your-tokens-on-the-root-chain}
 
-**Note:** After you have performed `withdraw()` on the child chain, it will take 30-90 minutes for a checkpoint to happen. Once the next checkpoint includes the burn tx, you can withdraw the tokens on the root chain.
+**Примечание.** После выполнения `withdraw()` в дочерней цепочке для получения checkpoint потребуется 30-90 минут. Если в следующий checkpoint будет включено сжигание tx, вы сможете вывести токены в корневую цепочку.
 
-1. Generate the burn proof using the tx hash and MESSAGE_SENT_EVENT_SIG. An example script to generate the proof can be found [here](https://gist.github.com/QEDK/62c4503d9a6a4bc57c491ee09376d71a).
-2. Feed the generated payload as the argument to `receiveMessage()` in the respective root tunnel contract.
+1. Сгенерируйте доказательство сжигания, используя хэш tx и MESSAGE_SENT_EVENT_SIG. Пример скрипта для генерирования доказательства можно найти [здесь](https://gist.github.com/QEDK/62c4503d9a6a4bc57c491ee09376d71a).
+2. Отправьте сгенерированную полезную нагрузку как аргумент в `receiveMessage()` в соответствующем контракте корневого туннеля.
 
-### Mintable ERC-20 Transfer
+### Трансфер ERC-20 с возможностью минтинга {#mintable-erc-20-transfer}
 
 #### `FxMintableERC20RootTunnel`
 
-- `deposit(address rootToken, address user, uint256 amount, bytes memory data)`: To deposit tokens from Ethereum to Polygon
-- `receiveMessage(bytes memory inputData)`: Burn proof to be fed as the `inputData` to receive tokens on the root chain
+- `deposit(address rootToken, address user, uint256 amount, bytes memory data)`: для депозита токенов из Ethereum в Polygon
+- `receiveMessage(bytes memory inputData)`: доказательство сжигания отправляется как `inputData` для получения токенов в корневой цепочке
 
 #### `FxMintableERC20ChildTunnel`
 
-- `deployChildToken(uint256 uniqueId, string memory name, string memory symbol, uint8 decimals)`: To deploy a ERC20 token on Polygon chain
-- `mintToken(address childToken, uint256 amount)`: Mint a particular amount of tokens on Polygon
-- `withdraw(address childToken, uint256 amount)`: To burn tokens on the child chain in order to withdraw on the root chain
+- `deployChildToken(uint256 uniqueId, string memory name, string memory symbol, uint8 decimals)`: для развертывания токена ERC20 в цепочке Polygon
+- `mintToken(address childToken, uint256 amount)`: минтинг конкретного количества токенов в Polygon
+- `withdraw(address childToken, uint256 amount)`: для сжигания токенов в дочерней цепочке для вывода в корневой цепочке
 
-#### Steps for minting tokens on Polygon
+#### Шаги для минтинга токенов в Polygon {#steps-for-minting-tokens-on-polygon}
 
-1. Call the `deployChildToken()` on `FxMintableERC20ChildTunnel` and pass the necessary token info as parameters. This emits a `TokenMapped` event which contains the `rootToken` and `childToken` addresses. Note these addresses.
-2. Call `mintToken()` on `FxMintableERC20ChildTunnel` to mint tokens on the child chain.
-3. Call `withdraw()` on `FxMintableERC20ChildTunnel` to withdraw tokens from Polygon. Note the tx hash as this will come in handy to generate the burn proof.
-4. Wait for the burn tx to be included in the checkpoint (~30-45 minutes). After this, generate the burn proof using an example script [here](https://gist.github.com/QEDK/62c4503d9a6a4bc57c491ee09376d71a).
+1. Вызовите `deployChildToken()` в `FxMintableERC20ChildTunnel` и передайте необходимую информацию о токене в качестве параметров. Это эмитирует событие `TokenMapped`, которое содержит адреса `rootToken` и `childToken`. Запишите эти адреса.
+2. Вызовите `mintToken()` в `FxMintableERC20ChildTunnel` для минтинга токенов в дочерней цепочке.
+3. Вызовите `withdraw()` в `FxMintableERC20ChildTunnel` для вывода токенов из Polygon. Запишите хэш tx, поскольку он пригодится для генерирования доказательства сжигания.
+4. Подождите, пока информация о сжигании tx будет включена в checkpoint (~30-45 минут). Затем сгенерируйте доказательство сжигания, используя [этот](https://gist.github.com/QEDK/62c4503d9a6a4bc57c491ee09376d71a) скрипт в качестве примера.
 
-#### Steps for withdrawing tokens on Ethereum
+#### Шаги для вывода токенов в Ethereum {#steps-for-withdrawing-tokens-on-ethereum}
 
-Feed the generated burn proof as the argument to `receiveMessage()` in `FxMintableERC20RootTunnel`. After this, the token balance would be reflected on the root chain.
+Отправьте сгенерированное доказательство сжигания как аргумент для `receiveMessage()` в `FxMintableERC20RootTunnel`. После этого баланс токена отразится в корневой цепочке.
 
-#### Steps to deposit tokens back from Ethereum to Polygon
+#### Шаги для депозита токенов обратно из Ethereum в Polygon {#steps-to-deposit-tokens-back-from-ethereum-to-polygon}
 
-1. Make sure you approve `FxMintableERC20RootTunnel` to transfer your tokens.
-2. Call `deposit()` in `FxMintableERC20RootTunnel` with the `rootToken` as address of root token and `user` as the recipient.
-3. Wait for the state sync event (~10-15 mins). After this, you can query the target recipient's balance on the child chain.
+1. Убедитесь, что вы одобрили `FxMintableERC20RootTunnel` для трансфера токенов.
+2. Вызовите `deposit()` в `FxMintableERC20RootTunnel` с адресом корневого токена `rootToken` и получателем `user`.
+3. Подождите события синхронизации состояния (~10-15 минут). После этого вы сможете запросить баланс целевого получателя в дочерней цепочке.
 
-## Example deployments
+## Примеры развертывания {#example-deployments}
 
 Goerli:
 
 - Checkpoint Manager: 0x2890bA17EfE978480615e330ecB65333b880928e
-- Dummy ERC20 token: 0xe9c7873f81c815d64c71c2233462cb175e4765b3
+- Фиктивный токен ERC20: 0xe9c7873f81c815d64c71c2233462cb175e4765b3
 - FxERC20RootTunnel: 0x3658ccFDE5e9629b0805EB06AaCFc42416850961
 - FxMintableERC20RootTunnel: 0xA200766a7D64E54611E2D232AA6c1f870aCb63c1
-- Dummy ERC721 token: 0x73594a053cb5ddDE5558268d28a774375C4E23dA
+- Фиктивный токен ERC721: 0x73594a053cb5ddDE5558268d28a774375C4E23dA
 - FxERC721RootTunnel: 0xF9bc4a80464E48369303196645e876c8C7D972de
-- Dummy ERC1155 Token: 0x1906d395752FE0c930f8d061DFEb785eBE6f0B4E
-- FxERC1155RootTunnel : 0x48DE785970ca6eD289315036B6d187888cF9Df48
+- Фиктивный токен ERC1155: 0x1906d395752FE0c930f8d061DFEb785eBE6f0B4E
+- FxERC1155RootTunnel: 0x48DE785970ca6eD289315036B6d187888cF9Df48
 
 Mumbai:
 
 - FxERC20: 0xDDE69724AeFBdb084413719fE745aB66e3b055C7
 - FxERC20ChildTunnel: 0x9C37aEbdb7Dd337E0215BC40152d6689DaF9c767
 - FxMintableERC20ChildTunnel: 0xA2C7eBEf68B444056b4A39C2CEC23844275C56e9
-- Child token dummy ERC20: 0x346d21bc2bD3dEE2d1168E1A632b10D1d7B9c0A
+- Фиктивный дочерний токен ERC20: 0x346d21bc2bD3dEE2d1168E1A632b10D1d7B9c0A
 - FxERC721: 0xf2720927E048726267C0221ffA41A88528048726
 - FxERC721ChildTunnel: 0x3658ccFDE5e9629b0805EB06AaCFc42416850961
 - FxERC1155: 0x80be8Cf927047A40d3f5791BF7436D8c95b3Ae5C
 - FxERC1155ChildTunnel: 0x3A0f90D3905601501652fe925e96d8B294243Efc
 
-## Contract addresses
+## Адреса контрактов {#contract-addresses}
 
 **Mumbai**
 
-| Contract                                                                                                        | Deployed address                             |
-|:--------------------------------------------------------------------------------------------------------------- |:-------------------------------------------- |
-| [FxRoot (Goerli)](https://goerli.etherscan.io/address/0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA#code)          | `0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA` |
-| [FxChild (Mumbai)](https://mumbai.polygonscan.com/address/0xCf73231F28B7331BBe3124B907840A94851f9f11/contracts) | `0xCf73231F28B7331BBe3124B907840A94851f9f11` |
+| Контракт | Развернутый адрес  |
+ | :----- | :- |
+ | [FxRoot (Goerli)](https://goerli.etherscan.io/address/0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA#code) | `0x3d1d3E34f7fB6D26245E6640E1c50710eFFf15bA` |
+ | [FxChild (Mumbai)](https://mumbai.polygonscan.com/address/0xCf73231F28B7331BBe3124B907840A94851f9f11/contracts) | `0xCf73231F28B7331BBe3124B907840A94851f9f11`|
 
 **Mainnet**
 
 
-| Contract                                                                                                           | Deployed address                             |
-|:------------------------------------------------------------------------------------------------------------------ |:-------------------------------------------- |
-| [FxRoot (Ethereum Mainnet)](https://etherscan.io/address/0xfe5e5d361b2ad62c541bab87c45a0b9b018389a2#code)          | `0xfe5e5D361b2ad62c541bAb87C45a0B9B018389a2` |
-| [FxChild (Polygon Mainnnet)](https://polygonscan.com/address/0x8397259c983751DAf40400790063935a11afa28a/contracts) | `0x8397259c983751DAf40400790063935a11afa28a` |
+| Контракт | Развернутый адрес  |
+ | :----- | :- |
+ | [FxRoot (Ethereum Mainnet)](https://etherscan.io/address/0xfe5e5d361b2ad62c541bab87c45a0b9b018389a2#code) | `0xfe5e5D361b2ad62c541bAb87C45a0B9B018389a2` |
+ | [FxChild (Polygon Mainnnet)](https://polygonscan.com/address/0x8397259c983751DAf40400790063935a11afa28a/contracts) | `0x8397259c983751DAf40400790063935a11afa28a`|

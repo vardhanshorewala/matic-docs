@@ -1,61 +1,61 @@
 ---
 id: mintable-assets
-title: Polygon Mintable Assets
-description: Build your next blockchain app on Polygon.
+title: Активы Polygon с возможностью произвольного минтинга
+description: "Создайте актив на Polygon"
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-## What are Polygon mintable tokens?
+## Что такое токены Polygon с возможностью произвольного минтинга? {#what-are-polygon-mintable-tokens}
 
-Assets can be transferred to and from across the Ethereum and Polygon chain using the PoS bridge. These assets include ERC20, ERC721, ERC1155 and many other token standards. Most of the assets are pre-existing on Ethereum chain. But new assets can be created on the Polygon chain as well and moved back to Ethereum chain as and when required. This can save lots of gas and time that is spent on token minting on Ethereum. Creation of assets on the Polygon chain is much easier and a more recommended approach. These assets can be moved to Ethereum chain when required. Such type of assets are called Polygon mintable assets.
+Активы можно передавать в Ethereum и Polygon chain, а также из них и между ними, с помощью моста PoS. Эти активы включают ERC20, ERC721, ERC1155 и многие другие стандарты токенов. Большинство активов уже существуют в цепочке Ethereum. Однако в Polygon chain также можно создавать новые активы и перемещать их обратно в цепочку Ethereum по мере необходимости. Это может сэкономить много газа и времени, которые тратятся на минтинг токенов в Ethereum. Создание активов в Polygon chain является гораздо более простым и рекомендуемым подходом. Эти активы можно перемещать в цепочку Ethereum в случае необходимости. Активы такого типа называются активами Polygon с возможностью произвольного минтинга.
 
-In the case of Polygon Mintable tokens, assets are created on Polygon. When a Polygon minted asset has to be moved to Ethereum, the asset has to be burned first and then a proof of this burn transaction has to be submitted on the Ethereum chain. The RootChainManager contract calls a special predicate contract internally. This predicate contract directly calls the mint function of the asset contract on Ethereum and the tokens are minted to the users address. This special predicate is called the MintableAssetPredicate.
+Что касается токенов Polygon с возможностью произвольного минтинга, то активы создаются на Polygon. Если актив, минтинг которого выполнен на Polygon, необходимо переместить в Ethereum, этот актив необходимо сначала сжечь, а затем необходимо отправить доказательство этой транзакции сжигания в цепочку Ethereum. Контракт RootChainManager вызывает специальный контракт predicate на внутреннем уровне. Этот контракт predicate напрямую вызывает функцию минтинга контракта актива на Ethereum, при этом токены минтуются на адрес пользователя. Этот специальный predicate называется MintableAssetPredicate.
 
-## What are the requirements to be satisfied?
+## Какие требования должны быть удовлетворены? {#what-are-the-requirements-to-be-satisfied}
 
-There are a few conditions that have to be strictly followed when we have to create an asset on Polygon and then move it back to Ethereum.
+Существует ряд условий, которые должны строго соблюдаться, когда нам необходимо создать актив на Polygon, а затем переместить его обратно в Ethereum.
 
-### Contract to be deployed on Polygon chain
-You can either deploy
+### Контракт, подлежащий развертыванию в Polygon chain {#contract-to-be-deployed-on-polygon-chain}
+Вы можете либо развернуть
 
-- A mintable token contract on the Polygon chain or
-- Submit a mapping request and the mintable token contract can be autodeployed for you on the Polygon chain via the Mapper tool. You just need to submit a mapping request at [https://mapper.polygon.technology/](https://mapper.polygon.technology/) and leave the child contract field blank in the form. Also, do remember to choose the Mintable option in the form.
+- Контракт токена с возможностью произвольного минтинга в Polygon chain, либо
+- Отправить заявку на сопоставление, при этом контракт токена с возможностью произвольного минтинга может быть автоматически развернут для вас в Polygon chain посредством инструмента Mapper. Вам нужно просто отправить заявку на сопоставление на сайте [https://mapper.polygon.technology/](https://mapper.polygon.technology/) и оставить в этой форме поле дочернего контракта пустым. Кроме того, не забудьте выбрать вариант Mintable в форме.
 
-Please visit this [link](/docs/develop/ethereum-polygon/submit-mapping-request) to understand how to create a new mapping request.
+Перейдите по этой [ссылке](/docs/develop/ethereum-polygon/submit-mapping-request), чтобы узнать, как создать новую заявку на сопоставление.
 
-- If you want to deploy the contract by yourself, then the child contract should look like the following. You are free to make custom changes to this contract, but ensure that the `deposit`, `withdraw` and `mint` functions are present.
+- Если вы хотите развернуть контракт самостоятельно, то дочерний контракт должен выглядеть следующим образом. Вы можете по своему усмотрению внести собственные изменения в этот контракт, только убедитесь в наличии функций `deposit`, `withdraw` и `mint`.
 
     - ChildMintableERC20 -  [https://github.com/maticnetwork/pos-portal/blob/master/flat/ChildMintableERC20.sol](https://github.com/maticnetwork/pos-portal/blob/master/flat/ChildMintableERC20.sol)
     - ChildMintableERC721 - [https://github.com/maticnetwork/pos-portal/blob/master/flat/ChildMintableERC721.sol](https://github.com/maticnetwork/pos-portal/blob/master/flat/ChildMintableERC721.sol)
     - ChildMintableERC1155 - [https://github.com/maticnetwork/pos-portal/blob/master/flat/ChildMintableERC1155.sol](https://github.com/maticnetwork/pos-portal/blob/master/flat/ChildMintableERC1155.sol)
 
-- Most importantly, the child manager contract on Polygon should be given the depositor role in the asset contract deployed on Polygon. Only this child manager proxy address should have the rights to deposit tokens on Polygon.
-- Be sure to verify both contracts on Polygonscan and Etherscan accordingly, before submitting mapping request.
+- Что особенно важно, дочернему контракту менеджера на Polygon должна быть отведена роль депонента в контракте актива, развернутом на Polygon. Только этот адрес прокси дочернего менеджера должен обладать правами депонирования токенов на Polygon.
+- Обязательно проверьте оба контракта на Polygonscan и Etherscan соответственно, прежде чем отправлять заявку на сопоставление.
 
-Child Manager contract addresses:
+Адреса дочернего контракта менеджера:
 
 ```
 Mumbai: 0xb5505a6d998549090530911180f38aC5130101c6
 Mainnet: 0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa
 ```
 
-Please do mention the contract address of the deployed child token when you submit the mapping request.
+Обязательно укажите адрес контракта развернутого дочернего токена при отправке заявки на сопоставление.
 
-> Note that the Ethereum contract needs to be deployed as shown in the next step - no minting needs to be done on Ethereum though. It is required so that tokens can be withdrawn to Ethereum if need be.
+> Отметим, что контракт Ethereum необходимо развернуть, как показано на следующем шаге (впрочем, на Ethereum никакого минтинга осуществлять не нужно). Это требуется для того, чтобы можно было при необходимости вывести токены в Ethereum.
 
-### Contract to be deployed on Ethereum
+### Контракт, подлежащий развертыванию на Ethereum {#contract-to-be-deployed-on-ethereum}
 
-- A token contract has to be deployed on the Ethereum chain and it should look like this.
+- Контракт токена необходимо развернуть в цепочке Ethereum, при этом он должен выглядеть следующим образом.
     - MintableERC20 -  [https://github.com/maticnetwork/pos-portal/blob/master/flat/DummyMintableERC20.sol](https://github.com/maticnetwork/pos-portal/blob/master/flat/DummyMintableERC20.sol)
     - MintableERC721 - [https://github.com/maticnetwork/pos-portal/blob/master/flat/DummyMintableERC721.sol](https://github.com/maticnetwork/pos-portal/blob/master/flat/DummyMintableERC721.sol)
     - MintableERC1155 - [https://github.com/maticnetwork/pos-portal/blob/master/flat/DummyMintableERC1155.sol](https://github.com/maticnetwork/pos-portal/blob/master/flat/DummyMintableERC1155.sol)
 
-- Most importantly, The `MintableAssetProxy` contract deployed on Ethereum should be given the minter role in the asset contract deployed on Ethereum. Only this predicate proxy address should have the rights to mint tokens on Ethereum.
+- Что особенно важно, контракт `MintableAssetProxy`, контракту, развернутому на Ethereum, должна быть отведена роль минтера в контракте актива, развернутом на Ethereum. Только этот прокси-адрес predicate должен обладать правами минтинга токенов на Ethereum.
 
-- This role can be granted by calling the grantRole() function in the token contracts on the root chain. The first parameter is the value of PREDICATE_ROLE constant which is **0x12ff340d0cd9c652c747ca35727e68c547d0f0bfa7758d2e77f75acef481b4f2** and the second parameter is the token predicate proxy address which is given below,
+- Эту роль можно предоставить, вызвав функцию grantRole() в контрактах токенов в корневой цепочке. Первым параметром является значение константы PREDICATE_ROLE, равное **0x12ff340d0cd9c652c747ca35727e68c547d0f0bfa7758d2e77f75acef481b4f2**, а вторым параметром является прокси-адрес predicate токена, который приведен ниже,
 
 
     ```jsx

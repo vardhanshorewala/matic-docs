@@ -1,7 +1,7 @@
 ---
 id: web-wallet-v2-guide
-title: Web Wallet Usage Guide
-description: Learn how to use the Polygon Web Wallet.
+title: Руководство по использованию веб-кошелька
+description: Научитесь использовать Polygon Wallet Suite.
 keywords:
   - wallet
   - matic
@@ -10,139 +10,218 @@ image: https://matic.network/banners/matic-network-16x9.png
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-We have revamped the Polygon Web wallet interface, which has some great UX fixes, a streamlined deposit and withdrawal process, a superior deposit and withdraw tracking module, and notifications on the application to see the status properly.
+Мы переработали интерфейс Polygon Wallet Suite и внесли отличные исправления в UX, ускорили процессы депозита и вывода, добавили превосходный модуль отслеживания депозитов и выводов и добавили в приложение уведомления для правильного отображения состояния.
 
-## Logging into the Polygon Web Wallet
+:::note
 
-On how to connect to Polygon to Metamask, please refer this [guide](https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/) To login to the Polygon Web Wallet you need to access the following URL: https://wallet.polygon.technology/. To login to the testnet version of Polygon Web Wallet, you need to access the following URL: https://wallet-dev.polygon.technology/. How to connect to Polygon to Metamask, please refer this [guide](hhttps://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/)
+Большая часть используемых нами изображений поступает из среды тестовой сети. Версия Mainnet может показать некоторые незначительные отличия.
 
-Once you connect your account with the Web Wallet you will be taken to the landing page with various means on how to transact with the wallet web depending on your use case. We have the Polygon Wallet, perfect for sending, receiving and storing your assets on the Polygon network, the Polygon Bridge, for withdrawals and deposits across networks. Polygon Staking - your go-to place for staking and getting rewards with your $MATIC, and the Widget Dashboard.
+:::
 
-<img src={useBaseUrl("img/wallet/wallet-landing-page.png")} width="100%" height="100%" />
+:::note
 
-Click on the Polygon Wallet or Polygon Bridge, and you will see all your token balances on the Polygon Wallet across the bridges(PoS and Plasma). You don’t need to toggle between bridges which was available in V1.<!-- <img src={useBaseUrl("img/wallet/wallet-one.png")} width="100%" height="100%" /> -->## Depositing Funds from Ethereum to Polygon
+Чтобы начать процедуру депозита и вывода средств, вы можете выбрать кошелек Polygon или мост Polygon на странице назначения. Мы начнем это руководство со ссылки на кошелек.
 
-Click on the ‘Move Funds to Polygon Mainnet’ button or you can click on the ‘Deposit’ link from any of the token types on ‘Your tokens on Polygon Mainnet’ section. <img src={useBaseUrl("img/wallet/Wallet-two.png")} width="100%" height="100%" />
+:::
 
-You will be redirected to the bridge page where you need to enter the deposit amount. <img src={useBaseUrl("img/wallet/Wallet-13.png")} width="100%" height="100%" />
+## Вход в Polygon Wallet Suite {#logging-into-the-polygon-wallet-suite}
 
-You can see the selected bridge type on “Transfer Mode”. You can change the “Transfer Mode” if you want deposit your funds on particular bridge type(PoS or Plasma)
-> Transfer mode will be enabled based on the token chosen
+Информацию по подключению Polygon к Metamask можно найти в этом [руководстве](https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/).
 
-Once you have added the amount that you want to deposit and selected the Bridge type, you can then click on the “Transfer” button.
+Чтобы войти в Polygon Wallet Suite, вам потребуется перейти по следующему URL: https://wallet.polygon.technology/.
 
-After you click on the “Transfer” button, you need to click on the “continue” button on “Important (Deposit Disclaimer)” popup.
+Чтобы войти в версию Polygon Wallet Suite в тестовой сети, перейдите по следующему URL: https://wallet-dev.polygon.technology/.
 
-<img src={useBaseUrl("img/wallet/Wallet-5.png")} width="50%" height="50%" />
+Чтобы научиться подключать Polygon к Metamask, используйте это [руководство](https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/).
 
-Once you click “Continue” from “Important” popup, you will see a “Transfer Overview” popup with the information of Estimation of total gas required for the transaction
+После подключения аккаунта к веб-кошельку вы перейдете на страницу назначения с разными способами взаимодействия с ним. Цепочка Polygon POS в настоящее время предлагает следующие сервисы:
+- Кошелек Polygon для отправки, получения и хранения активов в сети Polygon
+- Мост Polygon для вывода и депозита через сети.
+- Стейкинг Polygon: главный пункт назначения для стейкинга и получения вознаграждений с $MATIC
+- и дашборд виджетов.
+
+<img src={useBaseUrl("img/wallet/wallet-landing-page.png")} width="100%" height="100%"/>
+
+Нажмите на кошелек Polygon или мост Polygon, и вы увидите остаток всех токенов в кошельке Polygon через мосты (PoS и Plasma).
+
+<!-- <img src={useBaseUrl("img/wallet/wallet-one.png")} width="100%" height="100%"/> -->
+
+## Внесение средств из Ethereum в Polygon {#depositing-funds-from-ethereum-to-polygon}
+
+:::tip Видеоруководство
+
+Вы можете следовать указаниям видеоруководства или этого пошагового руководства.
+
+<video loop autoplay width="70%" height="70%" controls="true" >
+  <source type="video/mp4" src="/img/wallet/depositMatic.mp4"></source>
+  <p>Ваш браузер не поддерживает этот видео элемент.</p>
+</video>
+:::
+
+### Пошаговое руководство {#step-by-step-guide}
+
+Нажмите кнопку «Move Funds to Polygon Mainnet» (Переместить средства в Polygon Mainnet) или ссылку «Deposit» (Депозит) для любого типа токенов в разделе «Your tokens on Polygon Mainnet» (Ваши токены в Polygon Mainnet).
+<img src={useBaseUrl("img/wallet/deposit-wallet.png")} width="100%" height="100%" />
+
+Вы будете переадресованы на страницу моста, где вам нужно будет ввести сумму депозита.
+<img src={useBaseUrl("img/wallet/bridge.png")} width="100%" height="100%"/>
+
+Вы сможете увидеть выбранный тип моста в «Transfer Mode» (Режим трансфера). Вы можете изменить «Transfer Mode» (Режим трансфера), если хотите внести средства через определенный тип моста (PoS или Plasma).
+
+:::note
+
+**Режим трансфера** будет включен в зависимости от выбранного токена.
+
+:::
+
+После добавления суммы, которую вы хотите внести, вы можете нажать кнопку «Transfer» (Трансфер).
+
+После нажатия на «Transfer» (Трансфер) вам нужно будет нажать кнопку «Continue» (Продолжить) во всплывающем окне «Important (Deposit Disclaimer)» (Важно (отказ от ответственности при депозите)).
+
+<img src={useBaseUrl("img/wallet/Wallet-5.png")} width="50%" height="50%"/>
+
+После нажатия кнопки «Continue» (Продолжить) вы увидите всплывающее окно «Transfer Overview» (Обзор трансфера) с информацией о приблизительном количестве газа, который потребуется для транзакции:
 
 <img src={useBaseUrl("img/wallet/Wallet-6.png")} width="50%" height="50%" />
 
-Click on the “Continue” button from “Transfer Overview” popup and you will see a popup opening, similar to the previous one where you can review your transaction details.
+Нажмите кнопку «Continue» (Продолжить) во всплывающем окне «Transfer Overview» (Обзор трансфера), и вы увидите всплывающее окно, аналогичное тому, где вы можете посмотреть детали транзакции.
 
 <img src={useBaseUrl("img/wallet/Wallet-7.png")} width="50%" height="50%" />
 
-Click on the “Continue” button from “Confirm Transfer” popup.
+Нажмите кнопку «Continue» (Продолжить) во всплывающем окне «Confirm Transfer» (Подтвердить трансфер).
 
-After you click on the “Continue” button, you need to confirm all your transactions in your MetaMask to make the transaction successful
+После нажатия кнопки «Continue» (Продолжить) вам нужно будет подтвердить все ваши транзакции в MetaMask, чтобы транзакция была успешной.
 
-Once you confirm the transaction, you will see a “Transfer in Progress” popup which will show you the Deposit status. It will take ~7-8 minutes for the tokens to show up on Polygon.
+После подтверждения транзакции вы увидите всплывающее окно «Transfer in Progress» (Выполняется трансфер), где отображается статус депозита.
+ Для отображения токенов в Polygon потребуется примерно 7-8 минут.
 
-<img src={useBaseUrl("img/wallet/Wallet-8.png")} width="50%" height="50%" />
+<img src={useBaseUrl("img/wallet/Wallet-8.png")} width="50%" height="50%"/>
 
-You can close the “Transfer in Progress” popup and you can see the transaction in the “Action required” section on the header component. Click on the “Action Required” link from the header.
-
-You can see the details on the transaction itself. Click on the latest transaction to see the “Transfer In progress” popup. Once Deposit transaction status is successful, status of the transaction changes to “Success”
-> Note: You can view the successful transactions after “Transfer in Progress/Action required” transactions on the popup.
-> Note: You can view the successful transactions after “Transfer in Progress/Action required” transactions in the “Action Required” popup. Click on the Deposit success transaction to see the “Transfer Completed” popup.
+Транзакция будет завершена после истечения требуемого периода времени.
 
 <img src={useBaseUrl("img/wallet/Wallet-11.png")} width="50%" height="50%" />
 
-Please watch the following video for a tutorial on deposits:
+:::note
 
-<video loop autoplay width="70%" height="70%" controls="true">
-  <source type="video/mp4" src="/img/wallet/depositMatic.mp4"></source>
-  <p>Your browser does not support the video element.</p>
+Вы всегда сможете проверить прошлые транзакции, нажав на вкладку «Transactions» (Транзакции) слева.
+
+:::
+
+## Вывод средств из Polygon обратно в Ethereum через мост PoS {#withdrawing-funds-from-polygon-back-to-ethereum-on-pos-bridge}
+
+:::tip Видеоруководство
+
+Вы можете следовать указаниям видеоруководства или этого пошагового руководства.
+
+<video loop autoplay width="70%" height="70%" controls="true" >
+  <source type="video/mp4" src="/img/wallet/withdraw-POS.mp4"></source>
+  <p>Ваш браузер не поддерживает этот видео элемент.</p>
 </video>
+:::
 
-## Withdrawing Funds from Polygon Back to Ethereum on PoS Bridge
+### Пошаговое руководство {#step-by-step-guide-1}
 
-Withdrawing funds from Polygon back to the Ethereum mainnet via,
+Вывод средств из Polygon обратно в Ethereum mainnet через мост PoS представляет собой простой процесс из 2 шагов. Для возврата средств в Ethereum потребуется около 3 часов. Для вывода средств следует нажать на ссылку «Withdraw» (Вывод) на любом токене PoS в разделе «Your tokens on Polygon Mainnet» (Ваши токены в Polygon Mainnet).
 
-PoS Bridge is a simple 2-step process. For the funds to be available back on Ethereum it will take ~3 hours.
+<img src={useBaseUrl("img/wallet/withdraw-POS-1.png")} width="100%" height="100%"/>
 
-To withdraw funds, click on the ‘Withdraw’ link from any of the PoS token on ‘Your tokens on Polygon Mainnet’ section.
+Вы будете переадресованы на страницу моста, где вам нужно будет ввести сумму для вывода.
 
-<img src={useBaseUrl("img/wallet/wallet-withdraw.png")} width="100%" height="100%" />
+<img src={useBaseUrl("img/wallet/withdraw-POS-2.png")} width="100%" height="100%" />
 
-You will be redirected to the bridge page where you need to enter the Withdraw amount.
+:::note
 
-<img src={useBaseUrl("img/wallet/Wallet-13.png")} width="100%" height="100%" />
-> Note: Transfer mode will be enabled based on the token chosen
+**Режим трансфера** будет включен в зависимости от выбранного токена.
 
-Once you have added the amount that you want to Withdraw and selected the Bridge type, you can then click on the “Transfer” button.
+:::
 
-After you click on the “Transfer” button, you need to click on the “continue” button on “Important(Withdraw Disclaimer)” popup.
+После добавления суммы, которую вы хотите вывести, вы можете нажать кнопку «Transfer» (Трансфер).
+
+После нажатия на кнопку «Transfer» (Трансфер) вам нужно будет нажать кнопку «Continue» (Продолжить) во всплывающем окне «Important (Withdraw Disclaimer)» (Важно (отказ от ответственности при выводе)).
 
 <img src={useBaseUrl("img/wallet/Wallet-14.png")} width="50%" height="50%" />
 
-Once you click “Continue” from “Important” popup, you will see a “Transfer Overview” popup with the information of Estimation of total gas required for the transaction.
+После нажатия кнопки «Continue» (Продолжить) вы увидите всплывающее окно «Transfer Overview» (Обзор трансфера) с информацией о приблизительном количестве газа, требуемого для транзакции.
 
-<img src={useBaseUrl("img/wallet/Wallet-15.png")} width="50%" height="50%" />
+<img src={useBaseUrl("img/wallet/Wallet-15.png")} width="50%" height="50%"/>
 
-Click on the “Continue” button from “Transfer Overview” popup and you will see a popup opening, similar to the previous one where you can review your transaction details.
+Нажмите кнопку «Continue» (Продолжить) во всплывающем окне «Transfer Overview» (Обзор трансфера), и вы увидите всплывающее окно, аналогичное тому, где вы могли посмотреть детали транзакции.
 
-<img src={useBaseUrl("img/wallet/Wallet-16.png")}  width="50%" height="50%" />
+<img src={useBaseUrl("img/wallet/Wallet-16.png")}  width="50%" height="50%"/>
 
-Click on the “Continue” button from “Confirm Transfer” popup. After you click on the “Continue” button, you need to confirm the transaction in your MetaMask to make the transaction successful. Once the transaction is approved, you will see a popup on your screen like this,
+Нажмите кнопку «Continue» (Продолжить) во всплывающем окне «Transfer Overview» (Обзор трансфера).
+ После нажатия кнопки «Continue» (Продолжить) вам нужно будет подтвердить транзакцию в MetaMask, чтобы она была успешной.
+ После одобрения транзакции вы увидите на экране всплывающее окно:
 
-<img src={useBaseUrl("img/wallet/Wallet-17.png")} width="50%" height="50%" />
+<img src={useBaseUrl("img/wallet/Wallet-17.png")} width="50%" height="50%"/>
 
-The first transaction is to initiate your withdrawal. You can close the “Transfer in Progress” popup. And you can see the transaction in the “Action required” section on the header component. Click on the “Action Required” link from the header.
+Первая транзакция предназначена для инициирования вывода.
 
-You can see the details on the transaction itself. You need to wait for the checkpoint to arrive. This could take upto ~3 hours to complete. Once the checkpoint is arrived it should change the status to “Action Required”. Click on the latest transaction that you have initiated to withdraw to see the “Transfer In progress” popup.
+Вам необходимо дождаться, пока не поступит checkpoint. Для этого может потребоваться до 3 часов.
 
-<img src={useBaseUrl("img/wallet/Wallet-19.png")} width="50%" height="50%" />
+<img src={useBaseUrl("img/wallet/Wallet-19.png")} width="50%" height="50%"/>
 
-You will need to confirm the second transaction. Once you have confirmed the second transaction, you will receive your funds back on Ethereum.
-> Note: You can view the successful transactions after “Transfer in Progress/Action required” transactions in the “Action Required” popup.
+После поступления checkpoint вам нужно будет подтвердить вторую транзакцию.
+ Когда вы подтвердите вторую транзакцию, вы получите средства обратно в Ethereum.
 
-Please watch the following video for a tutorial on withdrawals:
+## Вывод средств из Polygon обратно в Ethereum через мост Plasma {#withdrawing-funds-from-polygon-back-to-ethereum-on-plasma-bridge}
 
-<video loop autoplay width="70%" height="70%" controls="true">
+:::tip Видеоруководство
+
+Вы можете следовать указаниям видеоруководства или этого пошагового руководства.
+
+<video loop autoplay width="70%" height="70%" controls="true" >
   <source type="video/mp4" src="/img/wallet/WithdrawMatic.mp4"></source>
-  <p>Your browser does not support the video element.</p>
+  <p>Ваш браузер не поддерживает этот видео элемент.</p>
 </video>
+:::
 
-## Withdrawing Funds from Polygon Back to Ethereum on Plasma Bridge
+Вывод средств из Polygon обратно в Ethereum mainnet с помощью моста Plasma представляет собой процесс из 3 шагов, однако здесь также используется период запроса.
 
-Withdrawing funds from Polygon back to the Ethereum mainnet via, Plasma Bridge is a 3-step process but with a caveat.
+Для вывода средств следует нажать ссылку «Withdraw» (Вывод) на любом токене типа Plasma в разделе «Your tokens on Polygon Mainnet» (Ваши токены в Polygon Mainnet).
 
-To withdraw funds, click on the ‘Withdraw’ link from any of the Plasma token type on ‘Your tokens on Polygon Mainnet’ section.
+<img src={useBaseUrl("img/wallet/withdraw-plasma-1.png")} width="100%" height="100%"/>
 
-<img src={useBaseUrl("img/wallet/wallet-withdraw.png")} width="100%" height="100%" />
+Вы будете переадресованы на страницу моста, где вам нужно будет ввести сумму для вывода.
 
-You will be redirected to the bridge page where you need to enter the Withdraw amount.
+<img src={useBaseUrl("img/wallet/withdraw-plasma-2.png")} width="100%" height="100%"/>
 
-<img src={useBaseUrl("img/wallet/Wallet-33.png")} width="100%" height="100%" />
-
-Once you have added the amount that you want to Withdraw and you can then click on the “Transfer” button. After you click on the “Transfer” button, you need to click on the “continue” button on “Important(Withdraw Disclaimer)” popup.
+После добавления суммы, которую вы хотите вывести, вы можете нажать кнопку «Transfer» (Трансфер).
+ После нажатия на кнопку «Transfer» (Трансфер) вам нужно будет нажать кнопку «Continue» (Продолжить) во всплывающем окне «Important (Withdraw Disclaimer)» (Важно (отказ от ответственности при выводе)).
 
 <img src={useBaseUrl("img/wallet/Wallet-24.png")} width="50%" height="50%" />
 
-Once you click “Continue” from “Important” popup, you will see a “Transfer Overview” popup with the information of Estimation of total gas required for the transaction.
+После нажатия кнопки «Continue» (Продолжить) вы увидите всплывающее окно «Transfer Overview» (Обзор трансфера) с информацией о приблизительном количестве газа, требуемого для транзакции.
 
-<img src={useBaseUrl("img/wallet/Wallet-25.png")} width="50%" height="50%" />
+<img src={useBaseUrl("img/wallet/Wallet-25.png")} width="50%" height="50%"/>
 
-Click on the “Continue” button from “Transfer Overview” popup and you will see a popup opening, similar to the previous one where you can review your transaction details.
+Нажмите кнопку «Continue» (Продолжить) во всплывающем окне «Transfer Overview» (Обзор трансфера), и вы увидите всплывающее окно, аналогичное тому, где вы можете посмотреть детали транзакции.
 
 <img src={useBaseUrl("img/wallet/Wallet-26.png")} width="50%" height="50%" />
 
-Click on the “Continue” button from “Confirm Transfer” popup.
+Нажмите кнопку «Continue» (Продолжить) во всплывающем окне «Confirm Transfer» (Подтвердить трансфер).
 
-After you click on the “Continue” button, you need to confirm all your transactions on your MetaMask wallet to make the transaction successful.This will be the first of 3 transactions that will need to be completed. Once the transaction is approved, you will see a popup on your screen like this,<!-- <img src={useBaseUrl("img/wallet/Wallet-27.png")} width="50%" height="50%" /> -->The first transaction is to initiate your withdrawal. Once the Withdraw transaction is initiated, you need to wait for the checkpoint to arrive. This could take upto ~3 hours to complete. You can close the “Transfer in Progress” popup. And you can see the transaction in the “Action required” section on the header component. Click on the “Action Required” link from the header.
+Чтобы транзакция была успешно выполнена, вам нужно будет подтвердить все транзакции в кошельке MetaMask после того, как вы нажмете кнопку «Continue» (Продолжить). Это будет первая из 3 транзакций, которые нужно будет выполнить.
 
-You can see the details on the transaction itself. Once the checkpoint is arrived it should change the status to “Action Required”. Click on the latest transaction that you have initiated to withdraw to see the “Transfer In progress” popup.<!-- <img src={useBaseUrl("img/wallet/Wallet-29.png")} width="50%" height="50%" /> -->To get funds back to Ethereum you will need to confirm one last time. Once you have confirmed all these transactions, you will receive your funds back on Ethereum.<!-- <img src={useBaseUrl("img/wallet/Wallet-31.png")} width="50%" height="50%" /> -->> Note: You can view the successful transactions after “Transfer in Progress/Action required” transactions in the “Action Required” popup.
-> Note: In case you have any queries, feel free to raise a ticket here https://support.polygon.technology/support/home
+<img src={useBaseUrl("img/wallet/plasma-progress.png")} width="50%" height="50%"/>
 
+Первая транзакция предназначена для инициирования вывода.
+ После инициирования транзакции вывода необходимо дождаться, пока не поступит checkpoint. Для этого может потребоваться до 3 часов.
+
+<img src={useBaseUrl("img/wallet/checkpoint-arrived.png")} width="50%" height="50%"/>
+
+
+После поступления checkpoint вам нужно будет подтвердить новую транзакцию, чтобы начать 7-дневный период запроса.
+
+<img src={useBaseUrl("img/wallet/challenge-completed.png")} width="50%" height="50%"/>
+
+Чтобы получить средства обратно в Ethereum, вам нужно будет подтвердить транзакцию один последний раз.
+ После подтверждения всех транзакций вы получите свои средства обратно в Ethereum.
+
+<img src={useBaseUrl("img/wallet/transfer-completed.png")} width="50%" height="50%"/>
+
+:::tip
+
+Если у вас имеются вопросы, создайте запрос здесь: <ins>https://support.polygon.technology/support/home</ins>
+
+:::

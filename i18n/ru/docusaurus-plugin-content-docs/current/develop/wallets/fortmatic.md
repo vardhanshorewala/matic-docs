@@ -1,22 +1,22 @@
 ---
 id: fortmatic
 title: Fortmatic
-description: Build your next blockchain app on Polygon.
+description: Используйте Formatic SDK для интеграции своего децентрализованного приложения с Polygon.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Fortmatic SDK allows you to easily integrate your app with the Ethereum blockchain, whether you already have a dApp integrated with web3 or are starting from scratch. Fortmatic provides a smooth and delightful experience for both you and your app's users.
+Fortmatic SDK дает возможность легко интегрировать с блокчейном Ethereum как существующие децентрализованные приложения, интегрированные с web3, так и новые децентрализованные приложения. Fortmatic обеспечивает быструю и приятную работу для вас и для пользователей вашего приложения.
 
-**Install npm package**
+**Установить пакет npm**
 
 ```bash
 $ npm i --save fortmatic@latest
 ```
 
-**Example**
+**Пример**
 
 ```js title="example.js"
 import Fortmatic from 'fortmatic';

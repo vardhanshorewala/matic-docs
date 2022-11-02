@@ -1,29 +1,30 @@
 ---
 id: swap-assets
-title: Swap Assets
-description: Build your next blockchain app on Polygon.
+title: Своп активов
+description: "Руководства по свопам токенов, поддерживаемых Plasma."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-## Swap ERC20 and ERC721 tokens atomically using Plasma Asset Swaps
+## Атомарные свопы токенов ERC20 и ERC721 с помощью свопов активов Plasma {#swap-erc20-and-erc721-tokens-atomically-using-plasma-asset-swaps}
 
-This document will help you understand the Plasma asset swaps that can be performed while using Polygon. This allows you to create applications such as decentralized exchanges, NFT marketplaces and similar while using our Plasma construction, which piggybacks on the security of Ethereum.
+Этот документ поможет понять свопы активов Plasma, которые можно осуществлять с помощью платформы Polygon. Это позволяет создавать такие приложения, как децентрализованные биржи, маркетплейсы NFT и тому подобное, используя нашу конструкцию Plasma, в основе которой лежат механизмы безопасности Ethereum.
 
-## Introduction to EIP712 and signed transfer
-This section aims to provide an introduction to the swap of mapped assets on Polygon plasma chain.
-> Note: For tokens deployed on Polygon directly - the process isn't required. The process only applies to tokens that are *mapped* on to Polygon.
+## Введение в EIP712 и подписанные трансферы {#introduction-to-eip712-and-signed-transfer}
+Данный раздел призван дать представление о свопе сопоставленных активов на цепочке Polygon plasma.
 
-The transfer process is enabled by making use of the new RPC call `eth_SignTypedData`, introduced in [EIP712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md) - this is done to avoid the complexity of allowance on plasma chains and to add simplicity to plasma fraud proofs.
+> Примечание: для токенов, разворачиваемых непосредственно на Polygon, этот процесс не требуется. Процесс применим только в отношении токенов, которые *соотносятся* с Polygon.
 
-The construction includes introduction of a new method in each associated asset contract - [ERC721](https://github.com/maticnetwork/contracts/blob/aee2433b2cb76b8bf2ad53736a9e6340cd3d9f15/contracts/child/ChildERC721.sol#L76) and [ERC20](https://github.com/maticnetwork/contracts/blob/aee2433b2cb76b8bf2ad53736a9e6340cd3d9f15/contracts/child/ChildERC20.sol#L104) on Polygon plasma chain, called `transferWithSig`. And a `Marketplace.sol` smart contract that executes the swap.
+Процесс передачи активируется путем использования нового RPC-вызова `eth_SignTypedData`, впервые введенного в [EIP712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md). Это делается во избежание усложнения допуска на цепочках plasma, а также в целях упрощения доказательств мошенничества в plasma.
+
+Данная конструкция включает введение нового метода в каждом сопутствующем контракте на актив — [ERC721](https://github.com/maticnetwork/contracts/blob/aee2433b2cb76b8bf2ad53736a9e6340cd3d9f15/contracts/child/ChildERC721.sol#L76) и [ERC20](https://github.com/maticnetwork/contracts/blob/aee2433b2cb76b8bf2ad53736a9e6340cd3d9f15/contracts/child/ChildERC20.sol#L104) на цепочке Polygon plasma под названием `transferWithSig`. А также смарт-контракт `Marketplace.sol`, который выполняет своп.
 
 
-## transferWithSig Method
+## Метод transferWithSig {#transferwithsig-method}
 
-The method definition is as follows:
+Ниже приводится определение этого метода:
 ```javascript
 function transferWithSig(bytes calldata sig, uint256 amount, bytes32 data, uint256 expiration, address to) external returns (address from) {
     require(amount > 0);
@@ -43,29 +44,29 @@ function transferWithSig(bytes calldata sig, uint256 amount, bytes32 data, uint2
 }
 ```
 
-### Params
-`bytes calldata sig` - signature of the user on an order of spending a set amount of tokens in exchange of another set of tokens (creating an *order*)
+### Параметры {#params}
+`bytes calldata sig` — подпись пользователя на ордере на расходование установленного количества токенов в обмен на другой набор токенов (создание *ордера*)
 
-`uint256 amount` - the amount of tokens user signs on
+`uint256 amount` — количество токенов, подписываемых пользователем
 
-`bytes32 data`  is a `keccak256` hash of the matching order (order id, token, amount)
+`bytes32 data` — это хэш `keccak256` соответствующего ордера (идентификатор ордера, токен, количество)
 
-`uint256 expiration` - the block number at which the order is to be expired
+`uint256 expiration` — номер блока, на котором должно закончиться действие ордера
 
-`address to` - order filler's address
+`address to` — адрес составителя ордера
 
-The above method, when called from an external contract, validates the passed signature - the construction of which follows [EIP712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md), recovers the user address and transfers the specified amount of tokens from the user's account to the specified account.
+При вызове из внешнего контракта вышеуказанный метод подтверждает переданную подпись, конструкция которой соответствует [EIP712](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md), извлекает адрес пользователя и передает указанное количество токенов с аккаунта пользователя на указанный аккаунт.
 
-## Asset Swap Protocol
+## Протокол свопа активов {#asset-swap-protocol}
 
-Now this particular functionality - of transferring assets from a user's account using their signature - can be employed in a number of ways. One of them being that of a DEX-like marketplace that executes atomic swaps between tokens.
+В настоящее время эту конкретную функциональную возможность (передача активов с аккаунта пользователя с помощью подписи) можно использовать несколькими способами. Одним из них является маркетплейс по типу децентрализованной биржи, который выполняет атомарные свопы между токенами.
 
-### Terminology
-An **order** comprises of an order id, token address, amount (or token id). A user signs on an **order** and generates a signature. This signature is then used to transfer the signed amount of assets on user's behalf.
+### Терминология {#terminology}
+**Ордер** включает в себя идентификатор ордера, адрес токена, количество (или идентификатор токена). Пользователь подписывает **ордер** и генерирует подпись. Эта подпись затем используется для трансфера подписанного количества активов от имени пользователя.
 
-Below is a detailed spec of the [Marketplace](https://github.com/maticnetwork/contracts/blob/master/contracts/child/misc/Marketplace.sol) smart contract deployed on Polygon chain, that performs atomic asset swaps.
+Ниже приводится подробная спецификация смарт-контракта [Marketplace](https://github.com/maticnetwork/contracts/blob/master/contracts/child/misc/Marketplace.sol), развернутого на Polygon chain, который выполняет атомарные свопы активов.
 
-### Marketplace.sol
+### Marketplace.sol {#marketplace-sol}
 
 ```javascript
 pragma solidity ^0.5.2;
@@ -116,9 +117,9 @@ contract Marketplace {
   }
 }
 ```
-The above contract executes the swap without prior approval or allowance transaction.
+Приведенный выше контракт выполняет своп без предварительного согласования или транзакции допуска.
 
-The function executeOrder takes two bytestreams that represent two orders that are to be settled along with the order filler (the participant that fulfills the order). Order settlement happens with the execution of transferWithSig method on the two tokens from both the orders:
+Функция executeOrder принимает два потока байтов, которые представляют два ордера, подлежащие урегулированию, наряду с исполнителем ордера (участником, который выполняет ордер). Расчет ордеров происходит с исполнением метода transferWithSig на двух токенах из обоих ордеров:
 
 ```javascript
 address tradeParticipant1 = MarketplaceToken(order1.token).transferWithSig(
@@ -140,12 +141,14 @@ address tradeParticipant2 = MarketplaceToken(order2.token).transferWithSig(
 require(taker == tradeParticipant2, "Orders are not complimentary");
 ```
 
-## Tutorial (ERC20/721 Swap)
+## Руководство (своп ERC20/721) {#tutorial-erc20-721-swap}
 
-Here is a short tutorial for you to try out execution of plasma-backed asset swaps on Polygon. A boilerplate codebase is ready for you to clone [here](https://github.com/nglglhtr/asset-swap-tutorial). The repository consists of all the relevant contracts, which are, ChildERC20, ChildERC721, Marketplace and their dependencies along with the scripts that will guide you through the tutorial ahead.
+Вот краткое руководство, с помощью которого вы можете попробовать выполнить свопы активов, поддерживаемых plasma, на Polygon.
+ В вашем распоряжении имеется стандартная база исходного кода, которую можно клонировать [здесь](https://github.com/nglglhtr/asset-swap-tutorial).
+ Этот репозиторий состоит из всех соответствующих контрактов, таких как ChildERC20, ChildERC721, Marketplace и их зависимостей, наряду со скриптами, которые помогут вам освоить приведенное далее руководство.
 
-### Prerequisites
-1. Best to use node v10.17.0 (npm v6.11.3)
+### Предварительные условия {#prerequisites}
+1. Лучше всего использовать нод v10.17.0 (npm v6.11.3)
 2. Truffle
 ```
 npm install -g truffle
@@ -155,7 +158,7 @@ npm install -g truffle
 npm install -g web3
 ```
 
-Clone the repository and install dependencies
+Клонируйте репозиторий и установите зависимости
 
 ```bash
 $ git clone https://github.com/nglglhtr/asset-swap-tutorial.git
@@ -163,9 +166,9 @@ $ cd asset-swap-tutorial
 $ npm i
 ```
 
-> NOTE: All tokens that are mapped on to Polygon (mapping is what enables movement of assets to and fro main chain - or root chain) are deployed on Polygon sidechain in the form of [ChildERC20](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC20.sol) and [ChildERC721](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC721.sol) tokens.
+> ПРИМЕЧАНИЕ: все токены, сопоставленные с Polygon (именно сопоставление обеспечивает возможность перемещения активов в основную цепочку (или корневую цепочку) и из нее), развертываются на сайдчейне Polygon в виде токенов [ChildERC20](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC20.sol) и [ChildERC721](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC721.sol).
 
-The version of ChildERC20 and ChildERC721 used in this tutorial include one additional function:
+Версия ChildERC20 и ChildERC721, используемая в этом руководстве, включает одну дополнительную функцию:
 
 ```javascript
 // ChildERC20
@@ -173,58 +176,58 @@ function mint (uint256 amount) public {
     _mint (msg.sender, amount);
 }
 ```
-```javascript 
+```javascript
 // ChildERC721
 function mint (uint256 tokenId) public {
     _mint (msg.sender, tokenId);
 }
 ```
-These are to help us mint the required tokens before we perform the swap.
+Они призваны помочь нам заминтить требуемые токены перед выполнением свопа.
 
-### Step 1 - Setup
-#### 1 - Compile contracts and deploy
-Once you've cloned the repository, compile and migrate the contracts onto your preferred network.
+### Шаг 1 — Настройка {#step-1-setup}
+#### 1 — Компиляция контрактов и развертывание {#1-compile-contracts-and-deploy}
+После клонирования репозитория скомпилируйте и перенесите контракты на предпочтительную сеть.
 
 ```bash
 $ truffle compile
 $ truffle migrate
 ```
-Change directory to scripts
+Измените каталог на скрипты
 
-`cd` into the `scripts/erc20-721/` directory.
+`cd` в каталог `scripts/erc20-721/`.
 
-#### 2 - Fill in contracts' and accounts' details
-Open the `config.js` file sitting under `/scripts/erc20-721/` directory, and fill in the values of the variables mentioned.
+#### 2 — Заполните сведения о контрактах и аккаунтах {#2-fill-in-contracts-and-accounts-details}
+Откройте файл `config.js` в каталоге `/scripts/erc20-721/` и введите значения упомянутых переменных.
 
-`provider` - the network provider your contracts are deployed on
+`provider` — провайдер сети, на которой развернуты ваши контракты
 
-`erc20` - address of the erc20 contract
+`erc20` — адрес контракта ERC20
 
-`erc721` - address of the erc721 contract
+`erc721` — адрес контракта ERC721
 
-`marketplace` - address of the marketplace contract
+`marketplace` — адрес контракта с маркетплейсом
 
-`amount` - amount of erc20 tokens you'd like to exchange for the `tokenid`
+`amount` — количество токенов ERC20, которые вы хотели бы обменять на `tokenid`
 
-`tokenid` - the id of the erc721 token you'd like to exchange for `amount` of erc20 tokens
+`tokenid` — идентификатор токена ERC721, который вы хотели бы обменять на `amount` токенов ERC20
 
-`privateKey1` and `privateKey2` - the private keys of the accounts participating in the swap
+`privateKey1` и `privateKey2` — приватные ключи аккаунтов, участвующих в свопе
 
-You can leave `orderId` and `expiration` untouched for now.
+Вы можете пока не трогать переменные `orderId` и `expiration`.
 
-> Note: Best to use a wallet - instead of hardcoding the private keys in your code - when building for production.
+> Примечание: лучше всего использовать кошелек (вместо жесткого прописывания приватных ключей в вашем коде) при построении производственной версии.
 
-### Step 2 - Mint
+### Шаг 2 — Минт {#step-2-mint}
 
-#### 1 - Mint tokens into both accounts
-Run
+#### 1 — Заминтите токены в оба аккаунта {#1-mint-tokens-into-both-accounts}
+Запустите
 ```bash
 $ node mint.js
 ```
-to mint tokens in the two accounts.
+чтобы заминтить токены в двух аккаунтах.
 
 
-The following function in the script mints the specified amount of tokens in the first account and the NFT of specified tokenId in the second account.
+Следующая функция в скрипте минтит указанное количество токенов в первом аккаунте и NFT указанного tokenId во втором аккаунте.
 
 ```javascript
 async function mint () {
@@ -240,20 +243,20 @@ async function mint () {
 }
 ```
 
-Running the script should display the transaction hashes of the two mints.
+При запуске скрипта должны отобразиться хэши транзакций двух минтов токенов.
 
-You can view the balances of the two accounts anytime by running:
+Вы можете в любой момент просмотреть остатки на двух аккаунтах, выполнив команду:
 ```bash
 $ node balance.js
 ```
-This will display the balances of both the accounts for both the tokens.
+При этом отобразятся остатки на обоих аккаунтах для обоих токенов.
 
-### Step 3 - Swap
+### Шаг 3 — Своп {#step-3-swap}
 
-To swap between the two accounts we first create two signatures - this is equivalent to creating two orders.
+Чтобы произвести своп между двумя аккаунтами, мы сначала создаем две подписи (это равносильно созданию двух ордеров).
 
 
-In the script, `swap.js` the `encode` function prepares the bytestreams of data that are the first two parameters of the `executeOrder` function in `Marketplace.sol` smart contract.
+В скрипте `swap.js` функция `encode` подготавливает потоки байтов данных, которые являются первыми двумя параметрами функции `executeOrder` в смарт-контракте `Marketplace.sol`.
 ```javascript
 function encode(token, sig, tokenIdOrAmount) {
     return web3.eth.abi.encodeParameters(
@@ -263,7 +266,7 @@ function encode(token, sig, tokenIdOrAmount) {
 }
 ```
 
-Next, we create two signature objects - which are essentially our two orders we'd like to match and execute via our Marketplace smart contract.
+Далее мы создаем два объекта подписи, являющиеся по сути двумя ордерами, которые мы хотели бы соотнести и выполнить с помощью нашего смарт-контракта Marketplace.
 
 ```javascript
 const obj1 = sigUtils.getSig({
@@ -291,7 +294,7 @@ const obj2 = sigUtils.getSig({
 })
 ```
 
-And executing the two orders:
+И выполняются два ордера:
 
 ```javascript
 Marketplace.methods.executeOrder(
@@ -306,50 +309,50 @@ Marketplace.methods.executeOrder(
 }).then(console.log)
 ```
 
-Run the following to execute swap:
+Выполните следующую команду, чтобы исполнить своп:
 ```bash
 $ node swap.js
 ```
-A successful swap displays a transaction hash. Next you can check the balances -
+В случае успешного свопа отображается хэш транзакции. Далее вы можете проверить остатки:
 
 ```bash
 $ node balance.js
 ```
 
-### Deploying and Swapping on Polygon
+### Развертывание и свопинг на Polygon {#deploying-and-swapping-on-polygon}
 
-If you'd like to deploy and test on Polygon, the steps would only differ in migrating your smart contracts onto Polygon and changing contract addresses in the config file.
+Если вы захотите развернуть и тестировать на Polygon, требуемые шаги будут отличаться только переносом ваших смарт-контрактов на Polygon и изменением адресов контрактов в файле конфигурации.
 
-From root directory, run:
+Из корневого каталога запустите:
 ```bash
 $ truffle migrate --network maticTestnet
 ```
-or, for Matic beta network, run:
+или, в случае бета-сети Matic, запустите:
 ```bash
 $ truffle migrate --network maticBetaMainnet
 ```
 
-Once you have your contract addresses, fill them in the config file under `/scripts/erc20-721/` along with the provider, which will be the following for the two networks:
+Когда у вас появятся адреса контрактов, введите их в файле конфигурации в каталоге `/scripts/erc20-721/` вместе с провайдером, который будет следующим для этих двух сетей:
 
-Polygon testnet: `<Mumbai testnet RPC URL>. Sign up for a free dedicated RPC URL at https://rpc.maticvigil.com/ or other hosted node providers.`
+Тестовая сеть Polygon: `<Mumbai testnet RPC URL>. Sign up for a free dedicated RPC URL at https://rpc.maticvigil.com/ or other hosted node providers.`
 
-Polygon beta mainnet: `https://beta.matic.network`
+Polygon бета-mainnet: `https://beta.matic.network`
 
-Once the config file is ready, inside the `/scripts/erc20-721/` run the following -
+Подготовив файл конфигурации, запустите в каталоге `/scripts/erc20-721/` следующую команду:
 
-To mint tokens
+Чтобы заминтить токены
 ```bash
 $ node mint.js
 ```
-To check balances
+Чтобы проверить остатки
 ```bash
 $ node balance.js
 ```
-To Swap
+Чтобы выполнить своп
 ```bash
 $ node swap.js
 ```
-Once the swap is successful, you can check and confirm the balances again
+После успешного выполнения свопа вы можете проверить и подтвердить остатки еще раз
 ```bash
 $ node balance.js
 ```

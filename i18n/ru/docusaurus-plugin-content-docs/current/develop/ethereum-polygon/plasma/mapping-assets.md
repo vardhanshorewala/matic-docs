@@ -1,65 +1,65 @@
 ---
 id: mapping-assets
-title: Mapping Assets using Plasma
-description: Build your next blockchain app on Polygon.
+title: Сопоставление активов с использованием Plasma
+description: "Сопоставление активов из Polygon в Ethereum."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-ERC20 and ERC721 tokens on Ethereum can be deposited and withdrawn from Polygon chain using plasma protocol. To enable this, a token contract on Ethereum (_rootToken_) needs to be mapped to a token contract on Polygon chain(_childToken_).
+Токены ERC20 и ERC721 в Ethereum можно вносить на депозит и выводить из Polygon chain, используя протокол plasma. Для этого необходимо выполнить сопоставление контракта токена в Ethereum (_rootToken_) с контрактом токена в Polygon chain(_childToken_).
 
-You can submit your mapping request [here](/docs/develop/ethereum-polygon/submit-mapping-request). Please make note that this mapping submission form is for Plasma Bridge and for PoS bridge you have to directly contact the matic team on discord.
+Вы можете отправить заявку на сопоставление [здесь](/docs/develop/ethereum-polygon/submit-mapping-request). Обратите внимание, что эта форма отправки заявки на сопоставление предназначена для моста Plasma, а для моста PoS необходимо напрямую связаться с командой matic через discord.
 
-## Mapping a token
+## Сопоставление токена {#mapping-a-token}
 
-Mapping a token involves deploying a _childToken_ contract on Polygon chain and registering the token on both main and Polygon chain.
+Сопоставление токена включает развертывание контракта _childToken_ в Polygon chain и регистрацию токена в главной цепочке и Polygon chain.
 
-A restricted _childToken_ is deployed and registered on Polygon chain automatically by making a contract call to the ChildChain contract. But if the _rootToken_ has extra functionality apart from basic ERC20/ERC721, a custom _childToken_ contract needs to be deployed manually. (Read [adding additional functionality](/docs/develop/ethereum-polygon/plasma/mapping-assets#adding-functionality-to-child-token))
+Ограниченный _childToken_ развертывается и регистрируется в Polygon автоматически посредством вызова контракта в контракт ChildChain. Однако если _rootToken_ имеет дополнительные функции помимо базовых ERC20/ERC721, пользовательский контракт _childToken_ необходимо развернуть вручную. (Читайте раздел [Добавление дополнительных функций](/docs/develop/ethereum-polygon/plasma/mapping-assets#adding-functionality-to-child-token))
 
-## Deploying a 'Restricted' Child Token
+## Развертывание «ограниченного» дочернего токена {#deploying-a-restricted-child-token}
 
-### Step 1: On Polygon
+### Шаг 1: В Polygon {#step-1-on-polygon}
 
-The [`addToken` function call](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/ChildChain.sol#L55) on ChildChain contract deploys a child Token on Polygon, with restricted functionality (see: [ChildERC20](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC20.sol) and [ChildERC721](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC721.sol)), these is done to ensure Plasma security for the asset, otherwise the model gets broken. So if you need Plasma security with a custom token and added functionality on top of what the generic token provides, you need to write your contracts safely with restrictions as mandated.
+[`addToken` Вызов функции](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/ChildChain.sol#L55) в контракте ChildChain развертывает в Polygon дочерний токен с ограниченным функционалом (см.: [ChildERC20](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC20.sol) и [ChildERC721](https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC721.sol)). Это необходимо для обеспечения безопасности Plasma для актива, а в противном случае модель ломается. Так что, если вам нужна безопасность Plasma с пользовательским токеном и дополнительные функции сверх предоставляемых типовым токеном, вам необходимо записать контракты безопасно с установленными ограничениями.
 
-Certain Data structures are maintained to keep track of the asset on Polygon: such as the events, [Deposit](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/BaseERC20.sol#L6), [Withdraw](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/BaseERC20.sol#L14), [LogTransfer](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/BaseERC20.sol#L22). These are absolutely essential to the Plasma contracts that read this data to ensure data verification of the sidechain via fraud proofs and Plasma predicates.
+Определенные структуры данных поддерживаются для отслеживания актива в Polygon: при этом отслеживаются события [Deposit](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/BaseERC20.sol#L6), [Withdraw](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/BaseERC20.sol#L14), [LogTransfer](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/child/BaseERC20.sol#L22). Все это абсолютно необходимо для контрактов Plasma, которые считывают эти данные для обеспечения верификации данных в сайдчейне посредством защиты от мошенничества и предикатов Plasma.
 
-Based on feedback from developers, we have added mechanisms that allow devs to now program any restrictions that they wish to keep for transfers for example - see [this doc](/docs/develop/advanced/custom-restrictions) for example. This allows arbitrary logic to be coded before the Plasma-safe transfer takes place, keeping the transfer and custom logic separated - so as to ensure Plasma safety.
+Прислушавшись к отзывам разработчиков, мы добавили механизмы, позволяющие разработчикам программировать любые ограничения, которые они захотят сохранить для трансферов. В качестве примера можно посмотреть [этот документ](/docs/develop/advanced/custom-restrictions). Это позволяет кодировать произвольную логику до безопасной передачи Plasma, сохраняя логику трансфера и пользовательскую логику разделенными для обеспечения безопасности Plasma.
 
-#### Note on Restrictions
+#### Примечание по ограничениям {#note-on-restrictions}
 
-Plasma security is relatively straightforward to implement for user-controlled accounts or EOAs, since ownership of an asset is easy to derive. However, contracts are difficult to program for Plasma, since ownership of assets cannot be known in advance, and can vary depending on the complexity of the contract.
+Безопасность Plasma относительно просто реализовать для контролируемых пользователем аккаунтов или EOA, поскольку владение активом можно легко определить. Однако контракты для Plasma сложно программировать, поскольку информацию о владении активами нельзя получать заранее, и она может отличаться в зависимости от сложности контракта.
 
-Therefore, we support some types of contracts as [Plasma predicates](https://github.com/maticnetwork/contracts/tree/master/contracts/root/predicates). We are beginning with a few pre-built predicates such as asset transfers, asset swaps, etc. - and will be increasing the number of pre-built predicates to reflect a wide variety of use cases.
+Поэтому мы поддерживаем некоторые типы контрактов, такие как [предикаты Plasma](https://github.com/maticnetwork/contracts/tree/master/contracts/root/predicates). Мы начинаем с нескольких готовых предикатов, таких как трансфер активов, своп активов и т. д., и будем увеличивать количество готовых предикатов для отражения разнообразных сценариев использования.
 
-### Step 2: On Ethereum
+### Шаг 2: В Ethereum {#step-2-on-ethereum}
 
-A mapping on Registry contract is updated for each asset to be mapped. This is done via the [`mapToken` function call](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/common/Registry.sol#L64) on Ethereum (or Ropsten). This function takes the mapped address returned from the `addToken` call to ChildChain and updates the mapping on Ethereum.
+Сопоставление контракта реестра обновляется для каждого сопоставляемого актива. Это выполняется с помощью[`mapToken` вызова функции](https://github.com/maticnetwork/contracts/blob/fd4ed8343a8abb2dda5fe5a6a75a747cfd7a2807/contracts/common/Registry.sol#L64) в Ethereum (или Ropsten). Эта функция принимает сопоставленный адрес, возвращаемый в результате вызова `addToken` к ChildChain и обновляет сопоставление в Ethereum.
 
-## Moving an Asset
+## Перемещение актива {#moving-an-asset}
 
-### Deposits
+### Депозиты {#deposits}
 
-1. The Deposit Manager Contract is approved to spend X on behalf of msg.sender
-2. The Deposit Manager transfers the amount from msg.sender to itself
+1. Контракту Deposit Manager Contract разрешено потратить X от имени msg.sender
+2. Deposit Manager выполняет трансфер количества от msg.sender себе
 
-This ensures the asset is locked on Main chain and isn't transferrable while the token is being used on Polygon
+Это обеспечивает блокировку актива в основной цепочке и невозможность трансфера во время использования токена в Polygon
 
-### Withdrawals
+### Вывод {#withdrawals}
 
-1. Burn tokens on Polygon sidechain
-2. Submit proof of burn (the receipt of burn tx) on Root Chain
-   1. This step is executed only after the block consisting of the burn tx has been included in a checkpoint on the Root Chain.
-   2. After checkpoint submission, a successful execution of this step
-      1. marks the initiation of the Challenge Exit Period (which is a 7-day period on main network, and set to 5 minute on test networks)
-      2. Mints an ExitNFT token to the exitor's account - which is representative of the exit initiated on the child chain by the exitor
-   3. processExits burns the Exit NFT and transfers the tokens back from Deposit manager to the exitor.
+1. Сожгите токены в сайдчейне Polygon
+2. Отправьте доказательство сжигания (получение tx сжигания) в корневой цепочке
+   1. Этот шаг выполняется только после включения блока, состоящего из tx сжигания, в checkpoint в корневой цепочке.
+   2. После отправки checkpoint успешное выполнение этого шага
+      1. означает инициирование периода Challenge Exit (в основной сети этот период составляет 7 дней, а в тестовых сетях — 5 минут)
+      2. Выполняет минтинг токена ExitNFT в аккаунт выходящего, что отражает выход, инициированный выходящим в дочерней цепочке
+   3. processExits сжигает Exit NFT и выполняет трансфер токенов обратно из Deposit manager выходящему.
 
-## Adding functionality to Child token
+## Добавление функций в дочерний токен {#adding-functionality-to-child-token}
 
-In some cases you might require added functionality on top of what the restricted child token provides. To add your custom token as child on Polygon, you can inherit the standard plasma contract and add custom functions according to your use. Eg.,
+В некоторых случаях вам могут потребоваться дополнительные функции помимо предоставляемых ограниченным дочерним токеном. Чтобы добавить пользовательский токен как дочерний элемент в Polygon, вы можете унаследовать стандартный контракт plasma и добавить пользовательские функции в соответствии с использованием. Например,
 
 ```javascript
 
@@ -75,6 +75,6 @@ contract YourCustomChildToken is ChildERC20 {
 }
 ```
 
-### request-submission
+### request-submission {#request-submission}
 
-Please go through [this](/docs/develop/ethereum-polygon/submit-mapping-request).
+Выполните [это](/docs/develop/ethereum-polygon/submit-mapping-request).

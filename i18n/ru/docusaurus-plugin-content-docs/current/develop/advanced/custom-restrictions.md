@@ -1,46 +1,46 @@
 ---
 id: custom-restrictions
-title: Adding Custom Restrictions (ERC20/ERC721)
-#sidebar_label: Adding
-description: Build your next blockchain app on Matic.
+title: Пользовательские ограничения (ERC20/ERC721)
+# sidebar_label: Adding
+description: "Как добавить пользовательские ограничения в токены ERC20."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-**How to add custom restrictions to your ERC20 token on Polygon**
+**Как добавить пользовательские ограничения в токен ERC20 на Polygon**
 
-ERC20 tokens on the Polygon chain are standard contracts, auto-deployed by the Plasma root chain contracts, while registering a new ERC20 token on the Polygon. These cannot be modified, in order to ensure all state transitions are mapped to fraud proofs in the root chain contracts, which basically allow these contracts to maintain the same security as the Ethereum network.
+Токены ERC20 на Polygon chain представляют собой стандартные контракты, автоматически развертываемые контрактами на корневой цепочке Plasma во время регистрации нового токена ERC20 на Polygon. Их нельзя модифицировать, чтобы обеспечить сопоставление всех переходов из одного состояния в другое с доказательствами мошенничества в контрактах на корневой цепочке, благодаря чему эти контракты, по сути, способны обеспечивать такую же безопасность, как сеть Ethereum.
 
-However, in a real-world scenario, the ERC20 token owner may need to add custom restrictions on the contract, especially on the `transfer` function.
+Однако в реальных условиях владельцу токена ERC20 может понадобиться добавить в контракт пользовательские ограничения, особенно в отношении функции `transfer`.
 
 **TL;DR**
 
-- Implement the `beforeTransfer` function in the implementation of the IParentToken interface (https://github.com/maticnetwork/contracts/blob/master/contracts/child/misc/IParentToken.sol) and deploy to the Polygon chain.
+- Реализуйте функцию `beforeTransfer` в реализации интерфейса IParentToken (https://github.com/maticnetwork/contracts/blob/master/contracts/child/misc/IParentToken.sol) и разверните на Polygon chain.
 
-**This page details the process to add custom transfer restrictions to your ERC20 token:**
+**На этой странице подробно описывается процесс добавления пользовательских ограничений трансфера в токен ERC20:**
 
-- When the ERC20 token is added/mapped to Polygon, the function in the root contract(link) expects
-    - the rootchain token contract address,
-    - metadata about the token and
-    - the owner address
+- При добавлении токена ERC20 в Polygon (т. е. при его сопоставлении с Polygon) функция в корневом контракте(link) ожидает
+    - адрес контракта токена корневой цепочки,
+    - метаданные о токене и
+    - адрес владельца
 
-    This also auto-deploys a corresponding standard ERC20 token contract to the Polygon chain, with a mapping to the root token contract. Also, the owner address has to be provided, which later allows for authorizing a deployment of an additional contract, by which the ERC20 token owner can add transfer restrictions on the contract in the Polygon chain.
+    При этом также автоматически развертывается соответствующий стандартный контракт токена ERC20 на Polygon chain, сопоставляемый с корневым контрактом токена. Кроме того, необходимо предоставить адрес владельца, что в дальнейшем позволяет санкционировать развертывание дополнительного контракта, с помощью которого владелец токена ERC20 может добавить ограничения трансфера в контракт в Polygon chain.
 
-- To define any custom logic in the standard `transfer` function in the ERC20 token, you need to implement the `IParentToken` interface; see link here - https://github.com/maticnetwork/contracts/blob/master/contracts/child/misc/IParentToken.sol
+- Чтобы определить пользовательскую логику в стандартной функции `transfer` в токене ERC20, необходимо реализовать интерфейс `IParentToken`; см. ссылку здесь - https://github.com/maticnetwork/contracts/blob/master/contracts/child/misc/IParentToken.sol
 
-- The `beforeTransfer` hook function is the place where custom logic can be executed before each transfer.
-- The implemented contract must
-    - follow this interface,
-    - return a `bool` value and
-    - in case of ERC20 contracts, it should not have `require` statements and instead return `false`
-- Here is a sample `IParentToken` contract implementation:
+- Функция перехвата `beforeTransfer` — это тот элемент, где может исполняться пользовательская логика перед каждым трансфером.
+- Реализованный контракт должен
+    - последовать этому интерфейсу,
+    - вернуть значение `bool` и,
+    - в случае контрактов ERC20, в нем не должно быть операторов `require`, а вместо этого он должен вернуть `false`
+- Вот пример реализации контракта `IParentToken`:
 
 <script src="https://gist.github.com/anurag-arjun/c7382e2abaf0822e6ec7e988eb46c92e.js"></script>
 
-- Only the owner address given at the time of token registration will be able to add/update parent contract address (`IParentToken` implementation with the `beforeTransfer` hook) in the standard ChildToken contract on Polygon
-- For your information, you can get the address of the standard ChildToken contract (auto-deployed by the Polygon root contracts) by querying the `rootToChildToken` mapping in the registry contract (https://github.com/maticnetwork/contracts/blob/master/contracts/common/Registry.sol)
+- Только адрес владельца, указанный во время регистрации токена, будет способен добавить/обновить адрес родительского контракта (реализация `IParentToken` с перехватом `beforeTransfer`) в стандартном контракте ChildToken на Polygon
+- К вашему сведению, вы можете получить адрес стандартного контракта ChildToken (автоматически развернутого корневыми контрактами на Polygon), запросив сопоставление `rootToChildToken` в реестровом контракте (https://github.com/maticnetwork/contracts/blob/master/contracts/common/Registry.sol)
 
     ```solidity
     contract Registry is Governable {
@@ -51,7 +51,7 @@ However, in a real-world scenario, the ERC20 token owner may need to add custom 
     }
     ```
 
-- Ownership of the parent contract implemented in this manner (`IParentToken` implementation with the `beforeTransfer` hook) can be transferred by invoking the `setParent` function in the ChildERC20 contract on the Polygon chain - see https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC20.sol
+- Владение реализованным таким образом родительским контрактом (реализация `IParentToken` с перехватом `beforeTransfer`) может быть передано путем вызова функции `setParent` в контракте ChildERC20 на Polygon chain - см. https://github.com/maticnetwork/contracts/blob/master/contracts/child/ChildERC20.sol
 
     ```js
     function setParent(address _parent) public isParentOwner {

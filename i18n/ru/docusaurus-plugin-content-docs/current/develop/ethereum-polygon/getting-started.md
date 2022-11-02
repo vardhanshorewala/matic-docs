@@ -1,30 +1,31 @@
 ---
 id: getting-started
-title: Ethereum↔Polygon Bridge
+title: Ethereum↔мост Polygon
 sidebar_label: Overview
-description: Build your next blockchain app on Polygon.
+description: Двухсторонний канал транзакций между Polygon и Ethereum.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Polygon brings you a trustless two-way transaction channel between Polygon and Ethereum by introducing the cross-chain bridge with Plasma and PoS security. With this users can transfer tokens across Polygon without incurring third-party risks and market liquidity limitations. **_The Plasma and PoS Bridge is available on both Mumbai as well as Mainnet._**
+Polygon предоставляет недоверительный двусторонний канал транзакций между Polygon и Ethereum за счет введения кроссчейн-моста с Plasma и протоколом безопасности PoS. Благодаря этому пользователи могут передавать токены в рамках Polygon, не подвергаясь рискам, связанным с третьими лицами, и ограничениям, обусловленным ликвидностью рынка. **_Plasma и мост PoS доступны как в сети Mumbai, так и в Mainnet._**
 
-**Polygon bridge provides a scaling solution which is near-instant, low-cost, and quite flexible**. Polygon uses a dual-consensus architecture(Plasma + Proof-of-Stake (PoS) platform) to optimise for speed and decentralisation. We consciously architected the system to support arbitrary state transitions on our sidechains, which are EVM-enabled.
+**Мост Polygon обеспечивает решение для масштабирования, которое характеризуется почти мгновенными, малозатратными и весьма гибкими транзакциями**. Polygon использует архитектуру двойного консенсуса (Plasma + платформа доказательства владения (PoS))
+ для оптимизации в плане скорости и децентрализации. Мы сознательно разработали архитектуру системы таким образом, чтобы обеспечить поддержку произвольных переходов состояний в наших сайдчейнах с поддержкой EVM.
 
-**There is no change to the circulating supply of your token when it crosses the bridge**;
+**При переходе моста количество ваших токенов в обороте не изменяется**;
 
-- tokens that leave ethereum network are locked and the same number of tokens are minted on Polygon as a pegged token (1:1).
-- To move the tokens back to the ethereum network, tokens are burned on Polygon network and unlocked on ethereum network during the process.
+- токены, которые выводятся из сети Ethereum, блокируются, при этом такое же количество токенов выпускается на Polygon в качестве привязанного токена (1:1).
+- Чтобы переместить токены обратно в сеть ethereum, токены сжигаются в сети Polygon и разблокируются в сети ethereum в ходе этого процесса.
 
-## PoS vs Plasma
+## PoS в сравнении с Plasma {#pos-vs-plasma}
 
-|                                        | PoS Bridge(Recommended)                                                                 | Plasma Bridge                                                                           |
-| -------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| **Short description**                  | DApp Developers looking for flexibility and faster withdrawals with POS system security | DApp Developers looking for increased security guarantees with Plasma exit mechanism\. |
-| **Structure**                          | Highly flexible                                                                         | Rigid, Less Flexible                                                                    |
-| **Deposit\(Ethereum → Polygon\)**    | 3-5 mins                                                                                | 3-5 mins                                                                                |
-| **Withdrawal\(Polygon → Ethereum\)** | 1 checkpoint = ~ 20 mins to 3 hours                                                     | Call to the process-exit procedure on Ethereum's contract.                              |
-| **Security**                           | Proof\-of\-Stake system, secured by a robust set of external validators\.            | Polygon’s Plasma contracts piggybacks on Ethereum’s security.                           |
-| **Support Standards**                  | ETH, ERC20, ERC721, ERC1155 and Others                                                  | Only ETH, ERC20, ERC721                                                                 |
+|                                      | Мост PoS (рекомендуется) | Мост Plasma |
+| ------------------------------------ | ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Краткое описание** | Разработчики децентрализованных приложений, стремящиеся обеспечить гибкость и более быстрый вывод токенов в сочетании с безопасностью системы PoS | Разработчики децентрализованных приложений, стремящиеся гарантировать повышенную безопасность в сочетании с механизмом выхода Plasma\. |
+| **Структура** | Высокая гибкость | Жесткость, меньшая гибкость |
+| **Внесение средств\(Ethereum → Polygon\)** | 3–5 минут | 3–5 минут |
+| **Вывод средств\(Polygon → Ethereum\)** | 1 checkpoint = от ~20 минут до 3 часов | Вызов процедуры выхода из процесса в контракте Ethereum. |
+| **Безопасность** | Система Proof\-of\-Stake, обеспечиваемая робастным набором внешних валидаторов\. | Контракты Plasma в Polygon основываются на безопасности Ethereum. |
+| **Поддерживаемые стандарты** | ETH, ERC20, ERC721, ERC1155 и другие | Только ETH, ERC20, ERC721 |

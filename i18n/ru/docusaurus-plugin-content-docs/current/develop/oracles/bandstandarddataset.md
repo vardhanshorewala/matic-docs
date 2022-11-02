@@ -1,7 +1,7 @@
 ---
 id: bandstandarddataset
-title: Band Standard Dataset
-description: Build your next blockchain app on Polygon.
+title: Стандартный набор данных Band
+description: "Данные по ценам из децентрализованной инфраструктуры оракула."
 keywords:
   - docs
   - matic
@@ -9,30 +9,29 @@ keywords:
   - oracle
 image: https://matic.network/banners/matic-network-16x9.png
 ---
-
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-## Introduction
+## Введение {#introduction}
 
-Developers building on Polygon can now leverage Band's decentralized oracle infrastructure. With Band's oracle, they now have access to various cryptocurrency price data to integrate into their applications.
+Работающие с Polygon разработчики теперь могут использовать децентрализованную инфраструктуру оракулов Band. С оракулом Band они получат доступ к различным ценовым данным криптовалюты для интеграции в свои приложения.
 
-## Supported Tokens
+## Поддерживаемые токены {#supported-tokens}
 
-Currently, the list of supported symbols can be found at [data.bandprotocol.com](http://data.bandprotcool.com). Going forward, this list will continue to expand based on developer needs and community feedback.
+В настоящее время список поддерживаемых символов можно найти по адресу [data.bandprotocol.com](http://data.bandprotcool.com). В будущем этот список будет и дальше расширяться в зависимости от потребностей разработчиков и отзывов сообщества.
 
-### Price Pairs
+### Ценовые пары {#price-pairs}
 
-The following methods can work with any combination of base/quote token pair, as long as the base and quote symbols are supported by the dataset.
+Следующие методы могут работать с любой комбинацией пар токенов база/предложение, если символы базы и ценового предложения поддерживаются набором данных.
 
-## Querying Prices
+## Запросы цен {#querying-prices}
 
-Currently, there are two methods for developers to query prices from Band's oracle: through Band's `StdReference` smart contract on Polygon and through their [`bandchain.js`](https://www.npmjs.com/package/%40bandprotocol%2Fbandchain.js) JavaScript helper library.
+В настоящее время разработчикам доступно два метода запроса цен у оракула Band: через смарт-контракт Band `StdReference` в Polygon и через библиотеку помощника [`bandchain.js`](https://www.npmjs.com/package/%40bandprotocol%2Fbandchain.js) JavaScript.
 
-### Solidity Smart Contract
+### Смарт-контракт Solidity {#solidity-smart-contract}
 
-To query prices from Band's oracle, a smart contract should reference Band's StdReference contract, specifically the `getReferenceData` and `getReferenceDatabulk` methods.
+Для запроса цен у оракул Band смарт-контракт должен ссылаться на контракт Band StdReference, а в частности на методы `getReferenceData` и `getReferenceDatabulk`.
 
-`getReferenceData` takes two strings as the inputs, the base and quote symbol, respectively. It then queries the `StdReference` contract for the latest rates for those two tokens, and returns a `ReferenceData` struct, shown below.
+`getReferenceData` принимает в качестве ввода две текстовых строки — базовый символ и символ ценового предложения. После этого он запрашивает у контракта `StdReference` последние курсы для этих двух токенов и выводит структуру `ReferenceData`, которая показана ниже.
 
 ```solidity
 struct ReferenceData {
@@ -42,35 +41,35 @@ struct ReferenceData {
 }
 ```
 
-`getReferenceDataBulk` instead takes two lists, one of the `base` tokens, and one of the `quotes`. It then proceeds to similarly queries the price for each base/quote pair at each index, and returns an array of `ReferenceData` structs.
+Вместо этого `getReferenceDataBulk` принимает два списка — один для токенов `base`, а другой — `quotes`. После этого он аналогичным образом запрашивает цену для каждой пары база/предложение для каждого индекса и выводит массив структур `ReferenceData`.
 
-For example, if we call `getReferenceDataBulk` with `['BTC','BTC','ETH']` and `['USD','ETH','BNB']`, the returned `ReferenceData` array will contain information regarding the pairs:
+Например, если мы вызовем `getReferenceDataBulk` с помощью `['BTC','BTC','ETH']` и `['USD','ETH','BNB']`, возвращаемый массив`ReferenceData` будет содержать информацию о парах:
 
 - `BTC/USD`
 - `BTC/ETH`
 - `ETH/BNB`
 
 
-#### Contract Addresses
+#### Адреса контрактов {#contract-addresses}
 
-| Blockchain     |               Contract Address               |
-| -------------- |:--------------------------------------------:|
-| Polygon (Test) | `0x56e2898e0ceff0d1222827759b56b28ad812f92f` |
-
-
-#### Example Usage
-
-This [contract](https://gist.github.com/tansawit/a66d460d4e896aa94a0790df299251db) demonstrates an example of using Band's `StdReference` contract and the `getReferenceData` function.
+| Блокчейн | Адрес контракта |
+| -------------------- | :------------------------------------------: |
+| Polygon (тестовая сеть) | `0x56e2898e0ceff0d1222827759b56b28ad812f92f` |
 
 
-### BandChain.JS
+####  Пример использования {#example-usage}
 
-Band's node helper library [`bandchain.js`](https://www.npmjs.com/package/@bandprotocol/bandchain.js) also supports a similar `getReferenceData` function. This function takes one argument, a list of token pairs to query the result of. It then returns a list of corresponding rate values.
+Этот [контракт](https://gist.github.com/tansawit/a66d460d4e896aa94a0790df299251db) демонстрирует пример использования контракта Band `StdReference` и функции `getReferenceData`.
 
 
-#### Example Usage
+### BandChain.JS {#bandchain-js}
 
-The code below shows an example usage of the function
+Библиотека помощника нода Band [`bandchain.js`](https://www.npmjs.com/package/@bandprotocol/bandchain.js) также поддерживает похожую функцию `getReferenceData`. Эта функция принимает один аргумент, а именно список пар токенов для запроса результата. Затем она возвращает список соответствующих курсовых значений.
+
+
+####  Пример использования {#example-usage-1}
+
+В приведенном ниже коде показан пример использования функции
 
 ```javascript=
 const { Client } = require('@bandprotocol/bandchain.js');
@@ -92,31 +91,31 @@ async function exampleGetReferenceData() {
 
 ```
 
-The corresponding result will then be similar to
+Соответствующий результат будет похож на
 
 ```bash
 $ node index.js
-[ 
-    { 
+[
+    {
         pair: 'BTC/ETH',
         rate: 30.998744363906173,
         updatedAt: { base: 1615866954, quote: 1615866954 },
-        requestID: { base: 2206590, quote: 2206590 } 
+        requestID: { base: 2206590, quote: 2206590 }
     },
-    { 
+    {
         pair: 'BAND/EUR',
         rate: 10.566138918332376,
         updatedAt: { base: 1615866845, quote: 1615866911 },
-        requestID: { base: 2206539, quote: 2206572 } 
+        requestID: { base: 2206539, quote: 2206572 }
     }
 ]
 ```
 
-For each pair, the following information will be returned:
+Для каждой пары будет возвращена следующая информация:
 
-- `pair`: The base/quote symbol pair string
-- `rate`: The resulting rate of the given pair
-- `updated`: The timestamp at which the base and quote symbols was last updated on BandChain. For `USD`, this will be the current timestamp
-- `rawRate`: This object consists of two parts.
-  - `value` is the `BigInt` value of the actual rate, multiplied by `10^decimals`
-  - `decimals` is then the exponent by which `rate` was multiplied by to get `rawRate`
+- `pair`: текстовая строка пары символов база/предложение
+- `rate`: получающийся курс данной пары
+- `updated`: временная метка последнего обновления символов базы и предложения в BandChain. Для `USD`это будет текущая временная метка
+- `rawRate`: этот объект состоит из двух частей.
+  - `value` — это `BigInt` значение фактического курса, умноженное на `10^decimals`
+  - `decimals` в этом случае является экспонентом, на который умножается `rate` для получения `rawRate`

@@ -1,7 +1,7 @@
 ---
 id: ipfs
 title: IPFS
-description: IPFS
+description: "IPFS - распределенная система хранения данных и доступа к ним."
 keywords:
   - IPFS
   - matic
@@ -9,16 +9,25 @@ image: https://matic.network/banners/matic-network-16x9.png
 ---
 
 
-### Context
+### Контекст {#context}
 
-Polygon blockchain can be used to store data. But is it really worth the cost? To put into perspective 1 byte of a data can cost you 50 gwei gas in matic token, or equal to about $0.0166 in today's market. It maybe small for just one byte of data but let's say you want to store a file with 1 GB data (10^6 bytes) it will cost you 6.4x10^11 gwei or 640 matic. Even matic consumes less gas then too its not easy task to store it in on-chain. The solution for this is IPFS, the InterPlanetary File System.&#x20;
+Блокчейн Polygon сокращает расходы на транзакции для хранения данных по сравнению с главной сетью Ethereum; однако эти низкие расходы быстро растут при хранении больших файлов. Разработчикам также следует учитывать ограничения по размеру блоков и скорости транзакций при сохранении данных в цепочке. Все эти проблемы можно решить с помощью файловой системы IPFS (InterPlanetary File System).
 
-#### What is IPFS?&#x20;
+#### Что такое IPFS?
 
-IPFS is a distributed system for storing and accessing files, websites, applications, and data. Using IPFS as a storage you don't need to store entire files to polygon blockchain you just need to store the hash of the IPFS to the polygon blockchain, thus make it much more cheaper then just storing the file. For more details refer [IPFS docs](https://docs.ipfs.io/). &#x20;
+IPFS — это распределенная система для хранения и доступа к файлам, сайтам, приложениям и данным. IPFS использует децентрализацию, адресацию контента и надежную одноранговую сеть активных участников, чтобы дать пользователям возможность сохранять, запрашивать и передавать подтверждаемые данные друг другу.
 
-### Example Projects
+Децентрализация позволяет загружать файл из множества источников, которые не контролируются какой-либо одной организацией, что обеспечивает изначальную устойчивость и защиту от цензуры.
 
- 1)  Tutorial in scaffold-eth that demonstrates how to mint an NFT on Polygon with IPFS [link](https://github.com/scaffold-eth/scaffold-eth/tree/simple-nft-example)
+Адресация контента использует криптографию для создания уникального подтверждаемого хэша, основанного на содержимом файла, а не на его местоположении. Полученный идентификатор контента (CID) гарантирует идентичность элемента данных вне зависимости от места его хранения.
 
- 2) Building a full stack web3 app with Next.js, Polygon, Solidity, The Graph, IPFS, and Hardhat [link](https://dev.to/dabit3/the-complete-guide-to-full-stack-web3-development-4g74)
+Наконец, постоянно растущее сообщество активных пользователей делает возможным распределение контента между участниками одноранговой сети. Разработчики выгружают и привязывают контент к IPFS, а поставщики услуг хранения Filecoin помогают обеспечить постоянное хранение этого контента.
+
+
+Хранилища на базе IPFS позволяют просто сохранять CID для контента, а не загружать целые файлы в блокчейн Polygon; что обеспечивает сокращение расходов, увеличение размеров файлов и подтвержденное долговременное хранение. Более подробную информацию можно найти в [документации по IPFS](https://docs.ipfs.io/).  
+
+### Примеры проектов {#example-projects}
+
+ 1) Руководство in scaffold-eth, показывающее, как выполнять минтинг NFT в Polygon с помощью [ссылки IPFS](https://github.com/scaffold-eth/scaffold-eth/tree/simple-nft-example)
+
+ 2) Создание приложения полного стека web3 с Next.js, Polygon, Solidity, The Graph, IPFS и [ссылкой Hardhat](https://dev.to/dabit3/the-complete-guide-to-full-stack-web3-development-4g74)

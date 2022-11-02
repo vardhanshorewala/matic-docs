@@ -1,8 +1,8 @@
 ---
 id: avail-node-management
-title: Run an Avail Node
+title: Cómo ejecutar un nodo Avail
 sidebar_label: Run an Avail node
-description: "Learn about running an Avail node."
+description: "Aprende a ejecutar un nodo Avail."
 keywords:
   - docs
   - polygon
@@ -11,113 +11,115 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 slug: avail-node-management
 ---
-
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-:::tip Common practice
+:::tip Práctica común
 
-Users often run nodes on a cloud server. You may consider using a VPS provider to run your node.
+Los usuarios suelen ejecutar nodos en un servidor en la nube. Es posible que consideres usar un proveedor de VPS para ejecutar un nodo.
 
 :::
 
-## Prerequisites
+## Requisitos previos {#prerequisites}
 
-The following list of standard hardware is a recommendation of hardware specs that your environment should have.
+La siguiente lista de hardware estándar es una recomendación de especificaciones de hardware que tu entorno debería
+ tener.
 
 <Tabs
-  defaultValue="non-val"
-  values={[
-    { label: 'Run Avail Locally', value: 'non-val', },
- { label: 'Run a Validator Node', value: 'val', },
- ]
+defaultValue="non-val"
+values={[
+{ label: 'Run Avail Locally', value: 'non-val', },
+{ label: 'Run a Validator Node', value: 'val', },
+]
 }>
 
 <TabItem value="non-val">
 
-The hardware specs should at least have:
+Las especificaciones de hardware indican que deberías contar con los siguientes requisitos mínimos:
 
-* 4GB RAM
-* 2 core CPU
-* 20-40 GB SSD
+* 4 GB de RAM
+* CPU de 2 núcleos
+* SSD de 20-40 GB
 
 </TabItem>
 <TabItem value="val">
 
-The hardware recommendations for running a validator on a Substrate-based chain:
+Las recomendaciones de hardware para ejecutar un validador en una cadena basada en Substrate son las siguientes:
 
-* CPU - Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz
-* Storage - A NVMe solid state drive with about 256GB. Should be reasonably sized to deal with 
-  blockchain growth.
-* Memory - 64GB ECC
+* CPU: Intel(R) Core(TM) i7-7700K CPU a 4,20 GHz
+* Almacenamiento: una unidad de estado sólido NVMe de aproximadamente 256 GB. Debe tener el tamaño razonable para afrontar
+ el crecimiento de la cadena de bloques.
+* Memoria: ECC de 64 GB
 
 </TabItem>
 </Tabs>
 
-### Node prerequisites: Install Rust & dependencies
+### Requisitos previos para el nodo: instalar Rust y dependencias {#node-prerequisites-install-rust-dependencies}
 
-:::info Installation steps by Substrate
+:::info Pasos de instalación de acuerdo con Substrate
 
-Avail is a Substrate-based chain and requires the same configuration to run a Substrate chain.
+Avail es una cadena basada en Substrate y requiere la misma configuración para ejecutar una cadena de Substrate.
 
-Additional installation documentation is available in the Substrate **[getting started documentation](https://docs.substrate.io/v3/getting-started/installation/)**.
+Puedes obtener más documentación sobre la instalación en Documentación
+ **[sobre cómo empezar de Substrate](https://docs.substrate.io/v3/getting-started/installation/)**
 
 :::
 
-Once you choose an environment to run your node, ensure Rust is installed. If you already have Rust installed, run the following command to make sure you are using the latest version.
+Una vez que elijas un entorno para ejecutar tu nodo, asegúrate de tener Rust instalado.
+ Si ya instalaste Rust, ejecuta el siguiente comando para asegurarte de estar usando la versión más reciente.
 
 ```sh
 rustup update
 ```
 
-If not, start by running the following command to fetch the latest version of Rust:
+Si no es así, comienza por ejecutar el siguiente comando para obtener la versión más reciente de Rust:
 
 ```sh
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 ```
 
-To configure your shell, run:
+Para configurar tu shell, ejecuta lo siguiente:
 
 ```sh
 source $HOME/.cargo/env
 ```
 
-Verify your installation with:
+Para verificar tu instalación, consulta:
 
 ```sh
 rustc --version
 ```
 
 <Tabs
-  defaultValue="node"
-  values={[
-    { label: 'Run a Local Node', value: 'node', },
- { label: 'Run a Validator Node', value: 'deploy', },
- ]
+defaultValue="node"
+values={[
+{ label: 'Run a Local Node', value: 'node', },
+{ label: 'Run a Validator Node', value: 'deploy', },
+]
 }>
 
 <TabItem value="node">
 
-## Run Avail Locally
+## Cómo ejecutar Avail en forma local {#run-avail-locally}
 
-Clone the [Avail source code](https://github.com/maticnetwork/avail):
+Clona el [código fuente de Avail](https://github.com/maticnetwork/avail):
 
 ```sh
 git clone git@github.com:maticnetwork/avail.git
 ```
 
-Compile the source code:
+Compila el código fuente:
 
 ```sh
 cargo build --release
 ```
 
-:::caution This process usually takes time
+:::caution Este proceso suele llevar un tiempo
 
 :::
 
-Run a local dev node with temporary datastore:
+Ejecuta un nodo de desarrollo local con un almacén de datos temporal:
 
 ```sh
 ./target/release/data-avail --dev --tmp
@@ -126,76 +128,76 @@ Run a local dev node with temporary datastore:
 </TabItem>
 <TabItem value="deploy">
 
-## Data Availability Deployments
+## Implementaciones de disponibilidad de datos {#data-availability-deployments}
 
-:::info Onboarding validators
+:::info Incorporación de validadores
 
-In Avail's current state, the Avail team will maintain the network and run 
-internal validators.
+En el estado actual de Avail, el equipo de Avail mantendrá la red y ejecutará
+ validadores internos.
 
 :::
 
-:::warning System administration
+:::warning Administración del sistema
 
-Although Polygon Avail is in testnet phase, in general, users should have **significant system 
-administration experience** when running validator nodes. 
+Si bien Avail de Polygon está en una fase de red de prueba, en general, los usuarios cuentan con **gran experiencia en administración
+ de sistemas** para ejecutar nodos validadores.
 
-Validator nodes are responsbile for maintaining and securing the network by staking tokens with real
-value. Validators need to understand how to manage their node, its associated hardware & configuration, 
-and be wary that they are subject to being slashed due to actions like being offline or equivocation. 
+Los nodos validadores son responsables de mantener y asegurar la red, para ello, hacen staking de tokens por un valor
+ real. Los validadores deben comprender cómo administrar su nodo, su hardware y configuración asociados,
+ y tener cuidado, ya que están sujetos a recortes debido a acciones como estar fuera de línea o equivocaciones.
 
-When in doubt, reach out to the Validator Engagement team.
+En caso de duda, comunícate con el Equipo de interacción con validadores.
 
 :::
 
 <Tabs
-  defaultValue="validator"
-  values={[
-    { label: 'Avail Validator Setup', value: 'validator', },
- { label: 'Build Data Availability', value: 'build', },
- { label: 'Build and Run Light Client with Data Availability', value: 'light', },
- ]
+defaultValue="validator"
+values={[
+{ label: 'Avail Validator Setup', value: 'validator', },
+{ label: 'Build Data Availability', value: 'build', },
+{ label: 'Build and Run Light Client with Data Availability', value: 'light', },
+]
 }>
 
 <TabItem value="validator">
 
-## Docker Setup
+## Configuración de Docker {#docker-setup}
 
-The easiest way to deploy your own Avail validator node is using Docker.
+La forma más fácil de desplegar tu nodo validador de Avail es por medio de Docker.
 
-### Run the latest version of the Docker container
+### Ejecuta la versión más reciente del contenedor Docker {#run-the-latest-version-of-the-docker-container}
 
-Use the default parameters and expose the P2P port with `-p 30333` by running:
+Usa los parámetros por defecto y expone el puerto P2P con `-p 30333` mediante la siguiente ejecución:
 
 ```shell
 docker run -p 30333 --name my_val 0xpolygon/avail:latest
 ```
 
-Any extra parameter will be added to the `data-avail` binary as an argument.
-If you want to use a specific node key and limit the maximum number of incoming connections
-to `10`, you can use:
+Cualquier parámetro adicional se agregará al binario `data-avail` como argumento.
+ Si quieres usar una clave de nodo específica y limitar la cantidad máxima de conexiones entrantes
+ a `10`, puedes usar lo siguiente:
 
 ```shell
 docker run -p 30333 --name my_val 0xpolygon/avail:latest --in-peers=10 --node-key 80027666cebec66464611eb0d5c36416213d83a9c689006a80efcf479826de7d
 ```
 
-This image uses two volumes:
-  - `/da/state` to store the database of the chain
-  - `/da/keystore` to store the validator's private keys
+Esta imagen utiliza dos volúmenes:
+  - `/da/state` para guardar la base de datos de la cadena
+  - `/da/keystore` para guardar las claves privadas del validador
 
-Most likelihood you want to bind these volumes to a specific points, like:
+Lo más probable es que quieras vincular estos volúmenes a un punto específico, por ejemplo:
 
 ```shell
 docker run -p 30333 --name my_val -v /volumes/da/state:/da/state -v /volumes/da/keystore/:/da/keystore 0xpolygon/avail:latest
 ```
 
-### Insert private keys
+### Cómo introducir claves privadas {#insert-private-keys}
 
-These private keys will be used by the validator to sign blocks and finalize the chain when it
-acts as an active validator. They are stored into `/da/keystore` in plain text format, so you
-should take extra care over that volume.
+El validador utilizará estas claves privadas para firmar bloques y finalizar la cadena cuando
+ actúa como validador activo. Se almacenan en `/da/keystore`en formato de texto simple, de manera que
+ debes tener sumo cuidado con respecto a ese volumen.
 
-In order to insert these keys, we will open a shell inside the running container:
+Para introducir esas claves, abriremos una shell dentro del contenedor en ejecución:
 
 ```shell
 docker exec -it my_val bash
@@ -208,100 +210,86 @@ root@5f55e51e5a85:/da# /da/bin/data-avail key insert \
       --scheme=Sr25519
 ```
 
-The **--suri** parameter is the private key as a mnemonic phrase (or secret phrase) where you can generate
-one using the `subkey` tool in Substrate.
+El parámetro **--suri** es la clave privada a modo de frase mnemotécnica (o secreta) con la cual puedes generar
+ una mediante la herramienta `subkey` en Substrate.
 
-:::note Learn about subkey
+:::note Obtén información sobre la subclave
 
-To learn about how to use subkey, visit the
-[Subkey Substrate documentation](https://docs.substrate.io/v3/tools/subkey/).
+Si deseas conocer cómo usar una subclave, ingresa en la
+ [Documentación acerca de subclaves de Substrate](https://docs.substrate.io/v3/tools/subkey/).
 
 :::
 
-This command should be **repeated for each pair of key type
-and scheme** shown in the following table:
+Se debe repetir este comando **para cada par de tipos de clave
+ y esquema** que se muestran en la siguiente tabla:
 
-| Key Type | Scheme    |
+| Tipo de clave | Esquema |
 | -------- | --------- |
-| babe     | Sr25519   |
-| gran     | *Ed25519* |
-| imon     | Sr25519   |
-| audi     | Sr25519   |
+| babe | Sr25519 |
+| gran | *Ed25519* |
+| imon | Sr25519 |
+| audi | Sr25519 |
 
-## Bond AVL tokens
+## Unir tokens de AVL {#bond-avl-tokens}
 
-It is highly recommended that you set up a stash and controller account and have separate key
-(two separate accounts) for both.
+Se recomienda encarecidamente que configures una cuenta de Stash y una controladora y que tengas claves separadas
+ (dos cuentas independientes) para ambas.
 
-:::info Stash and Controller Keys
+:::info Claves de Stash y de controladora
 
-- A controller key is used to control staking actions for your account
-- A stash key is used to control your funds. **It is recommended that the stash key be a cold wallet or offline
-  and not be used for account related activities like submitting extrinsics.
+-
+-
 
-Follow the [Polkadot Wiki](https://wiki.polkadot.network/docs/learn-staking#accounts) and the
-[Substrate Hub](https://docs.substrate.io/v3/concepts/account-abstractions/#:~:text=Controller%20Key%3A%20a%20Controller%20account,somewhat%20regularly%20for%20validator%20maintenance)
-to learn more about stash and controller accounts and how to manage them.
+
 
 :::
 
-You will start by creating two accounts; ensure each account has enough funds to pay the fees for
-making transactions.
 
-:::tip Storing funds
 
-Keep most of your funds in the stash account since it is meant to be the custodian of
-your staking funds, and have just enough funds in the controller account to pay for fees.
+:::tip
 
-Make sure not to bond all your AVL balance since you will be unable to pay transaction fees from your bonded
-balance.
+
+
+
 
 :::
 
-It is now time to set up your validator by doing the following:
 
- - Bond the AVL of the Stash account. These token will be put at stake for the security of the network and
-   subject to slashing.
- - Select the Controller. This is the account that will decide when to start or stop validating.
 
-First, go to the **Developer** tab in the [Avail Apps](https://devnet-avail.polygon.technology/)
-navbar and click on **Extrinsics**.
+ -
+ -
 
-* **Stash** account - Select your Stash account. In this example, we bond 1001 AVL tokens, where the
-  minimum bonding amount is 1000. Make sure that your Stash account contains at least this much.
-  You can, of course, stake more than this.
-* **Controller** account - Select the Controller account created earlier. This account will need a
-  small amount of AVL in order to start and stop validating.
-* **Value** bonded - The amount of AVL tokens you want to bond from your Stash account.
 
-  :::note
 
-  You do not need to bond all of the AVL in that account. Also note that you can always bond more `AVL` later.
-  However, withdrawing any bonded amount requires the duration of the unbonding period.
+*
+*
+*
 
-  :::
+:::note
 
-* **Payment** destination - The account where the rewards from validating are sent. More information can be found
-  [here](https://wiki.polkadot.network/docs/learn-staking#reward-distribution).
+
+
+:::
+
+*
 
 <img src={useBaseUrl("img/avail/dev-ext.png")} width="100%" height="100%"/>
 
-Select the **staking** pallet, and the **bond** extrinsic.
+
 
 <img src={useBaseUrl("img/avail/add_validator_bound_step.png")} width="100%" height="100%"/>
 
-Create a transaction where your **stash** account bounds 1001 AVLs at least to your **controller** account,
-as shown below.
+
 
 <img src={useBaseUrl("img/avail/bond-avl-val.png")} width="100%" height="100%"/>
 
-## Set Session Keys
+##  {#set-session-keys}
 
-Once your node is **fully synced**, you need to rotate and submit your session keys.
 
-### Rotate you session keys
 
-Run this command on the same machine (while the node is running with the default HTTP RPC port configured):
+###  {#rotate-you-session-keys}
+
+
 
 ```shell
 docker exec -it my_val bash
@@ -311,68 +299,59 @@ root@5f55e51e5a85:/da# curl \
       http://localhost:9933
 ```
 
-The output will have a hex-encoded "result" field. The result is the concatenation of the four public keys.
-Save this result for a later step.
 
-You can restart your node at this point.
 
-### Submitting the `setKeys` transaction
 
-You need to tell the chain your Session keys by signing and submitting an extrinsic. This is what associates
-your validator with your Controller account.
 
-Navigate to the [Network > Staking](https://devnet-avail.polygon.technology/#/staking).
-Here, you can perform various staking actions. Navigate to **Account actions** , and select **Set Session Key**
-on the bonding account you generated earlier. Enter the output `from author_rotateKeys` in the field and click on
-"Set Session Key".
+###  {#transaction}
+
+
+
+
 
 <img src={useBaseUrl("img/avail/set-session-keys.png")} width="100%" height="100%"/>
 
-After submitting this extrinsic, you are ready to start validating.
 
-## Validate
 
-To verify that your node is live and synchronized, navigate to
-[Network > Staking](https://devnet-avail.polygon.technology/#/staking) and select
-**Waiting**. Your account should be shown there. A new validator set is selected every **era**,
-based on the staking amount.
+##  {#validate}
+
+
 
 </TabItem>
 <TabItem value ="build">
 
-## Build from the Source Code
+##  {#build-from-the-source-code}
 
-Clone the repo and checkout to the right branch:
+
 
 ```shell
 git clone git@github.com:maticnetwork/avail.git
 ```
 
-Only build the node binaries
+
 
 ```shell
 cargo build --release -p data-avail
 ```
 
-### Optional: How to generate deterministic WASM
+###  {#optional-how-to-generate-deterministic-wasm}
 
-:::note This step is **not required** and it should only be used to verify that WASM matches with
-the source code.
+:::note
+
 
 :::
 
-The `srtool` allows building **WASM runtimes in a deterministic way**, allowing CIs and users, with
-various machines and OS, to produce a *strictly identical* WASM runtime.
 
-1. Install [srtool-cli](https://github.com/chevdor/srtool-cli)
 
-2. Move to your `substrate` root folder and build the WASM runtime:
+1.
+
+2.
 
 ```shell
 srtool build -r runtime/ --package da-runtime
 ```
 
-You should expect an output like the following:
+
 
 ```shell
 Found 1.57.0, we will be using paritytech/srtool:1.57.0 for the build
@@ -420,48 +399,45 @@ Wasm        : ./bin/node-template/runtime//target/srtool/release/wbuild/node-tem
 No compressed runtime found
 ```
 
-Now you only need to replace the WASM file in your `target/release` folder and rebuild the node
-binary. Another option is to replace the WASM code in `genesis > runtime > frameSystem > code` in
-your `chain.spec` file.
+
 
 </TabItem>
 <TabItem value='light'>
 
-## Build & Run `avail-light` & `data-avail`
+##
 
-First, build the Docker images, `client:asdr` (using branch `feature/app-specific-data-retrieval_2`) and `da:asdr`
-(using branch `feature/app-specific-data-retrieval`):
+
 
 ```shell
 export DOCKER_BUILDKIT = 1
 docker build --ssh default -t client:asdr --build-arg BRANCH=feature/app-specific-data-retrieval_2 -f images/client/Dockerfile images/client/
 ```
 
-Next, run the services using **docker-compose.light-client.yml**:
+
 
 ```shell
 docker-compose -f docker-compose.light-client.yml up
 ```
 
-### Using Monk templates
+###  {#using-monk-templates}
 
-#### Testnet using three validators
+####  {#testnet-using-three-validators}
 
-On the testnet, validators use the development accounts: `Alice`, `Bob`, and `Charlie`.
 
-#### Step 1: Build images
+
+####  {#step-1-build-images}
 
 ```shell
 export DOCKER_BUILDKIT=1
 docker build -t da:ava-33  --build-arg BRANCH=miguel/ava-33-create-monk-template-for-da-testnet -f images/da/Dockerfile images/da/    
 ```
 
-#### Step 2: Load Monk templates
+####  {#step-2-load-monk-templates}
 
-The testnet only need to load two monk templates:
 
-- **monk/polygon-da-base.matic.today.yaml**, which contains common definition for DevNet & TestNet.
-- **monk/polygon-da-devnet.matic.today.yaml**, where validators are defined.
+
+-
+-
 
 ```shell
 monk s ns-delete /templates/local/polygon
@@ -469,21 +445,21 @@ monk load monk/polygon-da-base.matic.today.yaml
 monk load monk/polygon-da-devnet.matic.today.yaml
 ```
 
-#### Step 3: Run templates
+####  {#step-3-run-templates}
 
-Once templates are loaded, we only need to run three nodes:
+
 
 ```shell
 monk run polygon/da-dev-validator-1 polygon/da-dev-validator-2 polygon/da-dev-validator-3
 ```
 
-Now you can check logs using `monk logs`, i.e.:
+
 
 ```shell
 monk logs -f -l 100 polygon/da-dev-validator-1
 ```
 
-You should expect:
+
 
 ```
 2022-03-22 10:52:20 ✨ Imported #9 (0x911b…bdf5)    
@@ -509,10 +485,9 @@ You should expect:
 2022-03-22 10:53:00 ✨ Imported #11 (0x0a5e…43d6)
 ```
 
-#### Purge Node State
+####  {#purge-node-state}
 
-In this configuration, the state of the node is stored at `/var/lib/monkd/volumes/dev/validator`, so
-you can remove these folders or just use `monk purge`:
+
 
 ```
 monk purge polygon/da-dev-validator-1 polygon/da-dev-validator-2 polygon/da-dev-validator-3

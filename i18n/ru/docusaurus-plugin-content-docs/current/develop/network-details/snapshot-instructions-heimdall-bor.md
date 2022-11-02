@@ -1,7 +1,7 @@
 ---
 id: snapshot-instructions-heimdall-bor
-title: Heimdall and Bor Snapshots
-description: Snapshot Instructions for Heimdall and Bor
+title: Снимки Heimdall и Bor
+description: Инструкции по созданию снимков Heimdall и Bor для более быстрой синхронизации.
 keywords:
   - docs
   - matic
@@ -12,18 +12,21 @@ keywords:
   - sentry
 image: https://matic.network/banners/matic-network-16x9.png
 ---
-
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-When setting up a new sentry, validator, or full node server, it is recommended that you use a snapshot for faster syncing without having to sync over the network. Using snapshots will save you several days for both Heimdall and Bor.
+При настройке нового сторожевого сервера, валидатора или полного сервера узла рекомендуется использовать снимки для более быстрой синхронизации без необходимости выполнять синхронизацию по сети. Использование снимков позволит сэкономить насколько дней работы  как для Heimdall, так и для Bor.
 
-:::note For the latest snapshot, please visit [here](https://snapshots.matic.today). :::
+:::note
 
-## Heimdall Snapshot
+Для последнего снимка посетите https://snapshots.matic.today.
 
-First, you need to set up your node with **pre-requisites** as per the node setup guide. Before you start services for Heimdall to sync, follow the steps below to use the snapshot:
+:::
 
-1. Download the snapshot tar file of Heimdall on your VM by running the following command:
+## Снимок Heimdall {#heimdall-snapshot}
+
+Вначале необходимо настроить узел с использованием **предварительных требований** в соответствии с руководством по настройке узла. Прежде чем начать синхронизацию сервисов для Heimdall, выполните приведенные ниже шаги для использования снимка:
+
+1. Загрузите снимок Heimdall в формате tar на виртуальную машину, запустив следующую команду:
 
 ```
 wget -c <snapshot url>
@@ -32,7 +35,7 @@ wget -c <snapshot url>
 wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/heimdall-snapshot-2021-09-12.tar.gz
 ```
 
-2. To unpack the tar file in the Heimdall data directory, run the following command:
+2. Чтобы распаковать файл tar в каталог данных Heimdall, запустите следующую команду:
 ```
 // You must ensure you are running this command
 // before you start the Heimdall service on your node.
@@ -48,18 +51,18 @@ tar -xzvf <snapshot file> -C <HEIMDALL_DATA_DIRECTORY>
 tar -xzvf heimdall-snapshot-2021-09-12.tar.gz -C ~/.heimdalld/data/
 ```
 
-## Bor Snapshot
+## Снимок Bor {#bor-snapshot}
 
-First, you need to set up your node with **pre-requisites**, as per the node setup guide. Before you start services for Bor to sync, follow the steps below to use the snapshot:
+Вначале вам необходимо настроить нод в соответствии с **предварительными требованиями** согласно руководству по настройке нода. Прежде чем начать синхронизацию сервисов для Bor, выполните приведенные ниже шаги для использования снимка:
 
-1. Download the snapshot tar file of Bor on your VM by running the following command:
+1. Загрузите снимок Bor в формате файла tar на виртуальную машину, запустив следующую команду:
 ```
 wget -c <snapshot url>
 
 // For example:
 wget -c https://matic-blockchain-snapshots.s3-accelerate.amazonaws.com/matic-mainnet/bor-pruned-snapshot-2021-09-08.tar.gz
 ```
-2. To unpack the tar file in the Bor Data directory, run the following command:
+2. Чтобы распаковать файл tar в каталог данных Bor, запустите следующую команду:
 
 ```
 // You must ensure you are running this command

@@ -1,57 +1,56 @@
 ---
 id: bandchainadvanced
-title: BandChain Advanced
+title: Дополнительные возможности BandChain
 sidebar_label: Advanced
-description: Build your next blockchain app on Polygon.
+description: Создайте свое следующее блокчейн-приложение на Polygon.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
-
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-Smart contracts contain a set of logic based on which the Dapps work. But they cant just rely on user input and will need external information to power their logic. BandChain provides a set of oracle scripts that can be used to communicate with the external web API's. Once the data is received from the decentralised BandChain network, it can be used in the dApps when required.
+Смарт-контракты содержат набор логики, на основе которой работают децентрализованные приложения. Однако они не могут просто полагаться на пользовательский ввод, и для работы их логики требуется внешняя информация. BandChain предоставляет набор скриптов оракулов, которые можно использовать для связи с внешними web API. После получения данных из децентрализованной сети BandChain их можно использовать в децентрализованных приложениях по мере необходимости.
 
 <img src={useBaseUrl("img/bandchain/bandchain.png")} />
 
-The whole process can be understood clearly from the architecture given above. Initially a request is made to the BandChain network. There will be a small delay in receiving the response from the network. This response has to be stored in a validation contract which will be deployed on Polygon. Its important to note that this validation contract is different from the BandChain contract already deployed on Polygon. So once this validation contract is deployed, the external web API response data can be updated in a state variable in the validation contract when required. This validation contract makes use of the BandChain contract to validate the data being stored into it. The dApps can query this validation contract anytime it needs to get any data from the external world. The upcoming steps will help in understanding this architecture in a better way.
+Процесс целиком можно достаточно четко понять на основе описанной выше архитектуры. Первоначально в сеть BandChain направляется запрос. При получении ответа из сети произойдет небольшая задержка. Этот ответ необходимо сохранить в контракте подтверждения, который будет развернут в Polygon. Важно отметить, что этот контракт подтверждения отличается от контракта BandChain, который уже развернут в Polygon. Поэтому после развертывания этого контракта подтверждения данные ответа внешнего web API могут обновляться в переменной состояния в контракте подтверждения всегда, когда это требуется. Этот контракт подтверждения использует контракт BandChain для подтверждения сохраняемых в нем данных. Децентрализованные приложения могут запрашивать контракт подтверждения всегда, когда им требуется получить какие-либо данные из внешнего мира. Следующие шаги помогут лучше понять эту архитектуру.
 
- **1.** **Choosing the oracle script**
+**1.** **Выбор скрипта оракула**
 
-These oracle scripts are needed to query external data. The scripts uniquely identify the data we wish to request. Go to [http://scan.alpha.bandchain.org](http://scan.alpha.bandchain.org/). There, you will find the explorer with information on BandChain. We will next visit the Oracle Scripts page using the link in the top right corner. You can also visit the oracle scripts directly from [http://scan.alpha.bandchain.org/scripts](http://scan.alpha.bandchain.org/scripts). Here you can see a few built in oracle scripts. We will be using the random number generator example to explain the whole process. So lets click on the Random generator oracle script which is labelled as random_u64.
+Эти скрипты оракула необходимы для запроса внешних данных. Скрипты обеспечивают уникальную идентификацию данных, которые мы хотим запросить. Перейдите в [http://scan.alpha.bandchain.org](http://scan.alpha.bandchain.org/). Там вы найдете обозреватель с информацией о BandChain. Затем мы посетим страницу скриптов оракулов, воспользовавшись ссылкой в правом верхнем углу. Также вы можете непосредственно перейти к скриптам оракула по адресу [http://scan.alpha.bandchain.org/scripts](http://scan.alpha.bandchain.org/scripts). Здесь находится несколько встроенных скриптов оракула. Для разъяснения процесса мы используем пример генератора случайных чисел. Поэтому давайте нажмем на скрипт оракула генератора случайных чисел, который называется random_u64.
 
 <img src={useBaseUrl("img/bandchain/oraclescripts.png")} />
 
- **2. Executing the script**
+**2. Выполнение скрипта**
 
-When you click on the script you will be redirected to another page where you can see the details of the script. The script hash will be `0xe7944e5e24dc856dcb6d9926460926ec10b9b66cf44b664f9971b5a5e9255989`. The other details include the recent transactions related to the script, the script code and also a tab called execute. If we move to this tab we can execute this script. You need to pass a numeric value to the max_range parameter. This parameter indicates the maximum range for your random number. Once you click on send request, a hash is generated in a few seconds.
+При нажатии на скрипт выполняется переадресация на другую страницу, где можно увидеть детали этого скрипта. Скрипт будет иметь хэш-сумму ```0xe7944e5e24dc856dcb6d9926460926ec10b9b66cf44b664f9971b5a5e9255989```. В число других деталей входят последние транзакции, связанные со скриптом, код скрипта и вкладка под названием execute. Если мы перейдем на эту вкладку, мы сможем запустить этот скрипт. Вам нужно будет передать числовое значение в параметр max_range. Этот параметр указывает границы максимального диапазона ваших случайных чисел. В течение нескольких секунд после нажатия на запрос отправки генерируется хэш-сумма.
 
 <img src={useBaseUrl("img/bandchain/executeoracle.png")} />
 
-When you click on the hash you will be redirected to another page that shows the result of the request. Here you have to click on the data request message which will lead you to another page where you can view the complete details of the response and also the proof of validity from BandChain. Here you can also see the random number being generated along with a timestamp. Under the Proof of Validity tab, click Copy proof for Ethereum, which generates a payload that works with every EVM-compatible blockchains that BandChain supports. This payload has to be used to update the state variables in the validation contract.
+При нажатии на хэш происходит перенаправление на другую страницу, где отображается результат запроса. Здесь вам необходимо нажать на сообщение запроса данных, чтобы перейти на другую страницу, где вы сможете посмотреть полные детали ответа и доказательство действительности от BandChain. Также здесь отображается генерируемое случайное число вместе с временной меткой. Нажмите «Копировать доказательство для Ethereum» на вкладке «Доказательство действительности», чтобы генерировать полезную нагрузку, которая будет работать со всеми EVM-совместимыми блокчейнами, которые поддерживает BandChain. Эту полезную нагрузку следует использовать для обновления переменных состояния в контракте подтверждения.
 
 <img src={useBaseUrl("img/bandchain/copyproof.png")} />
 
-This is one way to make the oracle request. Here we used the explorer. There is also another way to make the requests which is by using the Bandchain REST API's.
+Это первый способ выполнить запрос к оракулу. Здесь мы использовали обозреватель. Существует и другой способ выполнения запросов, основанный на использовании REST API Bandchain.
 
-The API endpoint to make the requests is [http://rpc.alpha.bandchain.org/bandsv/request](http://rpc.alpha.bandchain.org/bandsv/request). This can be accessed directly from dApps by making use of HTTP client libraries like axios. For this example we will make use of the tool called Postman which is a very useful tool to test API endpoints. It can be directly downloaded from [https://www.postman.com](https://www.postman.com/). Once its downloaded you can install the Postman application and start making any type of HTTP requests. The oracle request API is a POST method which accepts body parameters in the application/json format. Basically there are three parameters.
+Конечная точка API для выполнения запроса: [http://rpc.alpha.bandchain.org/bandsv/request](http://rpc.alpha.bandchain.org/bandsv/request). Децентрализованные приложения могут получать к ней доступ напрямую или использовать библиотеки клиентов HTTP, такие как axios. В этом примере мы используем инструмент под названием Postman, который очень полезен для тестирования конечных точек API. Его можно загрузить напрямую с сайта [https://www.postman.com](https://www.postman.com/). После загрузки вы можете установить приложение Postman и начать выполнять любые типы запросов HTTP. API запроса оракула представляет собой метод POST, принимающий параметры body в формате application/json. Обычно используются три параметра.
 
-A. type - It is of type string and can take the values "SYNCHRONOUS" | "ASYNCHRONOUS" | "FULL". We recommend using the "FULL" mode when making request from dApps.
+A. type — это параметр типа string, который может принимать значения "SYNCHRONOUS" | "ASYNCHRONOUS" | "FULL". При выполнении запросов из децентрализованных приложений мы рекомендуем использовать режим "FULL".
 
-B. params - It is of type object. The random generator example will need the parameters as {"max_range": "100"}.
+B. params — это параметры объектного типа. В примере с генератором случайных чисел потребуются такие параметры как {"max_range": "100"}.
 
-C. codeHash: It is of type string and accepts the oracle script as the value. In our example the value for this field will be `0xe7944e5e24dc856dcb6d9926460926ec10b9b66cf44b664f9971b5a5e9255989`. Make sure to remove the '0x' from the oracle script if it is present.
+C. codeHash: это параметр строкового типа, принимающий в качестве значения скрипт оракула. В нашем примере это поле будет иметь значение ```0xe7944e5e24dc856dcb6d9926460926ec10b9b66cf44b664f9971b5a5e9255989```. Обязательно удалите '0x' из скрипта оракула, если это не сделано.
 
-Overall the payload and the request looks like this :-
+В целом полезная нагрузка и запрос выглядят следующим образом:-
 
 <img src={useBaseUrl("img/bandchain/requestapi.png")} />
 
-In postman you make the request as shown above to get a response which contains the random number,the timestamp and also the proof of validity. There will also be a field called evmProofBytes in the response which is the payload you will require in the next step to update the state variables in the validation contract. In the above request you can replace the oracle script and param object to make requests to various built in oracle scripts.
+Ответ на показанный выше запрос в Postman содержит случайное число, временную метку и доказательство действительности. В ответе также будет присутствовать поле evmProofBytes, содержащее полезную нагрузку, которая потребуется на следующем шаге для обновления переменных состояния в контракте подтверждения. Сценарий оракула и объект param в приведенном выше запросе можно заменить для выполнения запросов к разнообразным встроенным скриптам оракула.
 
-**3. Using the data in smart contracts**
+**3. Использование данных в смарт-контрактах**
 
-This is the step where you will actually store the data in the validation contract on Polygon. Before storing you will need to deploy a validation contract. So this is how a validation contract will look like.
+На этом шаге вы фактически сохраните данные в контракте подтверждения в Polygon. Перед сохранением вам потребуется развернуть контракт подтверждения. Этот контракт подтверждения будет выглядеть следующим образом.
 
 ```jsx
 pragma solidity 0.5.14;
@@ -100,32 +99,32 @@ contract RandomNumber {
 }
 ```
 
-Its important to note this contract has two state variables namely randomNumber and lastUpdated to store the random number value and the timestamp of last updated time respectively. The RandomNumber contract should also import BandChainLib.sol and IBridge.sol which are helper libraries and interfaces. These two helpers are compulsory to create a validation contract. They can be found from [https://docs.bandchain.org/references/bandchainlib-library](https://docs.bandchain.org/references/bandchainlib-library) and [https://docs.bandchain.org/references/ibridge-interface](https://docs.bandchain.org/references/ibridge-interface) respectively.
+Важно отметить, что этот контракт имеет две переменных состояния (randomNumber и lastUpdated) для сохранения значения случайного числа и временной метки последнего обновления соответственно. Контракт RandomNumber также должен импортировать BandChainLib.sol и IBridge.sol (библиотеки помощника и интерфейсы). Эти два помощника необходимы для создания контракта подтверждения. Их можно найти по ссылкам [https://docs.bandchain.org/references/bandchainlib-library](https://docs.bandchain.org/references/bandchainlib-library) и [https://docs.bandchain.org/references/ibridge-interface](https://docs.bandchain.org/references/ibridge-interface) соответственно.
 
-Once you have imported these two files into the main solidity contract, you can go to remix, create three solidity files RandomNumber.sol, IBridgesol and BandChainLib.sol with the respective content. Do change the compiler version to 0.5.14 for the above example to work. Compile the contract and set the metamask RPC to point to [https://testnetv3.matic.network](https://testnetv3.matic.network/) which is the Polygon TestnetV3. If you face difficulty in configuring metamask you can follow this [tutorial](/docs/develop/metamask/config-polygon-on-metamask).
+После импорта этих двух файлов в основной контракт solidity вы можете перейти в remix и создать три файла solidity с именами RandomNumber.sol, IBridgesol и BandChainLib.sol с соответствующим содержимым. Для работы вышеуказанного примера следует изменить версию компилятора на 0.5.14. Скомпилируйте контракт и задайте RPC metamask так, чтобы он указывал на [https://testnetv3.matic.network](https://testnetv3.matic.network/), т. е. на тестовую сеть Polygon TestnetV3. Если у вас возникнут сложности при настройке metamask, следуйте указаниям этого [руководства](/docs/develop/metamask/config-polygon-on-metamask).
 
 <img src={useBaseUrl("img/bandchain/cmpilecontract.png")} />
 
-Once the compilation is successful, next step is to deploy the RandomNumber Contract. This contract takes 3 parameter in the constructor arguments. The first parameter is the codeHash parameter which takes in the oracle script hash as its value. So in our example we have to use `0xe7944e5e24dc856dcb6d9926460926ec10b9b66cf44b664f9971b5a5e9255989` as the hash value. The second parameter is params which takes in the serialized string of parameters for the oracle request. To get this serialised string which is in the form of bytes, Bandchain provides an API which has the endpoint [http://rpc.alpha.bandchain.org/zoracle/serialize_params/:codeHash](http://rpc.alpha.bandchain.org/zoracle/serialize_params/:codeHash). This is a GET method which can be hit using the HTTP client library like axios. For this example we will use the Postman tool to hit this API. The ':codeHash' in the URL can be replaced with the oracle script hash and the param object (to be converted into bytes) can be passed as a query param to this endpoint using the params key. For this example the Postman GET request looks like this.
+Следующий шаг после успешного завершения компиляции заключается в развертывании контракта RandomNumber. Этот контракт принимает 3 параметра в аргументах конструктора. Первый параметр — это параметр codeHash, принимающий в качестве значения хэш скрипта оракула. В нашем примере следует использовать ```0xe7944e5e24dc856dcb6d9926460926ec10b9b66cf44b664f9971b5a5e9255989``` в качестве значения хэша. Второй параметр — это параметр params, принимающий в качестве значения сериализованную строку параметров в качестве запроса оракула. Для получения этой сериализованной строки в байтовой форме Bandchain предоставляет API с конечной точкой [http://rpc.alpha.bandchain.org/zoracle/serialize_params/:codeHash](http://rpc.alpha.bandchain.org/zoracle/serialize_params/:codeHash). Это метод GET, который можно взять из клиентской библиотеки HTTP, такой как axios. В этом примере мы используем инструмент Postman для запуска данного API. ':codeHash' в URL можно заменить хэш-суммой скрипта оракула и передать объект param (конвертируемый в байты) как параметр запроса этой конечной точки, используя ключ params. Для этого примера запрос Postman GET выглядит следующим образом.
 
 <img src={useBaseUrl("img/bandchain/bytesapi.png")} />
 
-The value of the result key from the above API response can be converted into hex by simply appending 0x to it. In this example the final hex value will be 0x0000000000000064. Note that we have passed 100 as the value to the max_range key of the params object. The value of the max_range should be the same as the value used when making the oracle request in step 2. The third parameter is the bridge which takes in the contract address of the BandChain contract already deployed on Polygon TesntetV3 as its value. The contract address of the BandChain contract is `0x3ba819b03fb8d34995f68304946eefa6dcff7cbf`.
+Значение полученного ключа из вышеуказанного ответа API можно конвертировать в шестнадцатеричный формат, просто добавив к нему 0x. В этом примере окончательное шестнадцатеричное значение будет выглядеть как 0x0000000000000064. Обратите внимание, что мы передали 100 как значение ключа max_range объекта params. Значение max_range должно совпадать со значением запроса оракула в шаге 2. Третий параметр — это мост, принимающий в качестве значения адрес контракта BandChain, который уже развернут в тестовой сети Polygon TestnetV3. Адрес контракта BandChain: ```0x3ba819b03fb8d34995f68304946eefa6dcff7cbf```.
 
 <img src={useBaseUrl("img/bandchain/deploycontract.png")} />
 
-Now, the contract can be deployed. Once the deployment is successful, the value of the randomNumber state variable can be updated when required using the update method of the contract. Here comes the meat of BandChain's magic. The update function takes just one parameter bytes memory _reportPrice, which takes data we requested from BandChain. If we go back to step 2, we can see that we had received a payload when we requested the BandChain network. It will be the value of evmProofBytes in the response object. It has to be converted to a hex by appending 0x to its start. This is finally passed to the update method of the contract. From the image below we can see that initial value of randomNumber is 59.
+Теперь контракт можно развернуть. После успешного завершения развертывания значение переменной состояния randomNumber можно обновлять по мере необходимости, используя метод обновления контракта. И здесь начинается главное волшебство BandChain. Функция обновления использует только один параметр bytes memory _reportPrice, использующий данные, которые мы запросили в BandChain. Если мы вернемся к шагу 2, мы увидим, что получили полезную нагрузку при запросе сети BandChain. Это будет значение evmProofBytes в объекте ответа. Его нужно будет конвертировать в шестнадцатеричный формат, добавив в его начало 0x. Это значение передается методу обновления контракта. На иллюстрации ниже мы видим, что randomNumber имеет начальное значение 59.
 
 <img src={useBaseUrl("img/bandchain/update.png")} />
 
-Next, we need to decode the request information from the _reportPrice. We do that using IBridge.relayAndVerify function which returns IBridge.VerifyOracleDataResult struct containing the data, codeHash, and the params of the request. In order to read the data, which in this case are  random number and timestamp, we use BandChainLib.toUint64List on the result.data bytes.
+Далее нам требуется декодировать информацию запроса из _reportPrice. Для этого мы используем функцию IBridge.relayAndVerify, которая возвращает структуру IBridge.VerifyOracleDataResult, содержащую данные, codeHash и параметры запроса. Для чтения данных (в данном случае — случайного числа и временной метки) мы используем BandChainLib.toUint64List на байтах result.data.
 
-In order to verify the integrity of the data, we check that the codeHash and params of the request match with the ones we specified in constructor. Lastly we make sure the the contract will always update the price with newer timestamp only.
+Для проверки целостности данных мы проверяем соответствие codeHash и параметров запроса заданным в конструкторе. Наконец, мы должны убедиться, что контракт всегда будет обновлять цену с более новой временной меткой.
 
-Now we have decoded the data, validated its identity and verified the condition for random number value update. We can now update the smart contract state with the random number value and timestamp we get from the BandChain. After the execution of the update method we can see that the value of randomNumber has now changed to 17.
+Мы декодировали данные, подтвердили их подлинность и проверили условие обновления значения случайного числа. Теперь мы можем обновить состояние смарт-контракта, используя значение случайного числа и временную метку, полученные от BandChain. После выполнения метода update мы видим, что значение randomNumber изменилось на 17.
 
 <img src={useBaseUrl("img/bandchain/updated.png")} />
 
-Now, anytime a random number is required, the dapp has to hit the BandChain api "using the same paramters", get a new evmProof and use it to update the validation contract. The validation contract can then be queried by the dapp to access the random number value. Each time the state variables are updated the value to be updated is validated by the BandChain contract already deployed on Polygon.
+Теперь, когда нам потребуется случайное число, децентрализованное приложение должно обратиться к BandChain api «с теми же параметрами», получить новое доказательство evmProof и использовать его для обновления контракта подтверждения. Затем децентрализованное приложение сможет запрашивать контракт подтверждения для доступа к значению случайного числа. Каждый раз, когда переменные состояния обновляются, обновляемое значение подтверждается контрактом BandChain, который уже развернут в Polygon.
 
-This example was a demonstration of how the random number value can be stored and updated as an when required. This value can be used by dApps to power their smart contract logic. Similarly other validation contracts can be created to store several values. The Bandchain provides several built in oracle scripts. Also, you can use truffle to deploy the validation contract and web3 to interact with the contract instead of using remix.
+Этот пример был демонстрацией того, как можно сохранить и обновить значение случайного числа в случае необходимости. Децентрализованные приложения смогут использовать это значение для своей логики смарт-контрактов. Подобным образом можно создавать и другие контракты подтверждения для хранения нескольких значений. Bandchain предоставляет несколько встроенных скриптов оракула. Также вы можете использовать truffle для развертывания контракта подтверждения и web3 для взаимодействия с контрактом вместо использования remix.

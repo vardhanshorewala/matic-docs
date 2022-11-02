@@ -1,56 +1,58 @@
 ---
 id: portis
 title: Portis
-description: Build your next blockchain app on Matic.
+description: Веб-кошелек, созданный с учетом удобства организации начала работы пользователей.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+Portis — это веб-кошелек, созданный с целью упростить процесс начала работы для пользователей. Он поставляется в комплекте с javascript SDK, который интегрируется в децентрализованное приложение и создает для пользователя локальную среду без кошелька. Более того, он выполняет настройку кошелька, транзакций и комиссии за газ. Как и Metamask, он не предусматривает ответственное хранение — пользователи контролируют свои ключи, а Portis просто хранит их в безопасном режиме. Однако, в отличие от Metamask, он интегрируется в приложение, а не в браузер. Ключи пользователей связываются с их идентификаторами пользователей и паролями.
 
-Portis is a web-based wallet built keeping easy user-onboarding in mind. It comes with a javascript SDK that integrates into the DApp and creates a local wallet-less experience for the user. Further, it handles setting up the wallet, transactions and gas fees. Like Metamask, it is non-custodial - users control their keys, Portis just stores them securely. But, unlike Metamask, it is integrated into the application and not the browser. Users have their keys associated with their login id and passwords.
+**Тип**: без ответственного хранения/HD <br/>
+ **Хранение приватных ключей**: шифруются и хранятся на серверах portis <br/>
+ **Связь с журналом Ethereum**: определяется разработчиком<br/>
+ **Кодирование приватных ключей**: мнемоническое<br/>
 
-**Type**: Non-custodial/HD <br/> **Private Key Storage**: Encrypted and stored on portis’ servers <br/> **Communication to Ethereum Ledger**: Developer defined <br/> **Private key encoding**: Mnemonic<br/>
+### 1. Настройка Web3 {#1-setup-web3}
 
-### 1. Setup Web3
-
-Install the following in your DApp:
+Установите в децентрализованное приложение следующее:
 ```js
 npm install --save @portis/web3
 ```
 
-And register your DApp with Portis to obtain a Dapp ID:
-> [Portis Dashboard](https://dashboard.portis.io/)
+За регистрируйте децентрализованное приложение в Portis для получения идентификатора:
+> [Дашборд Portis](https://dashboard.portis.io/)
 
-Import `portis` and `web3` object:
+Импортируйте `portis` и объект `web3`:
 
 ```js
 import Portis from '@portis/web3';
 import Web3 from 'web3';
 ```
-Portis constructor takes first argument as the DApp ID (we got from the previous step) and second argument as the network you’d like to connect to. This can either be a string or an object.
+Конструктор Portis принимает первый аргумент как идентификатор децентрализованного приложения (полученный на предыдущем шаге), а второй аргумент — как идентификатор сети, к которой вы хотите подключиться. Это может быть строка или объект.
 ```js
 const portis = new Portis('YOUR_DAPP_ID', 'maticTestnet');
 const web3 = new Web3(portis.provider);
 ```
-### 2. Set up account
+### 2. Настройте аккаунт {#2-set-up-account}
 
-If the installation and instantiation of web3 was successful, the following should successfully return the connected account:
+Если установка и создание экземпляра web3 были выполнены успешно, следующие действия должны успешно возвратить подключенный аккаунт:
 ```js
 this.web3.eth.getAccounts()
 .then((accounts) => {
   this.account = accounts[0];
 })
 ```
-### 3. Instantiating Contracts
+### 3. Создание экземпляров контрактов {#3-instantiating-contracts}
 
-Instantiation of contracts would remain the same, as discussed above:
+Процесс создания экземпляров контрактов останется таким же, как описано выше:
 ```js
 const myContractInstance = new this.web3.eth.Contract(myContractAbi, myContractAddress)
 ```
-### 4. Calling functions
+### 4. Вызов функций {#4-calling-functions}
 
-Calling functions would remain the same as discussed above: #### Calling `call()` Functions
+Вызов функций останется таким же, как описано в разделе выше: #### Вызов `call()` функций
 ```js
 this.myContractInstance.methods.myMethod(myParams)
 .call()
@@ -58,7 +60,7 @@ this.myContractInstance.methods.myMethod(myParams)
   // do stuff with returned values
 )
 ```
-### Calling `send()` Functions
+### Вызов `send()` функций {#functions}
 ```js
 this.myContractInstance.methods.myMethod(myParams)
 .send({

@@ -1,16 +1,16 @@
 ---
 id: approve
-title: approve
+title: утвердить
 keywords:
-  - 'pos client, erc20, approve, polygon, sdk'
-description: 'Get started with maticjs'
+- 'pos client, erc20, approve, polygon, sdk'
+description: 'Начните работать с maticjs'
 ---
 
-# approve
+# утвердить {#approve}
 
-`approve` method can be used to approve required amount on root token.
+Метод `approve` можно использовать для утверждения требуемого количества на корневом токене.
 
-approve is required in order to deposit amount on polygon chain.
+Утверждение требуется для того, чтобы внести это количество на депозит на polygon chain.
 
 ```
 const erc20RootToken = plasmaClient.erc20(<root token address>, true);

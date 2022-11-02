@@ -1,49 +1,49 @@
 ---
 id: create-wallet
-title: Creating Polygon wallets
+title: Создание кошельков Polygon
 sidebar_label: Create Wallets
-description: Quick guide on creating Polygon wallets in Arkane.
+description: Краткое руководство по созданию кошельков Polygon в Arkane.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-If you are looking for a user-friendly Polygon wallet, consider creating an Arkane wallet. It allows you to enable recovery mechanism and comes with end-user support via their in-app chat, making sure you are never lost in the wonderful land of cryptocurrency.
+Если вам нужен удобный кошелек Polygon, попробуйте создать кошелек Arkane. Это позволит включить механизм восстановления и обеспечивает поддержку конечных пользователей через встроенный в приложение чат, благодаря чему вы никогда не потеряетесь в этом чудесном мире криптовалюты.
 
-## Step 1. Sign up to Arkane
+## Шаг 1. Зарегистрируйтесь в Arkane {#step-1-sign-up-to-arkane}
 
-Navigate to https://arkane.network/ and click the 'YOUR WALLET'-button in the top right corner.
+Перейдите на адрес https://arkane.network/ и нажмите кнопку 'YOUR WALLET' в правом верхнем углу.
 
-![Sign up to Arkane](img/01.png)
+![Выполните вход в Arkane](img/01.png)
 
-Click 'Create Account' if you are new to Arkane. You can sign up to Arkane with your social credentials or with email and password.
+Нажмите «Создать аккаунт», если вы новый пользователь Arkane. Вы можете использовать для входа в Arkane учетные данные социальных сетей или адрес электронной почты и пароль.
 
-![Create an account](img/02.png)
+![Создайте аккаунт](img/02.png)
 
-After signing up with one of your social accounts (fastest) or with your email address and password. You will need to accept the terms and conditions.
+После регистрации с аккаунтом социальной сети (самый быстрый вариант) или адресом электронной почты и паролем. Вам потребуется принять правила и условия.
 
-![Accept the terms & conditions](img/03.png)
+![Примите правила и условия](img/03.png)
 
-To secure your wallet you need to configure a PIN. You PIN should be between 4 and 6 digits.
+Чтобы защитить ваш кошелек, необходимо настроить PIN. Ваш PIN должен содержать от 4 до 6 цифр.
 
-![Configure Wallet PIN](img/04.png)
+![Настройте PIN кошелька](img/04.png)
 
-## Step 2. Create your wallet
-Now that you've configured your PIN, you are ready to create a Polygon wallet. Just select Polygon from the list.
+## Шаг 2. Создайте свой кошелек {#step-2-create-your-wallet}
+Теперь вы настроили PIN и готовы создать кошелек Polygon. Просто выберите Polygon из списка.
 
-![Select the Polygon blockchain](img/05.png)
+![Выберите блокчейн Polygon](img/05.png)
 
-To create a new wallet press *'Create new wallet'*
+Чтобы создать новый кошелек, нажмите *«Создать новый кошелек»*
 
-![Create a new wallet](img/06.png)
+![Создать новый кошелек](img/06.png)
 
-Once you've press the button, Arkane will ask you to confirm using your PIN (the one you configured a few steps before). After that your wallet will be created and you will be taken to your Dashboard.
+После нажатия кнопки Arkane попросит вас подтвердить операцию, используя PIN (заданный на несколько шагов раньше). После этого будет создан ваш кошелек, и вы перейдете в дашборд.
 
-![Wallet Dashboard](img/07.png)
+![Дашборд кошелька](img/07.png)
 
-## 🥳 Congratulations!
+## 🥳 Поздравляем! {#congratulations}
 
-You have now created your Polygon wallet to manage your digital assets on the Polygon blockchain. 
+Вы создали своей кошелек Polygon для управления цифровыми активами в блокчейне Polygon.
 
 

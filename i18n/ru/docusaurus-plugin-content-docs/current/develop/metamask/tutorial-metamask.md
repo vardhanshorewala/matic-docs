@@ -1,78 +1,77 @@
 ---
 id: hello
-title: How to create a MetaMask Wallet?
+title: Как создать кошелек MetaMask?
 sidebar_label: Hello Metamask
-description: Build your next blockchain app on Polygon.
+description: Научитесь создавать кошельки Metamask.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+Если вам интересно, как создать новый кошелек в криптовалюте, попробуйте создать его посредством установки расширения MetaMask.
 
-If you are wondering how to create a new cryptocurrency wallet, consider creating one by installing the MetaMask extension.
+MetaMask — это бесплатное и безопасное расширение для браузера, позволяющее веб-приложениям считывать данные и взаимодействовать с блокчейном Ethereum.
 
-MetaMask is a free and secure browser extension that allows web applications to read and interact with the Ethereum blockchain.
+## Шаг 1. Установите MetaMask в своем браузере {#step-1-install-metamask-on-your-browser}
 
-## Step 1. Install MetaMask on your browser
+Чтобы создать новый кошелек с MetaMask, необходимо предварительно установить расширение. Вы можете установить в браузеры [Chrome](https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/), Brave и [Opera](https://addons.opera.com/en/extensions/details/metamask/).
 
-To create a new wallet with MetaMask you need to install the extension first. You can install Metamask for [Chrome](https://chrome.google.com/webstore/detail/nkbihfbeogaeaoehlefnkodbefgpgknn), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/), Brave and [Opera](https://addons.opera.com/en/extensions/details/metamask/) browsers.
+1. Откройте [https://metamask.io](https://metamask.io/) или выполните поиск по ключевым словам «Metamask extension» в своей любимой поисковой системе.
 
-1. Open [https://metamask.io](https://metamask.io/) or search for “Metamask extension” using your favorite search engine.
-
-In this tutorial we will be using Google Chrome as an example, but the workflow is the same for all browsers.
+В этом руководстве мы используем в качестве примера Google Chrome, однако рабочий процесс одинаков для всех браузеров.
 
 ![https://miro.medium.com/max/1492/1*JCvnTXS3Xu0X-RExle77LA.png](https://miro.medium.com/max/1492/1*JCvnTXS3Xu0X-RExle77LA.png)
 
 ![https://miro.medium.com/max/2768/1*yO33yG60Vzht6n9L4JcXeA.png](https://miro.medium.com/max/2768/1*yO33yG60Vzht6n9L4JcXeA.png)
 
-2. Click **Chrome** to install MetaMask as a Google Chrome extension.
+2. Нажмите **Chrome** для установки MetaMask как расширения Google Chrome.
 
-3. Click **Add to Chrome.**
+3. Нажмите **Добавить в Chrome.**
 
-4. Click **Add Extension**.
+4. Нажмите **Добавить расширение**.
 
 ![https://miro.medium.com/max/2373/1*pGyNYTNmc_gZskdXH0enKQ.png](https://miro.medium.com/max/2373/1*pGyNYTNmc_gZskdXH0enKQ.png)
 
 ![https://miro.medium.com/max/2251/1*ukli2LnKCQkMKT0TJFi5iQ.png](https://miro.medium.com/max/2251/1*ukli2LnKCQkMKT0TJFi5iQ.png)
 
-That’s it! You have successfully installed MetaMask extension!
+Готово! Вы успешно установили расширение MetaMask!
 
-## Step 2. Create an account
+## Шаг 2. Создание аккаунта {#step-2-create-an-account}
 
-The next step is to create an account.
+Следующий шаг — создание аккаунта.
 
-1. Click on the MetaMask icon in the upper right corner to open the extension.
-2. To install the latest version of MetaMask, click **Try it now**.
-3. Click **Continue**.
+1. Нажмите на значок MetaMask в правом верхнем углу, чтобы открыть расширение.
+2. Чтобы установить последнюю версию MetaMask, нажмите **Попробовать сейчас**.
+3. Нажмите **Продолжить**.
 
 ![https://miro.medium.com/max/1486/1*5hrpXhzgQYNQMV2GhQl4-Q.gif](https://miro.medium.com/max/1486/1*5hrpXhzgQYNQMV2GhQl4-Q.gif)
 
-4. You will be asked to create a new password. Create a strong password and click **Create**.
+4. Вам будет предложено создать новый пароль. Придумайте надежный пароль и нажмите **Создать**.
 
-> Don’t forget to store your password for safekeeping!
+> Не забудьте сохранить пароль в безопасном месте!
 
 ![https://miro.medium.com/max/1433/1*FZEkwKijuGmIXMLfEHwtgg.png](https://miro.medium.com/max/1433/1*FZEkwKijuGmIXMLfEHwtgg.png)
 
 ![https://miro.medium.com/max/1488/1*GY-dCrx6d2nXdJVT4g_STg.png](https://miro.medium.com/max/1488/1*GY-dCrx6d2nXdJVT4g_STg.png)
 
-5. Proceed by clicking **Next**, then accept Terms of Use.
+5. Чтобы продолжить, нажмите **Далее** и примите Условия использования.
 
-6. Click **Reveal secret words**.
+6. Нажмите **Показать секретные слова**.
 
-7. You will see a 12 words seed phrase. Save seed words as a file or copy them to a safe place and click **Next.**
+7. Вы увидите кодовую фразу из 12 слов. Сохраните кодовые слова как файл или скопируйте их в безопасное место, а затем нажмите **Далее.**
 
-Reveal secret words and copy your secret backup phrase to a safe place
+Откройте секретные слова и скопируйте секретную кодовую фразу в безопасное место
 
 ![https://miro.medium.com/max/1499/1*3Q9CtffF4SrXNpcjoEiPWw.png](https://miro.medium.com/max/1499/1*3Q9CtffF4SrXNpcjoEiPWw.png)
 
 ![https://miro.medium.com/max/1500/1*ZVGYYeUAhvWP3vx0MLyJvg.png](https://miro.medium.com/max/1500/1*ZVGYYeUAhvWP3vx0MLyJvg.png)
 
-> Security tips:Write this phrase on a piece of paper and store in a secure location. If you want even more security, write it down on multiple pieces of paper and store each in 2–3 different locations.Memorize this phrase.
+> Советы по безопасности: Запишите эту фразу на листе бумаги и сохраните этот лист в безопасном месте. Если вам требуется дополнительная безопасность, запишите ее на нескольких листах бумаги и сохраните в 2-3 разных местах. Запомните эту фразу.
 
-8. Verify your secret phrase by selecting the previously generated phrase. When done, click **Confirm**.
+8. Проверьте вашу секретную фразу, выбрав ранее сгенерированную фразу. Закончив, нажмите **Подтвердить**.
 
 ![https://miro.medium.com/max/636/1*n6mJR5csvbgsBK-hcx6nBQ.gif](https://miro.medium.com/max/636/1*n6mJR5csvbgsBK-hcx6nBQ.gif)
 
-By “solving this puzzle” you are confirming that you know your secret phrase
+Решите головоломку, чтобы подтвердить, что вы помните вашу секретную фразу
 
-**Congratulations!** You have successfully created your MetaMask account. A new Ethereum wallet address was automatically generated for you!
+**Поздравляем!**  Вы успешно создали аккаунт MetaMask. Для вас был автоматически сгенерирован новый адрес кошелька Ethereum!

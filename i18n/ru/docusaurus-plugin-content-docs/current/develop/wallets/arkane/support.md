@@ -1,16 +1,15 @@
 ---
 id: support
-title: Developer support
+title: Поддержка разработчиков
 sidebar_label: Developer Support
-description: Arkane offers support for developers building on Polygon.
+description: Arkane предлагает поддержку разработчикам, создающим решения на базе Polygon.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+> Всегда помогаем разработчикам, которым это нужно
 
-> Always helping a developer in need
+Отличительная особенность Arkane — приверженность поддержке экосистемы. Это не только поддержка пользователей кошельков и разъяснение им понятия газа или помощь им в импорте кошелька Ethereum в Polygon. Разработчики, использующие Arkane для создания новых продуктов, могут добавить встроенный в приложение чат даже в среде тестирования и напрямую общаться с командой разработчиков платформы Arkane.
 
-What makes Arkane stand out is their commitment to supporting their ecosystem. Not only their wallet users, by explaining what gas is, or by helping them import an Ethereum wallet into Polygon. But also the developers that are using Arkane to build new upcoming producs, even in their test environment they add an in-app chat so developers can directly communicate with the developer team behind the Arkane platform.
-
-And ofcourse they offer [detailed product documentation](https://arkane.gitbook.io/widget/). 
+Разумеется, они также предлагают [детальную документацию по продукции](https://arkane.gitbook.io/widget/).

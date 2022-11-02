@@ -1,82 +1,81 @@
 ---
 id: intro
-title: Introduction
-description: Build your next blockchain app on Polygon.
+title: Введение
+description: Интеграция приложения с Polygon с помощью Arkane.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
-
-> Arkane, for developers looking to dive into blockchain technology.
-
-
-**Arkane** allows you to easily integrate your app with the Polygon blockchain, whether you already have an app integrated with web3 or are building a new application from scratch. Arkane provides a smooth and delightful experience for you, your users on both web and mobile.
-
-Arkane will help you interact with the Polygon blockchain, create blockchain wallets, create different asset types such as fungible (ERC20), and non-fungible tokens (ERC721, and ERC1155) and interact with smart contracts. Next to a superior developer experience, you can give your users a user-friendly interface.
-
-Each application is unique and has different needs, therefore they provide different ways of interacting with Arkane. Applications that have support for Web3 are recommendated to integrate the [Arkane Web3 provider](https://arkane.gitbook.io/widget/web3-provider/getting-started), others are suggested to use the [Arkane Widget](https://arkane.gitbook.io/widget/widget/introduction).
+> Arkane, для разработчиков, желающих погрузиться в технологию блокчейна.
 
 
-## Key features
-- Support Web and mobile
-- Offers social logins
-- Offers a fiat-on-ramp
-- *Only wallet that supports NFTs (ERC721 and ERC1155) on Polygon*
-- Supports both Polygon and Ethereum
-- Easy to integrate using web3
-- Build for a mainstream audience
-- Offers in-app customer support
+**Arkane** позволяет легко интегрировать ваше приложение с блокчейном Polygon, причем это может быть как приложение, интегрированное с web3, так и новое приложение, созданное с нуля. Arkane предоставляет приятный и удобный опыт для вас и ваших пользователей веб-интерфейса и мобильных устройств.
+
+Arkane поможет вам взаимодействовать с блокчейном Polygon, создавать кошельки блокчейна, создавать разные типы активов, в том числе расходуемые (ERC20) и нерасходуемые токены (ERC721 и ERC1155) и взаимодействовать со смарт-контрактами. Помимо превосходного опыта для разработчиков вы можете предложить пользователям удобный интерфейс.
+
+Каждое приложение уникальное и имеет уникальные потребности, и поэтому разные приложения дают разные возможности взаимодействия с Arkane. В приложения с поддержкой Web3 рекомендуется интегрировать [провайдер Arkane Web3 ](https://arkane.gitbook.io/widget/web3-provider/getting-started), а для других приложений предлагается использовать [Arkane Widget](https://arkane.gitbook.io/widget/widget/introduction).
 
 
-## Getting Started 🎉
-If you already support Web3-technology, you can improve the UX within your application by integrating the Arkane Web3 provider, a smart wrapper around the existing Web3 Ethereum JavaScript API.
+## Основные характеристики {#key-features}
+- Поддержка веб и мобильного интерфейса
+- Поддержка входа через социальные сети
+- Фиатные предложения на увеличение
+- *Только кошелек, поддерживающий NFT (ERC721 и ERC1155) в Polygon*
+- Поддержка Polygon и Ethereum
+- Удобная интеграция с web3
+- Создан для массовой аудитории
+- Предлагается поддержка клиентов в приложении
 
-By making use of our Web3 provider you are able to leverage the full potential of Arkane with minimal effort and you will be able to onboard users that are less tech savvy without making them leave your application or download third party plugins. Integrating just takes 2 steps and 5 minutes
 
+## Начало работы 🎉 {#getting-started}
+Если вы уже поддерживаете технологию Web3, вы можете улучшить UX вашего приложения, интегрировав провайдер Arkane Web3, дающий смарт-оболочку для существующего Web3 Ethereum JavaScript API.
 
-
-
-**Don't support Web3 yet?**
-> Don't worry we've got you covered with our 📦 [Widget - Arkane Connect](https://arkane.gitbook.io/widget/).
+Используя наш провайдер Web3, вы сможете раскрыть весь потенциал Arkane с минимальными затратами сил, а также привлечь пользователей с невысокой технической грамотностью без необходимости для них выходить из вашего приложения или загружать сторонние плагины. Для интеграции требуется всего 2 шага и 5 минут
 
 
 
 
-### Step 1: Add the library to your project
-Install the library by downloading it to your project via NPM
+**Еще не поддерживаете Web3?**
+> Не волнуйтесь, вам поможет наш 📦 [виджет - Arkane Connect](https://arkane.gitbook.io/widget/).
+
+
+
+
+### Шаг 1: Добавьте библиотеку в ваш проект {#step-1-add-the-library-to-your-project}
+Установите библиотеку, загрузив ее в ваш проект через NPM
 
 ```
 npm i @arkane-network/web3-arkane-provider
 ```
 
-followed by adding the script to the head of your page.
+затем добавьте скрипт в заголовок вашей страницы.
 
 ```
 <script src="/node_modules/@arkane-network/web3-arkane-provider/dist/web3-arkane-provider.js"></script>
 ```
 
-After adding the javascript file to your page, a global Arkane object is added to your window. This object is the gateway for creating the web3 wrapper and fully integrates the widget - Arkane Connect.
+После добавления файла javascript на вашу страницу в ваше окно будет добавлен глобальный объект Arkane. Этот объект является шлюзом для создания оболочек web3 и полностью интегрирует виджет Arkane Connect.
 
-### Step 2: Initialize the web3 provider
-Add the following lines of code to your project, it will load the Arkane web3 provider.
+### Шаг 2: Инициализация провайдера web3 {#step-2-initialize-the-web3-provider}
+Добавьте в ваш проект следующие строки кода, в результате чего будет загружен провайдер Arkane web3.
 
 ```
 Arkane.createArkaneProviderEngine({clientId: ‘Arketype’}).then(provider => {
     web3 = new Web3(provider);
 });
 ```
-The web3 instance now works as if it was injected by parity or metamask. You can fetch wallets, sign transactions, and messages.
-### Congratulations, your dapp now supports Arkane 🎉
-> 🧙 To connect to Arkanes production environment and mainnet, you will need to [register your app](https://arkane-network.typeform.com/to/hzbcGJ) and request your [Client ID](https://arkane.gitbook.io/widget/deep-dive/authentication#client-id).
+Теперь экземпляр web3 работает, как если бы он был вставлен с помощью parity или metamask. Вы сможете доставлять кошельки, подписывать транзакции и доставлять сообщения.
+### Поздравляем, теперь ваше децентрализованное приложение поддерживает Arkane 🎉 {#congratulations-your-dapp-now-supports-arkane}
+> 🧙 Чтобы подключиться к производственной среде и основной сети Arkanes, вам нужно будет [зарегистрировать ваше приложение](https://arkane-network.typeform.com/to/hzbcGJ) и запросить ваш [идентификатор клиента](https://arkane.gitbook.io/widget/deep-dive/authentication#client-id).
 
-Want to know more about the wonderful world Arkane has to offer, [check out their documentation](https://arkane.gitbook.io/widget/)
+Если вы хотите узнать больше о чудесном мире, который предлагает Arkane, [почитайте их документацию](https://arkane.gitbook.io/widget/)
 
-## Showcase videos
-#### Send Matic tokens to an email address on Polygon
-[![Send Matic tokens to an email address on Polygon Network](https://i.snipboard.io/OzXmrN.jpg)](https://www.youtube.com/watch?v=3gehPvX4DOo&list=PLh3bJA02WlKErlpDexw_cFOlPfMQiU67U&index=1)
+## Показать видео {#showcase-videos}
+#### Отправьте токены Matic на адрес электронной почты в Polygon {#send-matic-tokens-to-an-email-address-on-polygon}
+[![Отправьте токены Matic на адрес электронной почты в сети Polygon](https://i.snipboard.io/OzXmrN.jpg)](https://www.youtube.com/watch?v=3gehPvX4DOo&list=PLh3bJA02WlKErlpDexw_cFOlPfMQiU67U&index=1)
 
-#### Transfer of a Matic NFT
-[![Transfer of a Matic NFT](https://i.snipboard.io/dLkM3t.jpg)](https://www.youtube.com/watch?v=SLxAIXRv7ec&list=PLh3bJA02WlKErlpDexw_cFOlPfMQiU67U)
+#### Трансфер Matic NFT {#transfer-of-a-matic-nft}
+[![Трансфер Matic NFT](https://i.snipboard.io/dLkM3t.jpg)](https://www.youtube.com/watch?v=SLxAIXRv7ec&list=PLh3bJA02WlKErlpDexw_cFOlPfMQiU67U)
 
 
