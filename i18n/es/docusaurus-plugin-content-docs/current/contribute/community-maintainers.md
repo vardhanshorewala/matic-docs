@@ -1,8 +1,8 @@
 ---
 id: wiki-maintainers
-title: Wiki Maintainers
+title: Mantenedores de Wiki
 sidebar_label: Maintainers
-description: A list of Polygon Wiki maintainers
+description: Una lista de mantenedores de Polygon Wiki
 keywords:
   - docs
   - matic
@@ -15,29 +15,29 @@ image: https://matic.network/banners/matic-network-16x9.png
 slug: community-maintainers
 ---
 
-The following is a list of regular contributors to the Polygon Wiki that include their contact information.
+La siguiente es una lista de colaboradores regulares en el Wiki de Polygon que incluyen su información de contacto.
 
-If one of these people ever contacts you directly, first check the contact information to see that it matches the origin of the message, and then feel free to get in touch with someone else on this list to verify the legitimacy of the original inquiry.
+Si una de estas personas alguna vez te contacta directamente, revisa el contacto información para ver que coincide con el origen del mensaje y luego siéntete libre para ponerte en contacto con alguien más de esta lista para verificar la legitimidad del original consulta.
 
-:::warning Employee impersonation is a common type of scam
+:::warning La suplantación de empleados es un tipo de estafa
 
-Always validate the person you are in contact with and see if their contact information matches the origin of the message. It is also a good idea to get in touch with someone else on this list to verify the legitimacy of the original inquiry.
+Validar siempre a la persona con la que estás en contacto y ver si su información de contacto coincide con el origen del mensaje También es una buena idea ponerte en contacto con alguien más de esta lista para verificar la legitimidad de la consulta original.
 
 :::
 
-## Nazim Faour
+## Nazim Faour {#nazim-faour}
 
 - email: [nazim@polygon.technology](mailto:nazim@polygon.technology)
 - telegram: [@NazimFa](https://t.me/NazimFa)
 - github: [Nazeim](https://github.com/Nazeim)
 
-## Vinícius Gomes
+## Vinícius Gomes {#vinícius-gomes}
 
 - email: [vinicius@polygon.technology](mailto:vinicius@polygon.technology)
 - telegram: [@cerberushades86](https://t.me/cerberushades86)
 - github: [cerberushades](https://github.com/cerberushades)
 
-## Danny Salman
+## Danny Salman {#danny-salman}
 
 - email: [danny@polygon.technology](mailto:danny@polygon.technology)
 - telegram: [@dannysalman](https://t.me/dannysalman)
