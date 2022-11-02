@@ -1,7 +1,7 @@
 ---
 id: what-is-polygon
-title: What is Polygon?
-description: "Learn what the Polygon scaling solution is."
+title: ¿Qué es Polygon?
+description: "Descubre lo que es la solución de escalabilidad de Polygon."
 keywords:
   - docs
   - matic
@@ -10,63 +10,63 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Polygon es una solución de camada 2 que logra la escala utilizando cadenas laterales para el cálculo fuera de la cadena y una red descentralizada de validadores de prueba de participación(PoS).
+[Polygon](https://polygon.technology/) es una solución de escalabilidad de la capa 2 que logra la escala utilizando cadenas laterales para la computación fuera de la cadena y de una red descentralizada de validadores de prueba de participación (PoS).
 
-Polygon se esfuerza por resolver los problemas de escalabilidad y usabilidad sin comprometer la descentralización y desfrutando de la comunidad existente de desarrolladores y el ecosistema. Polygon es una solución de escala para plataformas existentes para proporcionar escalabilidad y una experiencia de usuario superior a DApps y funcionalidades del usuario.
+Polygon se esfuerza por resolver los problemas de escalabilidad y usabilidad, sin comprometer la descentralización, y aprovecha la comunidad y el ecosistema de desarrolladores existentes. Polygon es una solución de escalamiento ​off-/sidechain para plataformas existentes, que proporciona escalabilidad y experiencia de usuario superior a DApps y a las funcionalidades de los usuarios.
 
-It is a scaling solution for public blockchains. Polygon PoS supports all the existing Ethereum tooling along with faster and cheaper transactions.
+Es una solución de escalamiento para las cadenas de bloques públicas. Polygon PoS es compatible con todas las herramientas existentes de Ethereum, junto con transacciones más rápidas y baratas.
 
-## Key features & highlights
+## Características y aspectos destacados {#key-features-highlights}
 
-- **Scalability**: Fast, low-cost and secure transactions on Polygon sidechains with finality achieved on mainchain and Ethereum as the first compatible Layer 1 basechain.
-- **High throughput**: Achieved up to 10,000 TPS on a single sidechain on internal testnet; Multiple chains to be added for horizontal scaling.
-- **User experience**: Smooth UX and developer abstraction from mainchain to Polygon chain; native mobile apps and SDK with WalletConnect support.
-- **Security**: Polygon chain operators are themselves stakers in the PoS system.
-- **Public sidechains**: Polygon sidechains are public in nature (vs. individual DApp chains), permissionless and capable of supporting multiple protocols.
+- **Escalabilidad**: Transacciones rápidas, bajo-costo y seguras en las cadenas laterales de Polygon, con la finalidad de que se logre en la cadena principal y Ethereum, como primera base de la capa 1 compatible.
+- **Alto rendimiento**: Se logró hasta 10.000 TPS en una sola cadena lateral en una red de prueba interna; se agregarán varias cadenas para la escala horizontal.
+- **Experiencia del usuario**: la abstracción de los desarrolladores y UX fluida de la cadena principal a la cadena de Polygon; aplicaciones móviles nativas y SDK con soporte de WalletConnect.
+- **Seguridad**: los operadores de cadena de Polygon son los propios participantes del sistema PoS.
+- **Las cadenas laterales**de Polygon son de naturaleza pública (frente a las cadenas DApp individuales), sin permiso y capaces de soportar múltiples protocolos.
 
-The Polygon system was consciously architected to support arbitrary state transitions on Polygon sidechains, which are EVM-enabled.
+El sistema Polygon, de forma consciente, fue arquitecto para soportar transiciones estatales arbitrarias en las cadenas laterales de Polygon, que están habilitadas por EVM.
 
-## Delegator and Validator Roles
+## Funciones de delegado y validador {#delegator-and-validator-roles}
 
-You can participate on the Polygon network as a delegator or validator. See:
+Puedes participar en la red Polygon, como un delegado o validador. Ver:
 
-* [Who is a Validator](/docs/maintain/polygon-basics/who-is-validator)
-* [Who is a Delegator](/docs/maintain/polygon-basics/who-is-delegator)
+* [Quién es un validador](/docs/maintain/polygon-basics/who-is-validator)
+* [Quién es un delegado](/docs/maintain/polygon-basics/who-is-delegator)
 
-## Architecture
+## Arquitectura {#architecture}
 
-If your goal is to become a validator, it is essential that you understand the Polygon architecture.
+Si tu objetivo es convertirte en validador, es esencial que comprendas la arquitectura de Polygon.
 
-See [Polygon Architecture](/docs/maintain/validator/architecture) for more information.
+Para más información, consulta [la arquitectura de](/docs/maintain/validator/architecture) Polygon.
 
-### Components
+### Componentes {#components}
 
-To have a granular understanding of Polygon's architecture, check out the core components:
+Para tener una comprensión granular de la arquitectura de Polygon, consulta los componentes principales:
 
 * [Heimdall](/docs/pos/heimdall/overview)
 * [Bor](/docs/pos/bor/overview)
-* [Contracts](/docs/pos/contracts/stakingmanager)
+* [Contratos](/docs/pos/contracts/stakingmanager)
 
-#### Codebases
+#### Bases de código {#codebases}
 
-To have a granular understanding of the core components, see the following codebases:
+Para tener una comprensión granular de los componentes principales, consulta los siguientes códigos de configuración:
 
 * [Heimdall](https://github.com/maticnetwork/heimdall)
 * [Bor](https://github.com/maticnetwork/bor)
-* [Contracts](https://github.com/maticnetwork/contracts)
+* [Contratos](https://github.com/maticnetwork/contracts)
 
-## How-tos
+## Cómo hacer {#how-tos}
 
-### Node setup
+### Configuración de nodo: {#node-setup}
 
-There are basically two ways of running a Validator Node on Polygon, using Ansible or directly from the binaries. You can check how to do this with the links below:
+Básicamente, hay dos formas de ejecutar un nodo de validador en Polygon, utilizando Ansible o directamente desde los binarios. Puedes comprobar cómo hacerlo con los siguientes enlaces:
 
-* [Run a Validator Node with Ansible](/docs/maintain/validate/run-validator-ansible)
-* [Run a Validator Node from Binaries](/docs/maintain/validate/run-validator-binaries)
+* [Ejecuta un nodo de validador con Ansible](/docs/maintain/validate/run-validator-ansible)
+* [Ejecuta un nodo de validador desde Binarios](/docs/maintain/validate/run-validator-binaries)
 
-### Staking operations
+### Operaciones de apilamiento {#staking-operations}
 
-Check how the staking process is carried out for the validator and delegator profiles:
+Consulta cómo se lleva a cabo el proceso de apuesta para los perfiles de los validadores y delegados:
 
-* [Validator Staking Operations](docs/maintain/validate/validator-staking-operations)
-* [Delegate](/docs/maintain/delegate/delegate)
+* [Operaciones de apuesta de los validadores](docs/maintain/validate/validator-staking-operations)
+* [Delegado](/docs/maintain/delegate/delegate)

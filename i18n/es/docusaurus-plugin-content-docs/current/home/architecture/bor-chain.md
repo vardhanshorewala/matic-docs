@@ -1,14 +1,14 @@
 ---
 id: bor-chain
-title: What is BoR-Chain?
+title: ¿Qué es la cadena BoR?
 sidebar_label: Bor Chain
-description: The Bor node or the Block Producer implementation is basically the sidechain operator. The sidechain VM is EVM-compatible.
+description: El nodo Bor o la implementación del productor de bloques es básicamente el operador de la cadena lateral. La cadena lateral VM es compatible con EVM.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-The Bor node or the Block Producer implementation is basically the sidechain operator. The sidechain VM is EVM-compatible. Currently, it is a basic Geth implementation with custom changes done to the consensus algorithm. However, this will be built from the ground up to make it lightweight and focused.
+El nodo Bor o la implementación del productor de bloques es básicamente el operador de la cadena lateral. La cadena lateral VM es compatible con EVM. Hoy en día, es una implementación básica de Geth con cambios personalizados que se realizaron al algoritmo de consenso. No obstante, esto se desarrollará desde cero para que sea liviano y focalizado.
 
-Block producers are chosen from the Validator set and are shuffled using historical Ethereum block hashes for the same purpose. However, we are exploring sources of randomness for this selection.
+Los productores de bloques se pueden elegir desde el conjunto de validadores y rotan mediante hashes de bloques Ethereum históricos con la misma finalidad. No obstante, estamos explorando fuentes de aleatoriedad para esta selección.

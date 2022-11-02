@@ -1,65 +1,66 @@
 ---
 id: polygon-architecture
-title: Polygon PoS Architecture
-description: "Staking, Heimdall and Bor."
+title: Arquitectura PoS de Polygon
+description: "Staking, Heimdall y Bor."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
-
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-Polygon Network is a blockchain application platform that provides hybrid Proof-of-Stake and Plasma-enabled sidechains.
+La red de Polygon es una plataforma de aplicaciones de cadena de bloques que proporciona cadenas laterales híbridas de prueba de participación y habilitadas para Plasma.
 
-Architecturally, the beauty of Polygon is its elegant design, which features a generic validation layer separated from varying execution environments like full-blown EVM sidechains, and in the future, other layer 2 approaches such as zero-knowledge rollups.
+En cuanto a su arquitectura, lo bueno de Polygon consiste en su diseño moderno, que cuenta con una capa de validación genérica separada de entornos de ejecución variados, como cadenas laterales EVM de gran escala y, en el futuro, tendrá otros enfoques de capa 2, como rollups de prueba de conocimiento cero.
 
-To enable the PoS mechanism on our platform, a set of **staking** management contracts are deployed on Ethereum, as well as a set of incentivized validators running **Heimdall** and **Bor** nodes. Ethereum is the first basechain Polygon supports, but Polygon intends to offer support for additional basechains, based on community suggestions and consensus, to enable an interoperable decentralized Layer 2 blockchain platform.
+Para habilitar el mecanismo PoS en nuestra plataforma, se despliegan un conjunto de contratos de administración de **apilamiento** en Ethereum, así como un grupo de validadores incentivados que ejecutan nodos **Heimdall** y **Bor**. Ethereum es la primera basechain compatible con Polygon, pero Polygon busca ofrecer soporte para otras basechains, que se fundamentan en sugerencias de la comunidad y el consenso, como forma de habilitar una plataforma de cadenas de bloques de capa 2 descentralizada e interoperable.
 
-Polygon PoS has a three-layer architecture:
+PoS de Polygon tiene una arquitectura de tres capas:
 
-1. Staking smart contracts on Ethereum
-2. Heimdall (Proof of Stake layer)
-3. Bor (Block producer layer)
+1. Contratos inteligentes de apilamiento en Ethereum
+2. Heimdall (capa de prueba de participación)
+3. Bor (capa de productor de bloques)
 
 <img src={useBaseUrl("img/matic/Architecture.png")} />
 
-### Polygon smart contracts (on Ethereum)
+### Contratos inteligentes de Polygon (en Ethereum) {#polygon-smart-contracts-on-ethereum}
 
-Polygon maintains a set of smart contracts on Ethereum, which handle the following:
+Polygon mantiene una serie de contratos inteligentes en Ethereum, que gestionan lo siguiente:
 
-- Staking management for the Proof-of-Stake layer
-- Delegation management including validator shares
-- Checkpoints/snapshots of sidechain state
+- La administración de staking para la capa de prueba de participación
+- La administración de delegación, que incluye las porciones de los validadores
+- Puntos de verificación/instantáneas del estado de las cadenas laterales
 
-### Heimdall (Proof-of-Stake validator layer)
+### Heimdall (capa validadora de prueba de participación) {#heimdall-proof-of-stake-validator-layer}
 
-**Heimdall** is the PoS validator node that works in consonance with the Staking contracts on Ethereum to enable the PoS mechanism on Polygon. We have implemented this by building on top of the Tendermint consensus engine with changes to the signature scheme and various data structures. It is responsible for block validation, block producer committee selection, checkpointing a representation of the sidechain blocks to Ethereum in our architecture and various other responsibilities.
+**Heimdall** es el nodo validador PoS que funciona en sintonía con los contratos de apilamiento en Ethereum para habilitar el mecanismo PoS en Polygon. Lo hemos implementado a partir de la construcción por encima del motor de consenso Tendermint, con cambios en el esquema de firma y diversas estructuras de datos. Está a cargo de la validación de bloques, de la selección del comité productor de bloques, de la verificación de una representación de los bloques de las cadenas laterales a Ethereum en nuestra arquitectura y también de muchas otras responsabilidades.
 
-Heimdall layer handles the aggregation of blocks produced by Bor into a merkle tree and publishing the merkle root periodically to the root chain. This periodic publishing are called `checkpoints`. For every few blocks on Bor, a validator (on the Heimdall layer):
+La capa Heimdall gestiona la agregación de bloques que produce Bor dentro de un árbol de Merkle y publica la raíz Merkle de forma periódica en la cadena raíz. Estas publicaciones periódicas se denominan `checkpoints`. Por cada algunos bloques en Bor, un validador (en la capa Heimdall) realiza lo siguiente:
 
-1. Validates all the blocks since the last checkpoint
-2. Creates a merkle tree of the block hashes
-3. Publishes the merkle root to the main chain
+1. Valida todos los bloques desde el último punto de verificación
+2. Crea un árbol de Merkle de los hashes de los bloques
+3. Publica la raíz de Merkle en la cadena principal
 
-Checkpoints are important for two reasons:
+Los puntos de verificación son importantes por dos razones:
 
-1. Providing finality on the Root Chain
-2. Providing proof of burn in withdrawal of assets
+1. Proporcionan una finalización en la cadena raíz
+2. Proporcionan prueba de quemado en el retiro de activos
 
-A bird’s eye view of the process can be explained as:
+Un panorama general del proceso se puede explicar de la siguiente manera:
 
-- A subset of active validators from the pool are selected to act as block producers for a span. The Selection of each span will also be consented by at least 2/3 in power. These block producers are responsible for creating blocks and broadcasting it to the remaining of the network.
-- A checkpoint includes the root of all blocks created during any given interval. All nodes validate the same and attach their signature to it.
-- A selected proposer from the validator set is responsible for collecting all signatures for a particular checkpoint and committing the same on the main-chain.
-- The responsibility of creating blocks and also proposing checkpoints is variably dependent on a validator’s stake ratio in the overall pool.
+- se selecciona un subconjunto de validadores activos del grupo para que funcionen como productores de bloques para un span. La selección de cada span también tendrá el consentimiento de una posesión de al menos dos tercios. Estos productores de bloques son responsables de crear bloques y transmitirlos al resto de la red.
+- Un punto de verificación incluye la raíz de todos los bloques que se crearon durante un determinado intervalo. Todos los nodos validan el mismo y le adjuntan su firma.
+- Un proponente de bloques seleccionado del conjunto de validadores es responsable de recopilar todas las firmas para un punto de verificación en particular y de remitir lo mismo en la cadena principal.
+- La responsabilidad de crear bloques y también de proponer puntos de verificación depende, de forma variable, de la proporción de participación de un validador dentro del grupo general.
 
-### Bor (Block Producer Layer)
+### Bor (capa del productor de bloques) {#bor-block-producer-layer}
 
-Bor is Polygon block producer layer - the entity responsible for aggregating transactions into blocks.
+Bor es la capa del productor de bloques Polygon: la entidad responsable de agregar transacciones a los bloques.
 
-Block producers are periodically shuffled via committee selection on Heimdall in durations termed as a `span` in Polygon. Blocks are produced at the **Bor** node and the sidechain VM is EVM-compatible. Blocks produced on Bor are also validated periodically by Heimdall nodes, and a checkpoint consisting of the Merkle tree hash of a set of blocks on Bor is committed to Ethereum periodically.
+Los productores de bloques rotan de forma periódica a través de la selección de un comité en Heimdall en plazos que se denominan `span` en Polygon. Los bloques se producen en el nodo **Bor** y la cadena lateral VM es compatible con EVM. Los bloques que se producen en Bor también se validan de forma periódica por nodos Heimdall y se asigna a Ethereum de forma periódica. un punto de verificación que consiste en el hash del árbol de Merkle de un conjunto de bloques en Bor.
 
-### **:scroll:Resources**
+### **dirigirse:recursos**
 
-:paperclip: [Bor Architecture](https://forum.polygon.technology/t/matic-system-overview-bor/9123) <br/> :paperclip: [Heimdall Architecture](https://forum.polygon.technology/t/matic-system-overview-heimdall/8323) <br/> :paperclip: [Checkpoint Mechanism](https://forum.polygon.technology/t/checkpoint-mechanism-on-heimdall/7160)
+clip de papel: [arquitectura Bor](https://forum.polygon.technology/t/matic-system-overview-bor/9123) <br/>
+ :clip de papel: [arquitectura Heimdall](https://forum.polygon.technology/t/matic-system-overview-heimdall/8323) <br/>
+ :clip de papel: [mecanismo de punto de verificación](https://forum.polygon.technology/t/checkpoint-mechanism-on-heimdall/7160)

@@ -1,140 +1,67 @@
 ---
 id: setup-bor
-title: Setup Bor
-description: Build your next blockchain app on Polygon.
+title: Configurar Bor (capa de producción de bloques)
+description: Desarrolla tu próxima app de cadena de bloques en Polygon.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+### Configurar Bor (capa de producción de bloques) {#setup-bor}
 
-### Setup Bor
+Utiliza la rama `master`o la `develop`rama, que contiene la última liberación estable.
 
-Use the `master` or `develop` branch, which contains the latest stable release.
+    $ mkdir -p $GOPATH/src/github.com/maticnetwork$ cd $ GOPATH/src/github.com/maticnetwork $ git clon https://github.com/maticnetwork/bor cd. bor $ hacer bor-all
+Ahora, tienes instalado bor en tu sistema local y el binario está disponible en el camino.`./build/bin/bor`
 
-    $ mkdir -p $GOPATH/src/github.com/maticnetwork
-    $ cd $GOPATH/src/github.com/maticnetwork
-    $ git clone https://github.com/maticnetwork/bor
-    $ cd bor
-    $ make bor-all
+**Conectarse a la consola (opcional).**
 
-Now, you have bor installed on your local system and the binary is available in the path `./build/bin/bor`
+Este es un paso opcional. No necesitas conectarte a una consola. Solo puedes hacerlo si estás interesado en otros detalles.
 
-**Connecting to console (optional)**
+Al igual que Geth, ¡puedes conectarte a la consola de bor para ejecutar varios tipos de consultas! Desde tu comando `dataDir`ejecutar, el siguiente comando.
 
-This is an optional step. You need not connect to a console. You can do so only if you are interested in other details.
+**contratos de Génesis**
 
-Just like Geth you can connect to bor console to execute various types of queries! From your `dataDir` run the following command.
+    $ cd ~/matic/tesnets Ingresa el submódulo $ git. Actualización de submódulo $ git: $ cd ~/matic/tesnets/genesis-contracts Instalar $ npm Ingresa el submódulo $ git. Actualización de submódulo $ git: $ cd ~/matic/tesnets/genesis-contracts/matic-contracts Instalar $ npm $ Los scripts de los nodos de scripts/process-templates.js --bor-chain-id 15001 $npm ejecuta trufa: compile
+Una vez que son procesadas las plantillas, necesitamos establecer validadores en `tesnets/genesis-contracts/validators.js`archivo. Este archivo debería tener este aspecto:
 
-**Genesis contracts**
+    validadores de const = { dirección: "0x6c468CF8c9879006E22EC4029696E005C2319C9D", Participación de apuesta: 10, // sin 10^18 Saldo: 1000 // sin 10^18 } ]
+Genera el conjunto validador de Bor utilizando el `validators.js`archivo:
 
-    $ cd ~/matic/tesnets
-    $ git submodule init
-    $ git submodule update
-    
-    $ cd ~/matic/tesnets/genesis-contracts
-    $ npm install
-    
-    $ git submodule init
-    $ git submodule update
-    $ cd ~/matic/tesnets/genesis-contracts/matic-contracts
-    $ npm install
-    $ node scripts/process-templates.js --bor-chain-id 15001
-    $ npm run truffle:compile
+    $ cd ~/matic/testnets/genesis-contracts nodo de $ generate-borvalidatorset.js --bor-chain-id 15001 --heimdall-chain-id heimdall-P5rXwg.
+Este comando generará`genesis-contracts/contracts/BorValidatorSet.sol`.
 
-Once templates are processed, we need to set validators in `tesnets/genesis-contracts/validators.js` file. This file should look like this:
+Genera genesis.json, una vez que `BorValidatorSet.sol`se genera:
 
-    const validators = [
-      {
-        address: "0x6c468CF8c9879006E22EC4029696E005C2319C9D",
-        stake: 10, // without 10^18
-        balance: 1000 // without 10^18
-      }
-    ]
+    $ cd ~/matic/testnets/genesis-contracts nodo de $ generate-genesis.js --bor-chain-id 15001 --heimdall-chain-id heimdall-P5rXwg.
+Esto generará`genesis-contracts/genesis.json`
 
-Generate Bor validator set using `validators.js` file:
+**Iniciar bor**
 
-    $ cd ~/matic/testnets/genesis-contracts
-    $ node generate-borvalidatorset.js --bor-chain-id 15001 --heimdall-chain-id heimdall-P5rXwg
+Una vez que se genera el archivo génesis en`~/matic/tesnets/genesis-contracts/genesis.json`
 
-This command will generate `genesis-contracts/contracts/BorValidatorSet.sol`.
+Prepara el nodo Bor (capa de producción de bloques)
 
-Generate genesis.json, once `BorValidatorSet.sol` is generated: 
+    $ cd ~/matic/testnets/bor-devnet $ bash setup.sh
+Inicia el bor utilizando el siguiente comando:
 
-    $ cd ~/matic/testnets/genesis-contracts
-    $ node generate-genesis.js --bor-chain-id 15001 --heimdall-chain-id heimdall-P5rXwg
+    $ cd ~/matic/testnets/bor-devnet $ bash start.sh 1
+Bor funcionará en el 8545.
 
-This will generate `genesis-contracts/genesis.json`
+Si quieres limpiar Bor y volver a empezar:
 
-**Start bor**
+    $ bash clean.sh $ bash setup.sh $ bash start.sh 1
+### Para probar Bor y Heimdall {#to-test-bor-and-heimdall}
 
-Once genesis file is generated at `~/matic/tesnets/genesis-contracts/genesis.json`
+Para probar Bor y Heimdall, necesitas ejecutar Bor y Heimdall, el servidor de descanso de Heimdall y el puente, todo en paralelo.
 
-Prepare bor node:
+### [Opcional] Ejecuta el servidor de descanso heimdall detrás de un proxy de nginx para el front-end {#run-heimdall-rest-server-behind-nginx-proxy-for-front-end}
 
-    $ cd ~/matic/testnets/bor-devnet
-    $ bash setup.sh
+Sigue estas instrucciones [https://kirillplatonov.com/2017/11/12/simple_reverse_proxy_on_mac_with_nginx/](https://kirillplatonov.com/2017/11/12/simple_reverse_proxy_on_mac_with_nginx/) para ejecutar nginx en la máquina local (mac osx).
 
-Start bor using following command:
+Añade el siguiente contenido `/usr/local/etc/nginx/nginx.conf`y reinicia el nginx:
 
-    $ cd ~/matic/testnets/bor-devnet
-    $ bash start.sh 1
+    worker_processes 1; eventos worker_connections 1024; } http servidor escuchar 80; server_name localhost; ubicación / add_header 'Access-Control-Allow-Origin' * siempre; add_header 'Access-Control-Allow-Credentials': Autorización, autorización, aceptación, origen, DNT, add_header Keep-Alive, agente de usuario, 'Access-Control-Allow-Headers' 'Access-Control-Allow-Headers' control de caché, tipo de contenido, rango de contenido. add_header 'Access-Control-Allow-Methods' POST, OPCIONES, PUBLIQUE, BORRA, PARCH; si ($request_method = 'OPTIONS'): add_header 'Access-Control-Allow-Origin' * siempre; add_header 'Access-Control-Allow-Credentials': Autorización, autorización, aceptación, origen, DNT, add_header Keep-Alive, agente de usuario, 'Access-Control-Allow-Headers' 'Access-Control-Allow-Headers' control de caché, tipo de contenido, rango de contenido. add_header 'Access-Control-Allow-Methods' POST, OPCIONES, PUBLIQUE, BORRA, PARCH; add_header 'Access-Control-Max-Age' 1728000; add_header 'Content-Type': "text/plain charset=UTF-8"; add_header 'Content-Length': 0; regresa 204; proxy_redirect desactivado; $host de proxy_set_header host; proxy_set_header X-real-ip $remote_addr; proxy_set_header X-forward-for $proxy_add_x_forwarded_for; http://127.0.0.1:1317; } }
+Vuelve a cargar nginx utilizando los cambios de configuración:
 
-You will Bor running at 8545.
-
-If you want to clean Bor and start again:
-
-    $ bash clean.sh
-    $ bash setup.sh
-    $ bash start.sh 1
-
-### To test Bor and Heimdall
-
-To test both Bor and Heimdall, you need run Bor and Heimdall, Heimdall's rest-server and Bridge all in parallel.
-
-### [Optional] Run heimdall rest-server behind nginx proxy for front-end
-
-Follow this [https://kirillplatonov.com/2017/11/12/simple_reverse_proxy_on_mac_with_nginx/](https://kirillplatonov.com/2017/11/12/simple_reverse_proxy_on_mac_with_nginx/) instructions to run nginx on local machine (mac osx).
-
-Add following content into `/usr/local/etc/nginx/nginx.conf` and restart nginx:
-
-    worker_processes  1;
-    
-    events {
-        worker_connections 1024;
-    }
-    
-    http {
-        server {
-            listen 80;
-            server_name localhost;
-    
-            location / {
-              add_header 'Access-Control-Allow-Origin' * always;
-              add_header 'Access-Control-Allow-Credentials' 'true';
-              add_header 'Access-Control-Allow-Headers' 'Authorization,Accept,Origin,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
-              add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH';
-    
-              if ($request_method = 'OPTIONS') {
-                add_header 'Access-Control-Allow-Origin' * always;
-                add_header 'Access-Control-Allow-Credentials' 'true';
-                add_header 'Access-Control-Allow-Headers' 'Authorization,Accept,Origin,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
-                add_header 'Access-Control-Allow-Methods' 'GET,POST,OPTIONS,PUT,DELETE,PATCH';
-                add_header 'Access-Control-Max-Age' 1728000;
-                add_header 'Content-Type' 'text/plain charset=UTF-8';
-                add_header 'Content-Length' 0;
-                return 204;
-              }
-    
-              proxy_redirect off;
-              proxy_set_header host $host;
-              proxy_set_header X-real-ip $remote_addr;
-              proxy_set_header X-forward-for $proxy_add_x_forwarded_for;
-              proxy_pass http://127.0.0.1:1317;
-            }
-        }
-    }
-
-Reload nginx using new config changes:
-
-    sudo nginx -s reload
+    Sudo nginx -s recarga

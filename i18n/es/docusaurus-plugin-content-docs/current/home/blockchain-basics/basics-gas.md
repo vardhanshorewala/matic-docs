@@ -1,16 +1,16 @@
 ---
 id: gas
-title: What is Gas?
+title: ¿Qué es Gas?
 sidebar_label: Gas
-description: "How much work a set of actions takes to perform in a blockchain."
+description: "Cuánto trabajo requiere realizar un conjunto de acciones en una cadena de bloques."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-"Gas" is the name for a special unit used in smart contract enabled blockchain networks. It measures how much "work" an action or set of actions takes to perform: for example, to calculate one Keccak256 cryptographic hash it will take 30 gas each time a hash is calculated, plus a cost of 6 more gas for every 256 bits of data being hashed. Every operation that can be performed by a transaction or contract on the platform costs a certain number of gas, with operations that require more computational resources costing more gas than operations that require few computational resources.
+“Gas” es el nombre de una unidad especial que se utiliza en las redes de cadenas de bloques habilitadas por contrato inteligente. Mide cuánto “trabajo” requiere realizar una acción o un conjunto de acciones: por ejemplo, para calcular un hash criptográfico Keccak256, requeriría 30 gas cada vez que se calcula un hash, además de un costo de otros 6 gas por cada 256 bits de datos codificados. Cada operación que se puede realizar por medio de una transacción o contrato en la plataforma cuesta una determinada cantidad de gas, es decir, las operaciones que requieren más recursos computacionales cuestan más gas que las que requieren menos recursos computacionales.
 
-### **:scroll:Resources**
+### **dirigirse:recursos**
 
-:green_book: [What is meant by the term "Gas"?](https://ethereum.stackexchange.com/questions/3/what-is-meant-by-the-term-gas)
+:green_book: [¿Qué significa el término “Gas”?](https://ethereum.stackexchange.com/questions/3/what-is-meant-by-the-term-gas)
