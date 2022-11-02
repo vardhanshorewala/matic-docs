@@ -1,8 +1,8 @@
 ---
 id: nightfall-wallet
-title: Nightfall Wallet
+title: Billetera Nightfall
 sidebar: Nightfall Wallet
-description: "Polygon Nightfall wallet guide."
+description: "Guía de la billetera Nightfall de Polygon"
 keywords:
   - docs
   - matic
@@ -10,177 +10,182 @@ keywords:
   - nightfall
   - wallet
 image: https://matic.network/banners/matic-network-16x9.png
+
 ---
 
-The Polygon Nightfall wallet is a browser wallet that is able to interact with the Nightfall mainnet beta release.
+La billetera Nightfall de Polygon es una billetera de navegador que puede interactuar con la
+ versión beta de la red principal de Nightfall.
 
-:::note Use the Nightfall wallet to make deposits, transfers, and withdrawals
+:::info Utiliza la billetera Nightfall para realizar depósitos, transferencias y retiradas
 
-The following tokens are currently operative:
+### Restricciones {#restrictions}
 
-- MATIC
-- WETH
-- DAI
-- USDC
-
-### Note the following deposit and withdrawal restrictions:
+Mientras Nightfall alcanza un estado de madurez, se aplican las siguientes restricciones:
 
 
-| ERC20 token | Max Deposit | Max Withdraw |
-| ----------- | ----------- | ------------ |
-| MATIC       | 250 MATIC   | 1000 MATIC   |
-| WETH        | 0.25 WETH   | 1 WETH       |
-| DAI         | 250 DAI     | 1000 DAI     |
-| USDT        | 250 USDT    | 1000 USDT    |
-| USDC        | 250 USDC    | 1000 USDC    |
+| Token ERC-20 | Depósito máx. | Retirada máx. |
+|-------------|-------------|--------------|
+| MATIC | 250 MATIC | 1000 MATIC |
+| WETH | 0,25 WETH | 1 WETH |
+| DAI | 250 DAI | 1000 DAI |
+| USDT | 250 USDT | 1000 USDT |
+| USDC | 250 USDC | 1000 USDC |
 
 :::
 
-:::caution Security measures
+:::caution Medidas de seguridad
 
-The Nightfall wallet is tested on a Chrome browser. During Beta, mileage may vary on other browsers.
+La billetera Nightfall ha sido probada en un navegador Chrome. Durante la fase beta, el kilometraje puede variar en otros
+ navegadores.
 
-**We highly recommend you to use Nightfall on Chrome**.
-
-Your wallet keys and transactions are stored in the browser (IndexedDb). This data is currently not exported anywhere for security measures. As a result, you will not have access to your wallet when using a different browser or a different machine unless you transfer the IndexedDB contents, or recover your account.
-
-We may change this in future depending on the Beta phase feedback.
+**Te recomendamos enormemente que uses Nightfall en Chrome**.
 
 :::
 
-## How to connect a Ledger Hardware Wallet to Nightfall
-There is a guide to connect your Ledger Hardware Wallet with Metamask in the official Metamask site [here](https://support.ledger.com/hc/en-us/articles/4404366864657-How-to-access-your-Ledger-Ethereum-ETH-account-via-Metamask?docs=true).
 
-Be sure to connect the Ethereum App in your wallet and enable "blind signing" in the Ethereum App settings.
 
-## What are Commitments?
+## Comenzar {#getting-started}
 
-A commitment is a cryptographic primitive that allows a user to commit to a chosen value while keeping it hidden to others, with the ability to reveal the committed value later.
-
-Every time a user performs a transaction using Nightfall, the browser wallet computes a Zero Knowledge Proof (ZKP) and creates (or nullifies) a commitment. For instance, you create a commitment when you make a deposit and nullify a commitment when you make a withdrawal.
-
-ZKP computation relies on [circuits](../protocol/circuits.md) that define the rules which a transaction must follow to be correct. During Beta, there are a limited number of rules in place which require you to operate as follows:
-
-- The Withdraw value must exactly match the amount in one of the commitments owned
-- [About transfers](#important-information-about-transfers)
-
-The key takeaway is that Nightfall handles commitments. Commitments are created during deposits and transfers, and are spent during transfers and withdrawals transactions. Even though the wallet shows the aggregated commitment value per asset, **commitments are not aggregated together**. When spending a commitment, its value of the commitment spent needs to match exactly an existing commitment, (`withdraw` and `single transfer`) or must be a linear combination of any two commitments owned (`double transfer`).
-
-## Getting Started
-
-Visit the Polygon web [mainnet wallet](https://wallet-beta.polygon.technology) or [testnet wallet](https://wallet.testnet.polygon-nightfall.technology/), connect your MetaMask account and select the Polygon Wallet on the left. If you need help with MetaMask, refer to the [Polygon documentation on MetaMask](../../develop/metamask/tutorial-metamask.md)
+Visita la [billetera web de red principal](https://wallet-beta.polygon.technology) de Polygon o
+ la [billetera de red de prueba](https://wallet.testnet.polygon-nightfall.technology/), conecta tu cuenta de MetaMask
+ y selecciona billetera de Polygon de la izquierda. Si necesitas ayuda con MetaMask, consulta la:
+ [documentación de Polygon sobre MetaMask](../../develop/metamask/tutorial-metamask.md)
 
 ![](../imgs/tools-wallet/polygon-wallet-click-nf.png)
 
-At this point, the wallet will prompt you to Switch to Polygon Network, and a Metamask popup will request to confirm the switch.
+En este momento, la billetera te pedirá que cambies a la red de Polygon, y una ventana emergente de Metamask
+ te solicitará que confirmes el cambio.
 
 ![](../imgs/tools-wallet/polygon-network.png)
 
-Next, in the top wallet section, click in the Dropdown menu and select `Polygon Nightfall`, and a new request to switch to Ethereum Mainnet will appear. Please, accept to switch to Ethereum mainnet to operate with Polygon Nightfall.
+Luego, en la sección superior de la billetera, haz clic en el menú desplegable y selecciona `Polygon Nightfall`, y
+ aparecerá una nueva solicitud para cambiar a una red principal de Ethereum. Por favor, acepta cambiar a la red principal de Ethereum
+ para operar con Polygon Nightfall.
 
 ![](../imgs/tools-wallet/polygon-network-dropdown-nf.png)
 
-If you are working on testnet, the wallet URL will immediatelly take you to the landing page of Polygon Nightfall wallet.
+Si estás trabajando en la red de prueba, la URL de la billetera te llevará inmediatamente a la página de destino de la billetera Nightfall de Polygon.
 
 ![](../imgs/tools-wallet/wallet-main-screen.png)
 
-On your first visit your Nightfall wallet will have to be created. A pop-up should appear for generating a mnemonic and creating the wallet. Click `Generate Mnemonic`, then `Create Wallet`. **Note that you can only use this wallet on your current device**.
+En tu primera visita, habrá que crear tu billetera Nightfall. Debería aparecer una ventana emergente para generar una frase mnemotécnica y crear la billetera. Haz clic en `Generate Mnemonic`, después `Create Wallet`. **Ten en cuenta que solo puedes utilizar esta billetera en tu dispositivo actual**.
 
 ![](../imgs/tools-wallet/generate-mnemonic-create-wallet.png)
 
-At this point you should be able to see both your Metamask and your Nightfall wallet addresses (top-right).
+:::caution Haz una copia de seguridad de tus compromisos y frase mnemotécnica
 
-**Allow a few more minutes to complete wallet setup before start making transactions**.
+Las claves de tu billetera y las transacciones se almacenan en el navegador (IndexedDb). Al igual que la frase mnemotécnica que configuras cuando accedes a la billetera Nightfall por primera vez.
 
-On the bottom left corner of the wallet, the wallet status will show as `Syncing Nightfall`. In this state, the wallet is retrieving the ZK circuits and network state required to perform transactions.
+Asegúrate de almacenar esta frase mnemotécnica en algún lugar seguro. Es la única forma de poder presentar pruebas compatibles con tus fondos en L2. Lo mismo sucede con tus compromisos: no te olvides de guardarlos de forma segura pulsando `export commitments` siempre que uses otro navegador u otra máquina.
+
+:::
+
+**Si pierdes tus compromisos, tus fondos se pierden para siempre**
+
+
+En este momento, deberías poder ver tu MetaMask y las direcciones de tu billetera Nightfall (arriba a la derecha).
+
+**Espera unos minutos más a que termine la configuración de la billetera antes de empezar a hacer transacciones**.
+
+En la esquina inferior izquierda de la billetera, el estado de la billetera aparecerá como `Syncing Nightfall`. En este estado, la billetera está recuperando los
+ circuitos ZK y el estado de la red necesarios para realizar transacciones.
 
 ![](../imgs/tools-wallet/wallet-state-syncing.png)
 
-Please, wait until wallet status changes to `Nightfall Synced`
+Espera hasta que el estado de la billetera cambie a `Nightfall Synced`
 
 ![](../imgs/tools-wallet/wallet-state-synced.png)
 
-### Your wallet address
-Get your Nightfall wallet address from the Nightfall Assets page by clicking on `Receive`.
+
+## Cómo conectar una billetera de hardware Ledger a Nightfall {#how-to-connect-a-ledger-hardware-wallet-to-nightfall}
+Hay una guía para conectar tu billetera de hardware Ledger con MetaMask en el sitio web oficial de MetaMask [aquí](https://support.ledger.com/hc/en-us/articles/4404366864657-How-to-access-your-Ledger-Ethereum-ETH-account-via-Metamask?docs=true).
+
+Asegúrate de conectar la app de Ethereum a tu billetera y de habilitar la "firma a ciegas" en la configuración de la app de Ethereum
+
+
+### La dirección de tu billetera {#your-wallet-address}
+Obtén la dirección de tu billetera Nightfall desde la página de activos de Nightfall pulsando en `Receive`.
 
 ![](../imgs/tools-wallet/nightfall-wallet-address.png)
 
-## How to make deposits
-From the Nightfall Assets page, click on the `Deposit` button to the right of the chosen asset, or navigate to the L2 Bridge page.
+## Cómo realizar depósitos {#how-to-make-deposits}
+Desde la página de activos de Nightfall, pulsa en el botón `Deposit` a la derecha del activo seleccionado o navega hasta la página del puente L2.
 
-1. Check that Transfer mode is set to `Deposit`
-2. Check that the desired token is selected (WETH, MATIC, etc.)
-3. Enter the value to be deposited in your Nightfall wallet, click `Transfer`
-4. Review the transaction on the pop-up
-5. Click `Create Transaction`
+1. Comprueba que el modo de transferencia está establecido como `Deposit`
+2. Comprueba que el token deseado esté seleccionado (WETH, MATIC, etc.)
+3. Introduce el valor que hay que depositar en tu billetera Nightfall y pulsa en `Transfer`
+4. Revisa la transacción en la ventana emergente
+5. Haz clic en `Create Transaction`
 
 ![](../imgs/tools-wallet/deposit-click-transfer.png)
 
-A process will kick off to compute the ZKP and prepare the transaction - grant Metamask with access to your account balances. When this ends, click `Send Transaction` - grant Metamask with further permissions for contract interaction.
+Se iniciará un proceso para calcular el ZKP y preparar la transacción: concede a MetaMask acceso a los saldos de tu cuenta. Cuando esto finalice, pulsa en `Send Transaction`: concede a MetaMask permisos adicionales para la interacción con el contrato.
 
 ![](../imgs/tools-wallet/deposit-tx-created-and-ready-to-be-sent.png)
 
-Go to the Transactions page to [view your deposit](#view-transactions).
+Ve a la página de Transacciones para [ver tu depósito](#view-transactions).
 
-### Important information about deposits
-- [Deposit amounts are restricted](#note-the-following-deposit-and-withdrawal-restrictions) while in Beta
+### Información importante sobre depósitos {#important-information-about-deposits}
+- [Las cantidades depositadas están restringidas](#note-the-following-deposit-and-withdrawal-restrictions) mientras estén en la versión beta
 
-## How to make transfers
-From the Nightfall Assets page, click on the `Send` button to the right of the chosen asset.
+## Cómo realizar transferencias {#how-to-make-transfers}
+Desde la página de activos de Nightfall, haz clic en el botón `Send` a la derecha del activo seleccionado.
 
-1. Enter a valid address existing on the Polygon Nightfall L2
-2. Check that the desired token is selected (WETH, MATIC, etc.)
-3. Enter the value to be transferred from your Nightfall wallet, click `Continue`
+1. Introduce una dirección válida existente en la Polygon Nightfall L2
+2. Comprueba que el token deseado esté seleccionado (WETH, MATIC, etc.)
+3. Introduce valor que hay que transferir desde tu billetera Nightfall, haz clic en `Continue`
 
 ![](../imgs/tools-wallet/send-nf.png)
 
-A process will kick off to compute the ZKP and prepare the transaction. When this ends, click `Send Transaction`.
+Se iniciará un proceso para calcular el ZKP y preparar la transacción. Cuando este proceso termine, haz clic en `Send Transaction`.
 
-Go to the Transactions page to [view your transfer](#view-transactions).
+Ve a la página de Transacciones para [ver tu transferencia](#view-transactions).
 
-### Important information about transfers
-Current ZKP transfer circuits used in Nightfall restrict transfer amounts to either exactly matching the value of one of an existing commitment, or any linear combination of two existing commitments.
+### Información importante sobre transferencias {#important-information-about-transfers}
+Los actuales circuitos de transferencia de ZKP que se usan en Nightfall restringen las cantidades de transferencia a la que coincida exactamente con el valor de
+ un compromiso existente o a cualquier combinación lineal de dos compromisos existentes.
 
-To illustrate transfer restrictions with an example, observe the following commitment sets:
+Para explicar las restricciones de transferencia con un ejemplo, observa los siguientes conjuntos de compromisos:
 
-- Set A: [1, 1, 1, 1, 1, 1]
-- Set B: [2, 2, 2]
-- Set C: [2, 4]
+- Conjunto A: [1, 1, 1, 1, 1, 1]
+- Conjunto B: [2, 2, 2]
+- Conjunto C: [2, 4]
 
-While all three sets have equivalent total sums of 6, only the following transfers are available:
+Aunque los tres conjuntos tienen sumas totales equivalentes a 6, solo están disponibles las siguientes transferencias:
 
-- Set A: Any transfer between 0 and 2 (both excluded)
-- Set B: Any transfer between 0 and 4 (both excluded)
-- Set C: Any transfer between 0 and 6 (both excluded)
+- Conjunto A: cualquier transferencia entre 0 y 2 (ambas excluidas)
+- Conjunto B: cualquier transferencia entre 0 y 4 (ambas excluidas)
+- Conjunto C: cualquier transferencia entre 0 y 6 (ambas excluidas)
 
-To continue with the example, if Alex owns Set C of commitments, available transfers include any amount between 0 and 6, excluding both limit values. If Alex decides to transfer 3.5 to Bob, Alex will end up with a single commitment of 2.5 and Bob will receive a commitment of 3.5 once the block is proposed.
+Para seguir con el ejemplo, si Alex posee el conjunto C de compromisos, las transferencias disponibles incluyen cualquier cantidad entre 0 y 6, excluyendo ambos valores límite. Si Alex decide transferir 3,5 a Bob, Alex terminará con solo compromiso de 2,5 y Bob recibirá un compromiso de 3,5 cuando se proponga el bloque.
 
-On the other hand, if Alex decides to transfer an amount of 6 to Bob, the ZK proof will fail because there won't be a valid combination of commitments.
+Por otro lado, si Alex decide transferir una cantidad de 6 a Bob, la prueba de ZK fallará, ya que no habrá una combinación válida de compromisos.
 
-**It is important to note that these values represent commitments owned**, not e.g. deposits. Further information available on the [commitments](../protocol/commitments.md) section of these docs.
+**Hay que tener en cuenta que estos valores representan compromisos adquiridos**, no p. ej., depósitos. Información adicional disponible en la sección de [compromisos](../protocol/commitments.md) de estos documentos.
 
-## How to make withdrawals
-From the Nightfall Assets page, click on the `Withdraw` button to the right of the chosen asset, or navigate to the L2 Bridge page.
+## Cómo realizar retiradas {#how-to-make-withdrawals}
+Desde la página de activos de Nightfall, pulsa en el botón `Withdraw` a la derecha del activo seleccionado o navega hasta la página del puente L2.
 
-1. Check that Transfer mode is set to `Withdraw`
-2. Check that the desired token is selected (WETH, MATIC, etc.)
-3. Enter the value to be withdrawn from your Nightfall wallet, click on `Transfer`
-4. Review the transaction on the pop-up
-5. Click `Create Transaction`
+1. Comprueba que el modo de transferencia está establecido como `Withdraw`
+2. Comprueba que el token deseado esté seleccionado (WETH, MATIC, etc.)
+3. Introduce el valor que va a retirarse de tu billetera Nightfall y haz clic en `Transfer`
+4. Revisa la transacción en la ventana emergente
+5. Haz clic en `Create Transaction`
 
-A process will kick off to compute the ZKP and prepare the transaction. When this ends, click `Send Transaction`.
+Se iniciará un proceso para calcular el ZKP y preparar la transacción. Cuando este proceso termine, haz clic en `Send Transaction`.
 
-Go to the Transactions page to [view your withdrawal](#view-transactions). After the one week finalization period expires, user will be able to finalize and claim withdrawal amount.
+Ve a la página de Transacciones para [ver tu retirada](#view-transactions). Cuando venza el periodo de finalización de una semana, el usuario
+ podrá finalizar y reclamar la cantidad de retirada.
 
-### Important information about withdrawals
-- Withdraw value must exactly match the amount in one of the commitments owned (more about [about commitments](#learn-about-commitments))
-- Withdrawals have a **one week** finalization period from the moment when the block including the withdraw transaction was created. Once this time period has elapsed, you can finalize the withdrawal to have your funds sent to your Ethereum account.
-- [Withdraw amounts are restricted](#note-the-following-deposit-and-withdrawal-restrictions) while in Beta
-- Withdrawals are an onchain transaction, and will pay for gas fees during the transaction request and also when withdraw is finalized.
+### Información importante sobre retiradas {#important-information-about-withdrawals}
+- El valor de retirada debe coincidir exactamente con la cantidad en uno de los compromisos adquiridos (más información en [acerca de los compromisos](#learn-about-commitments))
+- Las retiradas tienen un periodo de finalización **de una semana** desde el momento en que se creó el bloque incluyendo la transacción de retirada. Cuando este periodo haya transcurrido, puedes finalizar la retirada para que tus fondos sean enviados a tu cuenta de Ethereum.
+- [Las cantidades de retirada están restringidas](#note-the-following-deposit-and-withdrawal-restrictions) mientras estén en la versión beta
+- Las retiradas son una transacción en la cadena y pagará las tarifas de gas durante la solicitud de transacción y también cuando la retirada esté finalizada.
 
 ![](../imgs/tools-wallet/cooling-off-vs-ready.png)
 
-## View transactions
-Check the status of your deposits, transfers and withdrawals on the Transactions page. Note that each transaction is processed as soon as there are enough transactions to produce a block or after 6 hours.
+## Ver transacciones {#view-transactions}
+Comprueba el estado de tus depósitos, transferencias y retiradas en la página de Transacciones. Ten en cuenta que cada transacción se procesa en cuanto hay suficientes transacciones para producir un bloque o después de 6 horas.
 
 ![](../imgs/tools-wallet/transactions.png)
