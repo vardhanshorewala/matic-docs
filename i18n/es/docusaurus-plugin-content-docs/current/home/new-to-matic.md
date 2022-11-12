@@ -1,81 +1,80 @@
 ---
 id: new-to-polygon
-title: New to Polygon?
-description: Build your next blockchain app on Polygon.
+title: ¿Eres nuevo en Polygon?
+description: Desarrolla tu próxima app de cadena de bloques en Polygon.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+Polygon es una solución de escalabilidad para cadenas de bloques públicas. PoS de Polygon es compatible con todas las herramientas existentes de Ethereum, junto con transacciones más rápidas y baratas.
 
-Polygon is a scaling solution for public blockchains. Polygon PoS supports all the existing Ethereum tooling along with faster and cheaper transactions.
+## Tipos de interacción en Polygon {#types-of-interaction-on-polygon}
 
-## Types of Interaction on Polygon
+* [Cadena PoS de Polygon](/docs/develop/getting-started)
+* [Ethereum y Polygon con puente de PoS](https://docs.polygon.technology/docs/develop/ethereum-polygon/pos/getting-started)
+* [Ethereum y Polygon con puente de Plasma](https://docs.polygon.technology/docs/develop/ethereum-polygon/plasma/getting-started)
 
-* [Polygon PoS chain](/docs/develop/getting-started)
-* [Ethereum + Polygon with PoS bridge](https://docs.polygon.technology/docs/develop/ethereum-polygon/pos/getting-started)
-* [Ethereum + Polygon with Plasma bridge](https://docs.polygon.technology/docs/develop/ethereum-polygon/plasma/getting-started)
-
-## Deploy Smart Contracts
+## Desplegar contratos inteligentes {#deploy-smart-contracts}
 
 <!-- ### Are you an Experience Blockchain Developer? -->
 
-* Deploy your Contracts on Polygon
-    - [Using Alchemy](/docs/develop/alchemy)
-    - [Using Chainstack](/docs/develop/chainstack)
-    - [Using QuickNode](/docs/develop/quicknode)
-    - [Using Remix](/docs/develop/remix)
-    - [Using Truffle](/docs/develop/truffle)
-    - [Using Hardhat](/docs/develop/hardhat)
-* Configure the Web3 RPC-URL to https://rpc-mumbai.matic.today, *Everything else remains the same*
+* Desplegar tus contratos en Polygon
+    - [Cómo utilizar Alchemy](/docs/develop/alchemy)
+    - [Cómo utilizar Chainstack](/docs/develop/chainstack)
+    - [Cómo utilizar QuickNode](/docs/develop/quicknode)
+    - [Cómo utilizar Remix](/docs/develop/remix)
+    - [Cómo utilizar Truffle](/docs/develop/truffle)
+    - [Cómo utilizar Hardhat](/docs/develop/hardhat)
+* Configura la RPC-URL de web3 en https://rpc-mumbai.matic.today, *todo lo demás permanece igual*
 
-## What is a Blockchain?
-Simply put, Blockchain is a shared, immutable ledger for recording transactions, tracking assets and building trust. Head over to [Blockchain Basics](blockchain-basics/basics-blockchain.md) to read more.
+## ¿Qué es una cadena de bloques? {#what-is-a-blockchain}
+En términos simples, la cadena de bloques es un libro contable compartido e inalterable para registrar transacciones, hacer seguimiento de activos y establecer confianza. Dirígete a [Conceptos básicos sobre cadena de bloques](blockchain-basics/basics-blockchain.md) para leer más.
 
-:movie_camera: [Your first DApp](https://www.youtube.com/watch?v=rzvk2kdjr2I)
+:movie_camera: [Tu primera aplicación descentralizada](https://www.youtube.com/watch?v=rzvk2kdjr2I)
 
-## What is a Sidechain?
-Think of a Sidechain as a clone of a 'parent' blockchain, supporting transfer of assets to and from the main chain. It is simply an alternate to parent chain that creates a new blockchain with its own mechanism of creating blocks (consensus mechanism). Connecting a sidechain to a parent chain involves setting up a method of moving assets between the chains.
+## ¿Qué es una cadena lateral? {#what-is-a-sidechain}
+Piensa en una cadena lateral como un clon de una cadena de bloques “principal”, que permite transferir activos hacia y desde la cadena principal. Es simplemente una alternativa a la cadena principal, que crea una nueva cadena de bloques con su propio mecanismo de creación de bloques (mecanismo de consenso). La conexión de una cadena lateral a una cadena principal implica configurar un método de trasladar activos entre las cadenas.
 
-:page_facing_up: [Sidechains and Childchains](https://hackernoon.com/what-are-sidechains-and-childchains-7202cc9e5994)
+:page_facing_up: [Cadenas laterales y cadenas secundarias](https://hackernoon.com/what-are-sidechains-and-childchains-7202cc9e5994)
 
-## Validator and delegator roles
+## Funciones de delegador y validador {#validator-and-delegator-roles}
 
-On the Polygon Network, you can be a validator or a delegator. See:
+En la red de Polygon, puedes ser un validador o un delegador. Consulta lo siguiente:
 
-* [Who Is a Validator](/docs/maintain/polygon-basics/who-is-validator)
-* [Who Is a Delegator](/docs/maintain/polygon-basics/who-is-delegator)
+* [Quién es validador](/docs/maintain/polygon-basics/who-is-validator)
+* [Quién es delegador](/docs/maintain/polygon-basics/who-is-delegator)
 
-## Architecture
+## Arquitectura {#architecture}
 
-If your goal is to become a validator, it is essential that you understand the Polygon architecture.
+Si tu objetivo es convertirte en validador, es fundamental que comprendas la arquitectura de Polygon.
 
-See [Polygon Architecture](/docs/maintain/validator/architecture).
+Consulta [Arquitectura de Polygon](/docs/maintain/validator/architecture).
 
-### Components
+### Componentes {#components}
 
-To have a granular understanding of the Polygon architecture, see core components:
+Para tener una comprensión al detalle de la arquitectura de Polygon, consulta los componentes principales:
 
 * [Heimdall](/docs/pos/heimdall/overview)
 * [Bor](/docs/pos/bor/overview)
-* [Contracts](/docs/pos/contracts/stakingmanager)
+* [Contratos](/docs/pos/contracts/stakingmanager)
 
-#### Codebases
+#### Bases de código {#codebases}
 
-To have a granular understanding of the core components, see the codebases:
+Para tener una comprensión al detalle de los componentes principales, consulta las bases de código:
 
 * [Heimdall](https://github.com/maticnetwork/heimdall)
 * [Bor](https://github.com/maticnetwork/bor)
-* [Contracts](https://github.com/maticnetwork/contracts)
+* [Contratos](https://github.com/maticnetwork/contracts)
 
-## How-tos
+## Instructivos {#how-tos}
 
-### Node setup
+### Configuración de nodo {#node-setup}
 
-* [Run a Validator Node with Ansible](/docs/maintain/validate/run-validator-ansible)
-* [Run a Validator Node from Binaries](/docs/maintain/validate/run-validator-binaries)
+* [Ejecuta un nodo validador con Ansible](/docs/maintain/validate/run-validator-ansible)
+* [Ejecuta un nodo validador desde Binaries](/docs/maintain/validate/run-validator-binaries)
 
-### Staking operations
+### Operaciones de Staking {#staking-operations}
 
-* [Validator Staking Operations](/docs/maintain/validate/validator-staking-operations)
-* [Delegate](/docs/maintain/delegate/delegate)
+* [Operaciones de staking de los validadores](/docs/maintain/validate/validator-staking-operations)
+* [Delegar](/docs/maintain/delegate/delegate)

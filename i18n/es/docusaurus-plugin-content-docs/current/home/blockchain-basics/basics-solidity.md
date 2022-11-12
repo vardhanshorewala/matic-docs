@@ -1,43 +1,44 @@
 ---
 id: solidity
-title: What is Solidity?
+title: ¿Qué es Solidity?
 sidebar_label: Solidity
-description: "An object-oriented language for implementing smart contracts."
+description: "Un lenguaje orientado a objetos para la implementación de contratos inteligentes."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-## Solidity<img src = 'https://solidity.readthedocs.io/en/v0.6.11/_images/logo.svg' width='50' />
-Solidity is an object oriented, high-level programming language for implementing smart contracts. It allows to write programs, which governs the behavior of accounts within blockchain network. It is statically typed, supports contract inheritance and has many built-in Contract Libraries. Solidity is similar to programming languages like  C++, Python and JavaScript.
+## Solidity<img src = 'https://solidity.readthedocs.io/en/v0.6.11/_images/logo.svg' width='50'/>
+Solidity es un lenguaje de programación de alto nivel orientado a objetos para implementar contratos inteligentes. Permite escribir programas, que rigen el comportamiento de las cuentas dentro de la red de cadena de bloques. Está tipado estáticamente, admite la herencia de un contrato y tiene muchas librerías de contratos integrados. Solidity es similar a lenguajes de programación como C++, Python y JavaScript.
 
-It comprised of:
+Se compone de:
 - variables
-- operators
-- loops
-- conditionals
-- modifiers
-- functions
-- objects and types
-- events
+- operadores
+- bucles
+- condicionales
+- modificadores
+- funciones
+- objetos y tipos
+- eventos
 - interfaces
-- and handles money transactions!
+- ¡y gestiona transacciones de dinero!
 
-Before jumping to coding with Solidity it is important to familiarize oneself with blockchain's mental models - these are essential because of the contrasting difference in a blockchain application architecture and a common web application architecture. Where we want to go is Web 3.0, where servers and databases are as decentralized as the clients. In other words, clients can also act as servers or databases or both (aka, peer-to-peer). With many-to-many relationships at all levels of the stack, there are no concentrations of control and a single point of failure. The network is maximally distributed.
+Antes de brincar a la codificación con Solidity es importante familiarizarse con los modelos mentales de la cadena de bloques, estos son esenciales, debido a la diferencia que contrasta en una arquitectura de aplicaciones de cadena de bloques y una arquitectura de aplicaciones web común.
+ Donde queremos ir es a la Web 3.0, donde los servidores y las bases de datos están tan descentralizados como los clientes. En otras palabras, los clientes también pueden actuar como servidores o bases de datos o ambas (por ejemplo, entre pares). Con muchas relaciones a todos los niveles de la pila, no hay concentraciones de control y un único punto de fallo. La red se distribuye al máximo.
 
-Essentially the following points need to be kept in mind always:
+Básicamente, hay que tener siempre en cuenta los siguientes puntos:
 
-- Memory is limited - each memory element requires all nodes on the blockchain to confirm and store that element
-- Computation complexity is limited
-- Reading data is free
-- Each write operation has a cost associated with it - you pay it with ether. The cost is measured in gas.
+- La memoria es limitada: cada elemento de memoria requiere que todos los nodos de la cadena de bloques confirmen y almacenen ese elemento
+- La complejidad de los cálculos es limitada
+- La lectura de datos es gratuita
+- Cada operación escrita tiene un costo asociado con ella: lo pagas con ether. El costo se mide en el gas.
 
-#### Tools for Working With Solidity
-- Truffle: DApp development framework
-- Remix:  Web IDE for Solidity
-- Web3
+#### Herramientas para trabajar con Solidity {#tools-for-working-with-solidity}
+- Truffle: Marco de desarrollo de DApp.
+- Remix:  IDE web para Solidity
+- web3
 - Metamask
-### **:scroll:Resources**
+### **:scroll:Recursos**
 
-:books: [Solidity Docs](https://solidity.readthedocs.io/)
+:books: [Documentación de Solidity](https://solidity.readthedocs.io/)
