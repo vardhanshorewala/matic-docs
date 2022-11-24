@@ -82,8 +82,6 @@ Next, in the top wallet section, click in the Dropdown menu and select `Polygon 
 
 If you are working on testnet, the wallet URL will immediatelly take you to the landing page of Polygon Nightfall wallet.
 
-![](../imgs/tools-wallet/wallet-main-screen.png)
-
 On your first visit your Nightfall wallet will have to be created. A pop-up should appear for generating a mnemonic and creating the wallet. Click `Generate Mnemonic`, then `Create Wallet`. **Note that you can only use this wallet on your current device**.
 
 ![](../imgs/tools-wallet/generate-mnemonic-create-wallet.png)
@@ -93,8 +91,6 @@ At this point you should be able to see both your Metamask and your Nightfall wa
 **Allow a few more minutes to complete wallet setup before start making transactions**.
 
 On the bottom left corner of the wallet, the wallet status will show as `Syncing Nightfall`. In this state, the wallet is retrieving the ZK circuits and network state required to perform transactions.
-
-![](../imgs/tools-wallet/wallet-state-syncing.png)
 
 Please, wait until wallet status changes to `Nightfall Synced`
 
@@ -113,8 +109,6 @@ From the Nightfall Assets page, click on the `Deposit` button to the right of th
 3. Enter the value to be deposited in your Nightfall wallet, click `Transfer`
 4. Review the transaction on the pop-up
 5. Click `Create Transaction`
-
-![](../imgs/tools-wallet/deposit-click-transfer.png)
 
 A process will kick off to compute the ZKP and prepare the transaction - grant Metamask with access to your account balances. When this ends, click `Send Transaction` - grant Metamask with further permissions for contract interaction.
 
@@ -182,5 +176,3 @@ Go to the Transactions page to [view your withdrawal](#view-transactions). After
 
 ## View transactions
 Check the status of your deposits, transfers and withdrawals on the Transactions page. Note that each transaction is processed as soon as there are enough transactions to produce a block or after 6 hours.
-
-![](../imgs/tools-wallet/transactions.png)

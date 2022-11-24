@@ -93,7 +93,7 @@ Polygon tiene como objetivo crear un ecosistema para desarrolladores de aplicaci
 
 Por supuesto. La capa de puntos de verificación pública validará todas las transacciones que se produzcan en las cadenas laterales y publicará las pruebas en la cadena principal. A fin de garantizar la seguridad infalible de las transacciones de la cadena lateral, el contrato de Plasma de la cadena principal contiene varias clases de pruebas de fraude donde cualquier transacción de cadena lateral se puede verificar que no tenga alguna actividad fraudulenta. Si alguien comprueba que sí existió, entonces las participaciones de los protagonistas de la cadena lateral implicados en el fraude se reducen y se transfieren a quien lo comprobó. Esto es equivalente a una recompensa por errores por una participación alta que esté siempre en funcionamiento A continuación, se incluye un diagrama práctico para entender esto:
 
-![Captura de pantalla](../../static/img/matic/Architecture.png)
+
 
 ## ¿Implementarás intercambios atómicos? Si fuera así, ¿de qué manera? {#will-you-implement-atomic-swaps-if-yes-how}
 
@@ -129,7 +129,6 @@ Las aplicaciones descentralizadas pueden utilizar de manera sencilla el sistema 
 
 A continuación, encontrarás un diagrama para darte un poco de contexto:
 
-![Captura de pantalla](../../static/img/matic/Merkle.png)
 
 En primer lugar, los nodos de PoA que viste serán Delegados (con prueba de solvencia, es decir, tienen que depositar una gran cantidad de la participación) y se seleccionan básicamente por medio del conocimiento del cliente (KYC) por parte de la capa de PoS, como un nodo de DPoS o DBFT tipo EOS.
 

@@ -15,11 +15,7 @@ If you are looking for a user-friendly Polygon wallet, consider creating an Arka
 
 Navigate to https://arkane.network/ and click the 'YOUR WALLET'-button in the top right corner.
 
-![Sign up to Arkane](img/01.png)
-
 Click 'Create Account' if you are new to Arkane. You can sign up to Arkane with your social credentials or with email and password.
-
-![Create an account](img/02.png)
 
 After signing up with one of your social accounts (fastest) or with your email address and password. You will need to accept the terms and conditions.
 
@@ -44,6 +40,4 @@ Once you've press the button, Arkane will ask you to confirm using your PIN (the
 
 ## 🥳 Congratulations!
 
-You have now created your Polygon wallet to manage your digital assets on the Polygon blockchain. 
-
-
+You have now created your Polygon wallet to manage your digital assets on the Polygon blockchain.

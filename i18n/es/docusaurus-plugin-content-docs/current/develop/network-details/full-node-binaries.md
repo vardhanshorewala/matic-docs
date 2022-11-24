@@ -44,21 +44,7 @@ For snapshot download links, see [Polygon Chains Snapshots](https://snapshots.ma
 - `build-essential` installed on the Full Node machine.
 - To install:
 - `sudo apt-get install build-essential`
-- Go 1.17 installed on both the Full Node machine.<!-- ### To install
-
-```bash wget https://gist.githubusercontent.com/ssandeep/a6c7197811c83c71e5fead841bab396c/raw/go-install.sh
-```
-
-```bash
-go-install.sh
-```
-
-```bash
-sudo ln -nfs ~/.go/bin/go /usr/bin/go
-``` -->
-
-<!-- RabbitMQ installed on both the Full Node machines. See Downloading and Installing RabbitMQ. -->
-
+- Go 1.17 installed on both the Full Node machine.
 
 ## Overview
 
@@ -317,26 +303,6 @@ For snapshot download links, see [Polygon Chains Snapshots](https://snapshots.ma
 - To install:
 - `sudo apt-get install build-essential`
 - Go 1.17 installed on both the Full Node machine.
-
-<!-- ### To install
-
-```bash
-wget https://gist.githubusercontent.com/ssandeep/a6c7197811c83c71e5fead841bab396c/raw/go-install.sh
-```
-
-```bash
-go-install.sh
-```
-
-```bash
-sudo ln -nfs ~/.go/bin/go /usr/bin/go
-```
-
-RabbitMQ installed on both the Full Node machines. See Downloading and Installing RabbitMQ. --><!-- - Two machines — one local machine on which you will run the Ansible playbook; one remote machine — for Full Node.
-- On the local machine, Ansible installed.
-- On the local machine, Python 3.x installed.
-- On the remote machine, make sure Go is not installed.
-- On the remote machine, your local machine's SSH public key is on the remote machine to let Ansible connect to them. -->
 
 
 ## Overview

@@ -29,7 +29,6 @@ Currently, developers can use **Plasma** for specific state transitions for whic
 
 To enable the PoS mechanism on our platform, a set of **staking** management contracts are deployed on Ethereum, and a set of incentivized validators running **Heimdall** and **Bor** nodes. Ethereum is the first basechain Polygon supports, but Polygon intends to offer support for additional basechains to enable an interoperable decentralized Layer 2 blockchain platform based on community suggestions and consensus.
 
-<img src={useBaseUrl("img/matic/Architecture.png")} />;
 
 ## Staking Contracts
 

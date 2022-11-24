@@ -21,7 +21,6 @@ PoS de Polygon tiene una arquitectura de tres capas:
 2. Heimdall (capa de prueba de participación)
 3. Bor (capa de productor de bloques)
 
-<img src={useBaseUrl("img/matic/Architecture.png")} />
 
 ### Contratos inteligentes de Polygon (en Ethereum) {#polygon-smart-contracts-on-ethereum}
 
