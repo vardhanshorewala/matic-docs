@@ -51,7 +51,7 @@ mechanism, the process for admitting new validators into the active set promotes
 of gradual decentralization. Increasing the validator set to 105 also increases the economic security and decentralization
 of the network.
 
-## Validator performance framework
+## Validator Performance Framework
 
 ### Proposed Potential Parameters
 
@@ -88,10 +88,10 @@ deficient status.
 
 ### Notice to Validators
 
-Validators are given 24 hours' notice of the commencement of performance monitoring, with the data set beginning 24 hours
+Validators are given 24 hours notice of the commencement of performance monitoring, with the data set beginning 24 hours
 after the notice is sent.
 
-## Falling below performance benchmarks
+## Falling below Performance Benchmarks
 
 ### Remedial measures and corrective action
 
@@ -115,7 +115,7 @@ forced exit procedure by offboarding the validator from the network by unbonding
 
 The unstaking of the deficient validator would be done as follows:
 
-**Call ForceUnstake function in Polygon Commitchain Contract: 0xFa7D2a996aC6350f4b56C043112Da0366a59b74c**
+**Call `ForceUnstake()` function in Polygon Commitchain Contract: 0xFa7D2a996aC6350f4b56C043112Da0366a59b74c**
 
 ## Validator Admission
 
