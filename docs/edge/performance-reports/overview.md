@@ -11,7 +11,7 @@ keywords:
   - loadbot
 ---
 :::caution 
-Please note that our `loadbot`, which was used for performing these tests, is now depreciated.
+Please note that our `loadbot`, which was used for performing these tests, is now depreciated.  
 :::
 
 | Type | Value | Link to test |
