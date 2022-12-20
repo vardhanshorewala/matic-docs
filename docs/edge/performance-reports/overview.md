@@ -11,7 +11,7 @@ keywords:
   - loadbot
 ---
 :::caution 
-Please note that regular performance testing has been paused from release 0.4.1 due to consensus protocol changes that are being implemented.
+Please note that our `loadbot`, which was used for performing these tests, is now depreciated.
 :::
 
 | Type | Value | Link to test |
