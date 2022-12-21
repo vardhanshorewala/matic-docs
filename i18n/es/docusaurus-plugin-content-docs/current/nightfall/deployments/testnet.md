@@ -1,8 +1,8 @@
 ---
 id: testnet
-title: Red de pruebas
+title: Red de prueba
 sidebar_label: Testnet
-description: "Herramientas, direcciones y enlaces útiles para el despliegue de la red de pruebas. "
+description: "Herramientas, direcciones y enlaces útiles para el despliegue para la red de prueba."
 keywords:
   - docs
   - polygon
@@ -12,37 +12,37 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Polygon Nightfall ya está en vivo en **Goerli**.
+Polygon Nightfall ahora está en vivo en **Goerli**.
 
 ## Herramientas {#tools}
 
 :::note
 
-Se necesita la billetera [Metamask](https://metamask.io/) para interactuar con la billetera Nightfall.
+Para interactuar con la billetera Nightfall necesitarás una billetera [Metamask](https://metamask.io/).
 
 :::
 
-- [Billetera web](https://wallet.testnet.polygon-nightfall.technology) para enviar transacciones a Nightfall Rollup
+- [Billetera Web](https://wallet.testnet.polygon-nightfall.technology) para enviar transacciones al rollup de Nightfall
 
 ## Proponentes {#proposers}
 
-- **Dirección del proponente**:
+- **Direcciones de Proponentes**:
 
 ```bash
     0xCaE0ed659d7821b59bBFd1b6B79260051e5E9111
 ```
-- **URL del proponente (estado de salud)**:
+- **URL del Proponente (comprobar estado)**:
 
 [https://proposer.testnet.polygon-nightfall.technology/healthcheck](https://proposer.testnet.polygon-nightfall.technology/healthcheck)
 
 
-- **Dirección del desafiante**:
+- **Dirección de Challenger**:
 
 ```bash
     0xa55ec93544dd357c14914f67d04da72dBdE6A688
 ```
 
-## Direcciones de contratos {#contract-addresses}
+## Direcciones de contrato {#contract-addresses}
 
 - **Escudo**:
 
@@ -50,7 +50,7 @@ Se necesita la billetera [Metamask](https://metamask.io/) para interactuar con l
    0x2eEeeC446F92c868220CAB1A2ff3cd77937e6560
 ```
 
-- **Estado**:
+- **Declaración**:
 
 ```bash
     0xB7262d293D1cAF4F99DB4468CD5882f06e959A62
