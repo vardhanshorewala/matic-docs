@@ -1,8 +1,8 @@
 ---
 id: nightfall-sdk
-title: SDK
+title: SDK (kit de desarrollo de software)
 sidebar_label: SDK
-description: "SDK de Nightfall"
+description: "SDK (kit de desarrollo de software) Nightfall"
 keywords:
   - docs
   - polygon
@@ -11,25 +11,26 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-## ¿Qué es SDK de Nightfall? {#what-is-nightfall-sdk}
-SDK de Nightfall es un kit de desarrollo de software creado para interactuar con Polygon Nightfall. Le brinda a los desarrolladores un fácil acceso al protocolo Nightfall abriendo numerosas posibilidades de utilizar en cualquier aplicación.
+## Qué es el SDK Nightfall {#what-is-nightfall-sdk}
+El SDK Nightfall es un kit de desarrollo de software creado para interactuar con Polygon Nightfall. Brinda a los desarrolladores un fácil acceso al protocolo Nightfall, abriendo numerosas posibilidades de uso en cualquier aplicación.
 
-## Descripción general de SDK {#sdk-overview}
-El SDK proporciona la habilidad de interactuar con las características básicas del Protocolo Nightfall:
-- Depositar tokens ERC-20 desde Ethereum L1 a Polygon Nightfall L2
-- Transferir los compromisos token ERC-20 en Polygon Nightfall L2
-- Retirar los compromisos token ERC-20 de Polygon Nightfall L2 a Ethereum L1
-- Revisar los saldos ERC-20 en Polygon Nightfall L2
-- Exporta e importa los compromisos de la transacción ERC20 de manera segura desde y a Polygon nightfall L2
+## Resumen del SDK (kit de desarrollo de software) {#sdk-overview}
+El SDK (kit de desarrollo de software) ofrece la capacidad de interactuar con las características principales del protocolo Nightfall:
+- Deposita tokens ERC20 de Ethereum L1 en Polygon Nightfall L2
+- Transfiere compromisos de tokens ERC20 a Polygon Nightfall L2
+- Retira compromisos de tokens ERC20 desde Polygon Nightfall L2 a Ethereum L1
+- Consulta los saldos de ERC-20 en Polygon Nightfall L2
+- Exporta de forma segura compromisos de transacción de ERC-20 desde y hacia Polygon Nightfall L2
 
 
-## Cómo comenzar {#getting-started}
-Para configurar Nightfall y el SDK visita [Nightfall SDK Github](https://github.com/maticnetwork/nightfall-sdk#requirements). Ahí se puede encontrar una guía paso a paso sobre cómo utilizarla.
+## Introducción {#getting-started}
+Para configurar Nightfall y el SDK, visita el [Nightfall SDK Github](https://github.com/maticnetwork/nightfall-sdk#requirements).
+Allí encontrarás una guía paso a paso sobre cómo utilizarlo.
 
-## Ejemplos de Scripts {#example-scripts}
-Para obtener una mejor comprensión del poder del protocolo Nightfall, hemos proporcionado scripts de ejemplo dentro del SDK. Estos scripts son una excelente manera de empezar. Son ejemplos prácticos sobre cómo utilizar el SDK y lo que se puede lograr con él. Ejecutarlos localmente brinda la oportunidad de entender Nightfall y lo que hace en segundo plano.
-Las instrucciones de explicación y ejecución se pueden encontrar en el siguiente [enlace](https://github.com/maticnetwork/nightfall-sdk#example-scripts).
+## Scripts de ejemplo {#example-scripts}
+Para comprender mejor la capacidad del protocolo de Nightfall hemos facilitado scripts de ejemplo dentro del SDK (kit de desarrollo de software). Estos scripts son una estupenda manera de empezar. Son ejemplos prácticos sobre cómo usar el SDK y qué puedes conseguir con él. Ejecutarlos localmente ofrece la oportunidad de entender Nightfall y lo qué hace en segundo plano.
+La explicación y las instrucciones de ejecución pueden encontrarse en el siguiente [enlace](https://github.com/maticnetwork/nightfall-sdk#example-scripts).
 
-### ¿Necesitas ayuda adicional? {#need-help}
-Si tienes alguna pregunta o necesitas ayuda, únete al [servidor Discord de Polygon Nightfall](https://discord.com/invite/pZkC3JV2bR).
+### ¿Necesitas ayuda? {#need-help}
+Si tienes alguna duda o necesitas ayuda, únete al [servidor Discord de Polygon Nightfall](https://discord.com/invite/pZkC3JV2bR).
 
