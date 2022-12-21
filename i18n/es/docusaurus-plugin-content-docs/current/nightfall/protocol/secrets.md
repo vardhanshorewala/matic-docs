@@ -1,81 +1,112 @@
 ---
 id: secrets
-title: In Band Secret Distribution
+title: Distribución secreta en banda
 sidebar_label: In Band Secret Distribution
-description: "A solution to encrypt secrets and ensure their decryption."
+description: "Una solución para cifrar los secretos y asegurar su descifrado."
 keywords:
   - docs
   - polygon
   - nightfall
   - secret
   - encryption
+  - key
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+import katex from 'katex';
 
-## Overview
+## Descripción general {#overview}
 
-To ensure a recipient receives the secret information required to spend their commitments, the sender encrypts the secrets (salt, value, tokenId, ercAddress) of the commitment sent to the recipient and proves using ZKP that they encrypted this correctly with the recipient's public key. ElGamal encryption over elliptic curves is used for encryption.
+Para garantizar que un destinatario recibe la información secreta necesaria para usar sus compromisos, el remitente
+cifra los secretos (*salt*, *valor*, *tokenId*, *ercAddress*) del compromiso presentado al destinatario y
+prueba, usando ZKP, que cifraron esto correctamente con la clave pública del destinatario. Se utiliza el paradigma de cifrado híbrido [**KEM-DEM**](https://eprint.iacr.org/2006/265.pdf).
 
-In band secret distribution forces to correctly encrypt the secrets and ensure the recipient is able to decrypt them, thus getting around a plausible-deniability problem where receiver may claim that transmitter didn't do the encryption right and transfer is invalid.
+## Cifrado híbrido KEM-DEM {#kem-dem-hybrid-encryption}
 
-## ElGamal Encryption
 
-### Key Creation
+### Creación de clave {#key-creation}
 
-Use Elliptic curve (here we use Baby Jubjub curve) `E` over a finite field `Fp` where `p` is a large prime and `G` is the generator.
+Utiliza la curva elíptica (aquí utilizamos la curva de Baby Jubjub) `E` sobre un campo finito `Fp` donde `p` es un gran
+primo y `G`es el generador.
 
-Alice then selects a random private key `x` and performs Y = x $\cdot$ G The dot product represents scalar multiplication over the curve E.
+Alice genera una clave asimétrica temporal par   :
+$x_e \; \leftarrow\; \{0, 1\}^{256} \qquad Q_e \coloneqq x_eG$
 
-Alice’s pub key is `(E, p, G, Y)` which she shares with Bob.
+Estas claves se utilizan solo una vez y son únicas para esta transacción, otorgándonos un secreto perfecto por delante.
 
-### Encryption
+### Cifrado {#encryption}
 
-In order to perform encryption of a message `m`, we need this to be represented as a point on the elliptic curve. We will use [Elligator 2](https://dl.acm.org/doi/pdf/10.1145/2508859.2516734) to perform this hash to curve mapping where each `m` will be mapped to a point `M`.
+El proceso de cifrado implica 2 pasos: un paso KEM para derivar una clave de cifrado simétrica de un secreto compartido y un paso DEM para cifrar los textos sin formato utilizando la clave de cifrado.
 
-For every message `M` that Bob wants to encrypt, he picks an ephemeral key `k` which is a random non zero number in field `Fp`. Let us assume Bob wants to encrypt three pieces of information M1, M2 and M3. He will generate the cipher text $R_0$, $S_0$, $R_1$, $S_1$, $R_2$ and $S_2$ as follows:
+### Método clave de encapsulamiento (cifrado) {#key-encapsulation-method-encryption}
+Utilizando la clave privada asimétrica previamente generada, obtenemos un secreto compartido, $key_{DH}$, utilizando Diffie-Hellman estándar. Esto se encuentra en hash junto con la clave pública temporal para obtener la clave de cifrado.
 
-$R_0 = k_1\cdot G$
+$key_{DH} \coloneqq x_eQ_r \qquad key_{enc} \coloneqq H_{K}(key_{DH} \; + \;Q_e)$
 
-$S_0 = M_1 + k_1 \cdot Y$
 
-$R_1 = k_2 \cdot G$
+donde  
+   es la clave pública del destinatario  
 
-$S_1 = M_2 + k_2 \cdot Y$
+$Domain_{K} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-kem'}))$
 
-$R_2 = k_3 \cdot G$
 
-$S_2 = M_3 + k_3 \cdot Y$
+### Método de encapsulamiento de datos (cifrado) {#data-encapsulation-method-encryption}
+Para la eficiencia del circuito, el cifrado utilizado es un bloque de cifrado en modo de contador donde el algoritmo de cifrado es un hash mimc. Dado que las claves temporales son únicas para cada transacción, no hay necesidad de que se incluya un nonce. El cifrado del mensaje $i^{th}$ es el siguiente:
 
-Here $S_0$, $S_1 and $S_2$ are based on point addition and scalar multiplication.
+$c_i \coloneqq H_{D}(key_{enc} + i) + p_i$
 
-Bob then sends the cipher text ($R_0$, $S_0$, $R_1$, $S_1$, $R_2$, $S_2$) to Alice by passing these as public inputs to the proof verification on chain.
+donde  
 
-### Decryption
+$Domain_{D} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-dem'}))$
 
-Alice then decrypts this by using her private key `x` such as:
+Después, el remitente proporciona al destinatario con $(Q_e, \text{ciphertexts})$. Estos se incluyen como parte de la transacción estructurada presentada en cadena.
 
-$M_0 = S_0 - x \cdot R_0$
+### Descifrado {#decryption}
+Para poder descifrar, el destinatario realiza una versión ligeramente modificada de los pasos KEM-DEM.
 
-$M_1 = S_1 - x \cdot R_1$
+### Método de encapsulamiento de la clave (descifrado) {#key-encapsulation-method-decryption}
+Dado $Q_e$, el destinatario es capaz de calcular la clave de cifrado localmente realizando los siguientes pasos.
 
-$M_2 = S_2 - x \cdot R_2$
+$$key_{DH} \coloneqq x_eQ_e \qquad key_{enc} \coloneqq H_{K}(key_{DH} \; + \;Q_e)$$
 
-We then use the inversion of the hash defined in Elligator 2 to recover `m` from `M`.
+donde  
+   es la clave pública del destinatario  
 
-## Derivation and generation of keys
+$Domain_{K} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-kem'}))$
 
-The names of the various keys follow the same terminology as zCash in order to make it easy for those familiar with zCash specification to follow this.
+### Método de encapsulamiento de datos (descifrado) {#data-encapsulation-method-decryption}
+Con $key_{enc}$ and an array of ciphertexts, the $i_{th}$, el texto sin formato  puede ser recuperado mediante lo siguiente:
 
-Generate random secret keys `ask` and `nsk` which belong to the field with prime `BN128_GROUP_ORDER`. `ask` will be used along with `nsk` to separate nullifying and proving ownership. `nsk` is used in a nullifier along with the commitment. Next calculate incoming viewing key `ivk` and diversified transmission key `pkd` as follows:
+$$p_i \coloneqq c_i - H_{D}(key_{enc} + i)$$
 
-$ivk = MiMC(ask, nsk)$
+donde  
 
-$pkd = ivk \cdot G$, where pkd is used in a commitment to describe the owner as well as to encrypt secrets
+$Domain_{D} \coloneqq \text{to\_field}(SHA256(\text{'nightfall-dem'}))$
 
-Both `ask` and `nsk` will need to be securely stored separately from each other and should be rolled from time to time. This way if one of `nsk` or `ask` is leaked, the adversary still cannot provide proof of ownership which requires `ivk` which in turn requires knowledge of `ask` or `nsk` respectively. If both `ask` and `ivk` are leaked, one requires knowledge of `nsk` to nullify. If both `nsk` and `ivk` are leaked, one requires knowledge of `ask` to show that they can derive `ivk` to spend.
 
-`pkd` will also be used in the encryption of secrets by a sender. This will need to be a point on the elliptic curve and we derive this from `ivk` through scalar multiplication. `ivk` will be used to decrypt the secrets. If `ivk` is leaked and as a result the secrets are known to the adversary, they will still need knowledge of `ask` and `nsk` to spend a commitment.
+## Derivación y generación de las diversas claves involucradas en el cifrado, propiedad de los compromisos y el gasto {#derivation-and-generation-of-the-various-keys-involved-in-encryption-ownership-of-commitments-and-spending}
 
-### Acknowledgements
+Utiliza BIP39 para generar una palabra de 12 `mnemonic` y a partir de esto genera una `seed` llamando `mnemonicToSeedSync`.
+Después, siguiendo los estándares de BIP32 y BIP44, genera una `rootKey` basada en esta `seed` y `path`.
 
-Some of the work for in band secret distribution is inspired by zCash. Grateful for their work in this field.
+```
+zkpPrivateKey = mimc(rootKey, 2708019456231621178814538244712057499818649907582893776052749473028258908910)
+where 2708019456231621178814538244712057499818649907582893776052749473028258908910 is keccak256(`zkpPrivateKey`) % BN128_GROUP_ORDER
+
+nullifierKey = mimc(rootKey, 7805187439118198468809896822299973897593108379494079213870562208229492109015n)
+where 7805187439118198468809896822299973897593108379494079213870562208229492109015n is keccak256(`nullifierKey`) % BN128_GROUP_ORDER
+
+zkpPublicKey = zkpPrivateKey * G
+```
+
+Si `rootKey` o `mnemonic` se compromete, entonces el adversario puede calcular la `zkpPrivateKey` y `nullifierKey`.
+La `zkpPrivateKey` puede ser utilizada para descifrar los secretos de un compromiso mientras que la `nullifierKey` puede ser utilizada para gastar el compromiso.
+Por lo tanto, `rootKey` y `mnemonic` deben ser almacenados de manera muy segura.
+
+Las aplicaciones que utilizarán la `ZkpKeys` para generar estas claves pueden almacenar la `rootKey` en diferentes dispositivos mediante la división
+de estos en acciones utilizando el compartimiento secreto de Shamir.
+
+También se recomienda almacenar `zkpPrivateKey` y `nullifierKey` por separado para evitar el robo de los compromisos en caso de que uno de estos
+esté en peligro.
+
+La figura abajo muestra los pasos para derivar las diferentes claves en Nightfall
+![](../imgs/key-derivation.png)
