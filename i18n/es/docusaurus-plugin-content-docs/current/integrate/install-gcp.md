@@ -1,6 +1,6 @@
 ---
 id: install-gcp
-title: Desplegar nodos de Polygon en Google Cloud
+title: Desplegar nodos Polygon en Google Cloud
 sidebar_label: Google Cloud Deployment
 description: "Despliegue simple de tus nodos de Polygon en Google Cloud."
 keywords:
@@ -14,39 +14,39 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 ## Descripción {#description}
 
-En este documento, describiremos cómo desplegar nodos de Polygon en una instancia de VM en Google Cloud
+En este documento, describiremos cómo desplegar los nodos de Polygon en la instancia de VM de Google Cloud.
 
 ## Requisitos de hardware {#hardware-requirements}
 
-Comprueba los [requisitos de hardware](/docs/maintain/validate/validator-node-system-requirements) mínimos y recomendados en los documentos de Polygon
+Revisa las recomendaciones y los [requisitos mínimos de hardware](/docs/maintain/validate/validator-node-system-requirements) en los documentos de Polygon.
 
 ## Requisitos de software {#software-requirements}
 
-Usa cualquier sistema operativo moderno de Linux Ubuntu o Debian con soporte a largo plazo, es decir, Debian 11, Ubuntu 20.04. Nos centraremos en Ubuntu 20.04 en este manual
+Utiliza cualquier SO moderno Debian o Ubuntu Linux con soporte a largo plazo, es decir, Debian 11, Ubuntu 20.04. En este manual, nos centraremos en Ubuntu 20.04.
 
 ## Instancia de despliegue (2 maneras) {#deploy-instance-2-ways}
 
-Puedes usar al menos dos formas de crear una instancia en Google Cloud:
+Hay al menos dos maneras para crear una instancia en Google Cloud:
 
 * gcloud cli, local o [Cloud Shell](https://cloud.google.com/shell)
-* Consola web
+* Consola de web
 
-Abordaremos el primero caso en este manual. Comencemos con el despliegue utilizando CLI:
-1. Sigue la [sección "Antes de comenzar"](https://cloud.google.com/compute/docs/instances/create-start-instance#before-you-begin) para instalar y configurar la herramienta de línea de comando de gcloud.
-Presta atención a la región y zona predeterminadas, elige las más cercanas a ti o a tus clientes. Puedes usar [gcping.com](https://gcping.com) para medir la latencia para elegir la ubicación más cercana.
-2. Ajusta las siguientes variables de comando usando tu editor favorito antes de ejecutar, cuando sea necesario
-   * `POLYGON_NETWORK` - elige `mainnet` o la red testnet `mumbai` para ejecutar
-   * `POLYGON_NODETYPE` - elige `archive`, tipo de nodo `fullnode` para ejecutar
-   * `POLYGON_BOOTSTRAP_MODE` - elige bootstrap modo `snapshot` o `from_scratch`
-   * `POLYGON_RPC_PORT` - elige el puerto del nodo bor JSON RPC para escuchar, el valor predeterminado es el que se usó en la creación de la instancia VM y en las reglas de firewall
-   * `EXTRA_VAR` - elige las sucursales de Bor y Heimdall, usa `network_version=mainnet-v1` con la red `mainnet` y `network_version=testnet-v4` con la red `mumbai`
-   * `INSTANCE_NAME` - el nombre de una instancia VM con Polygon que vamos a crear
-   * `INSTANCE_TYPE` - [tipo de máquina](https://cloud.google.com/compute/docs/machine-types) GCP, se recomienda el valor predeterminado, puedes cambiarlo más tarde si es necesario
-   * `BOR_EXT_DISK_SIZE` - tamaño de disco adicional en GB para usar con Bor, se recomienda el valor predeterminado con `fullnode`, puedes expandirlo más tarde si es necesario. Sin embargo, necesitarás 8192GB+ con el nodo `archive`
-   * `HEIMDALL_EXT_DISK_SIZE` - tamaño de disco adicional en GB para usar con Heimdall, se recomienda el valor predeterminado
-   * `DISK_TYPE` - [tipo de disco](https://cloud.google.com/compute/docs/disks#disk-types) GCP, SSD es muy recomendable. Es posible que debas aumentar la cuota total de GB de SSD en la región en la que estás poniendo en marcha el nodo
+Revisaremos el primer caso en este manual. Empecemos con el despliegue con CLI:
+1. Sigue los pasos en la [sección "Antes de comenzar"](https://cloud.google.com/compute/docs/instances/create-start-instance#before-you-begin) para instalar y configurar la herramienta de línea de comandos de gcloud.
+Presta atención en la región y zona por defecto; elige una que tú o tus clientes tengan más cerca. Puedes utilizar [gcping.com](https://gcping.com) para medir la latencia y elegir la ubicación más cercana.
+2. Ajusta las siguientes variables de comandos con tu editor favorito antes de ejecutarlo, cuando sea necesario
+   * `POLYGON_NETWORK`: elige la red de prueba `mainnet` o `mumbai` para ejecutar
+   * `POLYGON_NODETYPE`: elige `archive`, tipo de nodo `fullnode` para ejecutar
+   * `POLYGON_BOOTSTRAP_MODE`: elige el modo de arranque `snapshot` o `from_scratch`
+   * `POLYGON_RPC_PORT`: elige el puerto del nodo de Bor JSON RPC para escuchar; el valor por defecto es lo que se utiliza en la creación de instancias VM y en las reglas de firewall
+   * `EXTRA_VAR`: elige las ramas Bor y Heimdall, utiliza `network_version=mainnet-v1` con la red `mainnet` y `network_version=testnet-v4` con la red `mumbai`
+   * `INSTANCE_NAME`: el nombre de una instancia VM con Polygon que vamos a crear
+   * `INSTANCE_TYPE`: [tipo de máquina](https://cloud.google.com/compute/docs/machine-types) GCP; se recomienda el valor por defecto. Puedes cambiarlo más tarde si es necesario
+   * `BOR_EXT_DISK_SIZE`: tamaño de disco adicional en GB para usar con Bor; `fullnode`se recomienda el valor por defecto con . Puedes ampliarlo más tarde si es necesario. Necesitarás más de 8192 GB con el nodo `archive`
+   * `HEIMDALL_EXT_DISK_SIZE`: tamaño de disco adicional en GB para usar con Heimdall. Se recomienda el valor por defecto
+   * `DISK_TYPE`: [tipo de disco](https://cloud.google.com/compute/docs/disks#disk-types) GCP. Un SSD es altamente recomendable. Es posible que tengas que aumentar la cuota total de GB del SSD en la región en la que estés ejecutando el nodo.
 
-3. Usa el siguiente comando para crear una instancia con los requisitos de hardware y software correctos. En el siguiente ejemplo, desplegamos la `mainnet` de Polygon desde `snapshot` con el modo `fullnode`:
+3. Utiliza el siguiente comando para crear una instancia con los requisitos correctos de hardware y software. En el ejemplo a continuación, desplegamos la `mainnet` de Polygon de `snapshot` con el modo `fullnode`:
 ```bash
    export POLYGON_NETWORK=mainnet
    export POLYGON_NODETYPE=fullnode
@@ -76,13 +76,13 @@ Presta atención a la región y zona predeterminadas, elige las más cercanas a 
    bootcmd:
    - screen -dmS polygon su -l -c bash -c "curl -L https://raw.githubusercontent.com/maticnetwork/node-ansible/master/install-gcp.sh | bash -s -- -n '${POLYGON_NETWORK}' -m '${POLYGON_NODETYPE}' -s '${POLYGON_BOOTSTRAP_MODE}' -p '${POLYGON_RPC_PORT}' -e \"'${EXTRA_VAR}'\"; bash"'
 ```
-La instancia debe crearse durante un par de minutos
+La instancia debería crearse en un par de minutos.
 
 ## Iniciar sesión en la instancia (opcional) {#login-to-instance-optional}
 
-Tomará un par de minutos instalar todo el software requerido y un par de horas descargar una instantánea cuando se seleccione.
-Deberías ver los procesos de `bor` y `heimdalld` en funcionamiento llenando unidades adicionales. Puedes ejecutar los siguientes comandos para comprobarlo.
-Conéctate al servicio SSH de la instancia utilizando el envoltorio SSH de `gcloud`:
+Instalar todo el software necesario llevará un par de minutos, y la descarga de Snapshot cuando se elija, un par de horas.
+Deberías ver que los procesos de trabajo de `bor` y `heimdalld` llenan los discos adicionales. Puedes ejecutar los siguientes comandos para revisarlo.
+Conéctate al servicio de SSH de la instancia con el contenedor de SSH de `gcloud`:
 ```bash
 gcloud compute ssh ${INSTANCE_NAME}
 # inside the connected session
@@ -91,12 +91,12 @@ sudo su -
 ps uax|egrep "bor|heimdalld"
 df -l -h
 ```
-Puedes usar el siguiente comando para observar el progreso de la instalación, es realmente útil en caso de bootstrap de `snapshot`
+Puedes usar el siguiente comando para ver el progreso de la instalación. Es realmente útil en caso de arranque de `snapshot`.
 ```bash
 # inside the connected session
 screen -dr
 ```
-Usa la combinación de teclas `Control+a d` para desconectarte de la revisión del progreso.
+Utiliza la combinación de clave `Control+a d` para desconectarte de la revisión de progreso.
 
 Puedes usar los siguientes comandos para obtener los registros de Bor y Heimdall:
 ```bash
@@ -106,11 +106,11 @@ journalctl -fu heimdalld
 ```
 :::note
 
-Los datos de la cadena de bloques se guardan en unidades adicionales que se conservan por defecto al eliminar la instancia de VM. Debes eliminar los discos adicionales manualmente si ya no necesitas estos datos.
+Los datos de la cadena de bloques se guardan en unidades adicionales que se mantienen por defecto en la eliminación de instancias de VM. Deberás quitar los discos adicionales manualmente si ya no necesitas estos datos.
 
 :::
 
-Al final, obtendrás una instancia como se muestra en el siguiente diagrama:
+Al final, tendrás una instancia como la que se muestra en el siguiente diagrama:
 <img src={useBaseUrl("img/mainnet/polygon-instance.svg")} />
 
-Si encuentras un problema con este manual, no dudes en abrir un [problema](https://github.com/maticnetwork/matic-docs/issues) o [crear un PR](https://github.com/maticnetwork/matic-docs/pulls) en [GitHub](https://github.com/maticnetwork/matic-docs).
+Si tienes algún inconveniente con este manual, no dudes en [preguntarnos](https://github.com/maticnetwork/matic-docs/issues) o [crear una PR](https://github.com/maticnetwork/matic-docs/pulls) en [GitHub](https://github.com/maticnetwork/matic-docs).
