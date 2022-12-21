@@ -1,81 +1,112 @@
 ---
 id: secrets
-title: In Band Secret Distribution
+title: Внутреннее распространение секретов
 sidebar_label: In Band Secret Distribution
-description: "A solution to encrypt secrets and ensure their decryption."
+description: "Решение для шифрования секретов и обеспечения их расшифровки."
 keywords:
   - docs
   - polygon
   - nightfall
   - secret
   - encryption
+  - key
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+import katex from 'katex';
 
-## Overview
+## Обзор {#overview}
 
-To ensure a recipient receives the secret information required to spend their commitments, the sender encrypts the secrets (salt, value, tokenId, ercAddress) of the commitment sent to the recipient and proves using ZKP that they encrypted this correctly with the recipient's public key. ElGamal encryption over elliptic curves is used for encryption.
+Чтобы обеспечить получение получателем секретной информации, необходимой для расходования обязательств, отправитель
+шифрует секреты (*salt*, *value*, *tokenId*, *ercAddress*) обязательства, отправленного получателю, и
+доказывает с помощью ZKP, что эти данные зашифрованы правильно, с помощью публичного ключа получателя. Используется парадигма гибридного шифрования [**KEM-DEM**](https://eprint.iacr.org/2006/265.pdf).
 
-In band secret distribution forces to correctly encrypt the secrets and ensure the recipient is able to decrypt them, thus getting around a plausible-deniability problem where receiver may claim that transmitter didn't do the encryption right and transfer is invalid.
+## Гибридное шифрование KEM-DEM {#kem-dem-hybrid-encryption}
 
-## ElGamal Encryption
 
-### Key Creation
+### Создание ключа {#key-creation}
 
-Use Elliptic curve (here we use Baby Jubjub curve) `E` over a finite field `Fp` where `p` is a large prime and `G` is the generator.
+Используйте эллиптическую кривую (здесь мы используем кривую Baby Jubjub) `E` на конечном поле `Fp`, где `p` — это большой
+порядок, а `G` — это генератор.
 
-Alice then selects a random private key `x` and performs Y = x $\cdot$ G The dot product represents scalar multiplication over the curve E.
+Элис генерирует случайную эфемерную асимметричную пару ключей   :
+$x_e \; \leftarrow\; \{0, 1\}^{256} \qquad Q_e \coloneqq x_eG$
 
-Alice’s pub key is `(E, p, G, Y)` which she shares with Bob.
+Эти ключи используются только один раз и являются уникальными для данной транзакции, обеспечивая нам идеальную прямую секретность.
 
-### Encryption
+### Шифрование {#encryption}
 
-In order to perform encryption of a message `m`, we need this to be represented as a point on the elliptic curve. We will use [Elligator 2](https://dl.acm.org/doi/pdf/10.1145/2508859.2516734) to perform this hash to curve mapping where each `m` will be mapped to a point `M`.
+Процесс шифрования включает два шага: шаг KEM для извлечения симметричного ключа шифрования из общего секрета и шаг DEM для шифрования открытого текста с помощью ключа шифрования.
 
-For every message `M` that Bob wants to encrypt, he picks an ephemeral key `k` which is a random non zero number in field `Fp`. Let us assume Bob wants to encrypt three pieces of information M1, M2 and M3. He will generate the cipher text $R_0$, $S_0$, $R_1$, $S_1$, $R_2$ and $S_2$ as follows:
+### Метод инкапсуляции ключа (шифрование) {#key-encapsulation-method-encryption}
+Используя ранее сгенерированный ассиметричный приватный ключ, мы получаем общий секрет, $key_{DH}$, с помощью стандартного алгоритма Диффи-Хеллмана. Он хэшируется наряду с эфемерным публичным ключом для получения ключа шифрования.
 
-$R_0 = k_1\cdot G$
+$key_{DH} \coloneqq x_eQ_r \qquad key_{enc} \coloneqq H_{K}(key_{DH} \; + \;Q_e)$
 
-$S_0 = M_1 + k_1 \cdot Y$
 
-$R_1 = k_2 \cdot G$
+где  
+   — публичный ключ получателя  
 
-$S_1 = M_2 + k_2 \cdot Y$
+$Domain_{K} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-kem'}))$
 
-$R_2 = k_3 \cdot G$
 
-$S_2 = M_3 + k_3 \cdot Y$
+### Метод инкапсуляции данных (шифрование) {#data-encapsulation-method-encryption}
+Эффективная работы схемы обеспечивается использованием для шифрования блочного шифра в режиме гаммирования, где алгоритмом шифрования является хэш mimc. Учитывая, что эфемерные ключи являются уникальными для каждой транзакции, нет необходимости включать nonce. Шифрование $i^{th}$-сообщения выглядит следующим образом:
 
-Here $S_0$, $S_1 and $S_2$ are based on point addition and scalar multiplication.
+$c_i \coloneqq H_{D}(key_{enc} + i) + p_i$
 
-Bob then sends the cipher text ($R_0$, $S_0$, $R_1$, $S_1$, $R_2$, $S_2$) to Alice by passing these as public inputs to the proof verification on chain.
+где  
 
-### Decryption
+$Domain_{D} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-dem'}))$
 
-Alice then decrypts this by using her private key `x` such as:
+Затем отправитель предоставляет получателю $(Q_e, \text{ciphertexts})$. Они включены в состав структуры транзакции, отправленной в цепочку.
 
-$M_0 = S_0 - x \cdot R_0$
+### Дешифрование {#decryption}
+Чтобы произвести дешифрование, получатель выполняет слегка модифицированную версию шагов KEM-DEM.
 
-$M_1 = S_1 - x \cdot R_1$
+### Метод инкапсуляции ключа (дешифрование) {#key-encapsulation-method-decryption}
+При заданном $Q_e$ получатель может вычислить ключ шифрования локально, выполнив следующие шаги.
 
-$M_2 = S_2 - x \cdot R_2$
+$$key_{DH} \coloneqq x_eQ_e \qquad key_{enc} \coloneqq H_{K}(key_{DH} \; + \;Q_e)$$
 
-We then use the inversion of the hash defined in Elligator 2 to recover `m` from `M`.
+где  
+   — эфемерный публичный ключ  
 
-## Derivation and generation of keys
+$Domain_{K} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-kem'}))$
 
-The names of the various keys follow the same terminology as zCash in order to make it easy for those familiar with zCash specification to follow this.
+### Метод инкапсуляции данных (дешифрование) {#data-encapsulation-method-decryption}
+С $key_{enc}$ and an array of ciphertexts, the $i_{th}$ открытый текст может быть восстановлен следующим образом:
 
-Generate random secret keys `ask` and `nsk` which belong to the field with prime `BN128_GROUP_ORDER`. `ask` will be used along with `nsk` to separate nullifying and proving ownership. `nsk` is used in a nullifier along with the commitment. Next calculate incoming viewing key `ivk` and diversified transmission key `pkd` as follows:
+$$p_i \coloneqq c_i - H_{D}(key_{enc} + i)$$
 
-$ivk = MiMC(ask, nsk)$
+где  
 
-$pkd = ivk \cdot G$, where pkd is used in a commitment to describe the owner as well as to encrypt secrets
+$Domain_{D} \coloneqq \text{to\_field}(SHA256(\text{'nightfall-dem'}))$
 
-Both `ask` and `nsk` will need to be securely stored separately from each other and should be rolled from time to time. This way if one of `nsk` or `ask` is leaked, the adversary still cannot provide proof of ownership which requires `ivk` which in turn requires knowledge of `ask` or `nsk` respectively. If both `ask` and `ivk` are leaked, one requires knowledge of `nsk` to nullify. If both `nsk` and `ivk` are leaked, one requires knowledge of `ask` to show that they can derive `ivk` to spend.
 
-`pkd` will also be used in the encryption of secrets by a sender. This will need to be a point on the elliptic curve and we derive this from `ivk` through scalar multiplication. `ivk` will be used to decrypt the secrets. If `ivk` is leaked and as a result the secrets are known to the adversary, they will still need knowledge of `ask` and `nsk` to spend a commitment.
+## Извлечение и генерация различных ключей, задействованных в шифровании, владении обязательствами и расходовании {#derivation-and-generation-of-the-various-keys-involved-in-encryption-ownership-of-commitments-and-spending}
 
-### Acknowledgements
+С помощью BIP39 генерируйте `mnemonic` из 12 слов, а из нее генерируйте `seed` путем вызова `mnemonicToSeedSync`.
+Затем, следуя стандартам BIP32 и BIP44, генерируйте `rootKey` на основе этой `seed` и `path`.
 
-Some of the work for in band secret distribution is inspired by zCash. Grateful for their work in this field.
+```
+zkpPrivateKey = mimc(rootKey, 2708019456231621178814538244712057499818649907582893776052749473028258908910)
+where 2708019456231621178814538244712057499818649907582893776052749473028258908910 is keccak256(`zkpPrivateKey`) % BN128_GROUP_ORDER
+
+nullifierKey = mimc(rootKey, 7805187439118198468809896822299973897593108379494079213870562208229492109015n)
+where 7805187439118198468809896822299973897593108379494079213870562208229492109015n is keccak256(`nullifierKey`) % BN128_GROUP_ORDER
+
+zkpPublicKey = zkpPrivateKey * G
+```
+
+Если будут скомпрометированы `rootKey` или `mnemonic`, злоумышленник сможет вычислить `zkpPrivateKey` и `nullifierKey`.
+`zkpPrivateKey` может быть использован для дешифрования секретов обязательства, в то время как `nullifierKey` может быть использован для расходования обязательства.
+Поэтому `rootKey` и `mnemonic` должны храниться очень безопасным способом.
+
+Приложения, которые будут использовать `ZkpKeys` для генерации этих ключей, могут хранить `rootKey` в различных устройствах, разделив
+его на доли с помощью совместного использования секретов по схеме Шамира.
+
+Кроме того, рекомендуется хранить `zkpPrivateKey` и `nullifierKey` по отдельности, чтобы предотвратить кражу обязательств в том случае, если один из них будет
+скомпрометирован.
+
+Ниже показаны шаги по извлечению различных ключей в Nightfall
+![](../imgs/key-derivation.png)
