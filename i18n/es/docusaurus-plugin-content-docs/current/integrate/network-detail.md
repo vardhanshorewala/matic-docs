@@ -1,19 +1,19 @@
 ---
 id: network-detail
 title: ¿Cómo leer los detalles de la red?
-description: "Cómo entender la respuesta JSON a los detalles de la red."
+description: "¿Cómo comprender la respuesta JSON a los detalles de la red?"
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Puedes obtener los detalles de la red visitando los siguientes enlaces de soporte compartido.
+Para ver los detalles de la red, dirígete a los siguientes enlaces de asistencia compartida.
 - Configuración de la red: <static.matic.network/network/"network_name"/"version"/index.json>
 
 ## Ejemplo {#example}
 
-Para TestnetV3: https://static.matic.network/network/testnet/v3/index.json
+Para TestnetV3: https://static.matic.network/network/testnet/v3/index.json.
 
 ```js
 {
