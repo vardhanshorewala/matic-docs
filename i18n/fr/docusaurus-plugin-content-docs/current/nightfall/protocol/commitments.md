@@ -1,45 +1,61 @@
 ---
 id: commitments
-title: Commitment Selection
-sidebar_label: Commitment Selection
-description: "Single and double transfer."
+title: Engagements et nullificateurs
+sidebar_label: Commitment and Nullifiers
+description: "Transfert simple et double."
 keywords:
   - docs
   - polygon
   - nightfall
   - commitment
-  - selection
-  - transfer
+  - nullifier
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Current ZKP transfer circuits used in Nightfall are restricted to 2 input - 2 output and 1 input - 1 output transfers, with all inputs and outputs having a value > 0. If a transactor's set of commitments contain primarily low value commitments (dust), they may find it hard to conduct future transfers.
 
-Observe the following value sets
+## Que sont les engagements ? {#what-are-commitments}
+Un engagement est une primitive cryptographique qui permet à un utilisateur de s'engager sur une valeur choisie
+tout en le cachant aux autres, avec la possibilité de révéler la valeur engagée plus tard.
+La confidentialité de la valeur et du destinataire est atteinte de cette manière.
 
-- Set A: [1, 1, 1, 1, 1, 1]
-- Set B: [2, 2, 2]
-- Set C: [2, 4]
+Chaque fois qu'un utilisateur effectue une transaction à l'aide de Nightfall, le portefeuille du navigateur calcule une
+Preuve à divulgation nulle de connaissance (ZKP) et crée (ou annule) un engagement.
+Par exemple, vous créez un engagement lorsque vous effectuez un dépôt ou un transfert et annulez un engagement lorsque vous
+effectuez un transfert ou un retrait.
 
-While all three sets have equivalent total sums, the maximum value transfer that can be transacted by sets A, B, and C are 1, 3, and 5 respectively. This is one of the reasons why large commitments values are preferred. The commitment selection strategy used mitigates this risk by prioritising the use of small value commitments while also minimising the creation of dust commitments.
+Le calcul ZKP s'appuie sur des [circuits](../protocol/circuits.md) qui définissent les règles qu'une
+la transaction doit suivre pour être correcte.
 
-## Single Transfer
-In the base case, whereby a transactor's set contains a commitment of exact value to the target value, it will be used for the transfer.
+L'engagement est utilisé pour masquer les propriétés suivantes :
+- **Adresse ERC du jeton**
+- **Identifiant du jeton**
+- **Valeur**
+- **Propriétaire**
 
-## Double Transfer
-If a single transfer is not possible, a double transfer will be attempted.
+Les engagements sont stockés dans une structure *arbre de Merkle*. La racine de cet *arbre de Merkle* est stockée sur la chaîne.
 
-1. Sort all commitments by value.
-2. Split commitments into two sets based on whether their values are less than (`LT`) or greater than (`GT`) the target value.
-3. If the sum of the two largest values in set `LT` is LESS than the target value:
-    - We cannot arrive at the target value with two elements in this set.
-    - Our two selected commitments will be the smallest commitment in `LT` and the smallest commitment in `GT`.
-    - It is guaranteed that the output (change) commitments will be larger than the input commitment from `LT`.
-4. If the sum of the two largest values in set `LT` is GREATER than the target value:
-    - We use a standard inward search whereby we begin with two pointers, `lhs` and `rhs` at the start and end of the `LT`.
-    - We also track the change difference, this is the change in size of the smallest commitment in this set resulting from this transaction's output.
-    - If the sum of the commitments at the pointers is greater than the target value, we move pointer `rhs` to the left.
-    - Otherwise, we move pointer `lhs` to the right.
-    - The selected commitments are the pair that minimise the change difference. The best case in this scenario is a change difference of -1.
+![](../imgs/commitment.png)
 
-The following picture depicts the commitment selection mechanism. ![](../imgs/commitment-selection-info.png)
+### UTXO {#utxo}
+Les engagements sont créés pendant les dépôts et les transferts, et sont dépensés pendant les transferts et les retraits. **Les engagements ne sont pas agrégés ensemble**. Lors de la dépense d'un engagement, la valeur de l'engagement dépensé est limitée à la valeur d'un maximum de deux engagements détenus.
+
+Les circuits de transfert et de retrait ZKP actuels utilisés dans Nightfall sont limités à 2 entrées - 2 sorties (transfert/retrait d'engagement et changement) hors paiements.
+Si l'ensemble des engagements d'un acteur contient principalement des engagements de faible valeur (résidu), il peut être difficile pour lui d'effectuer des transferts futurs.
+
+Observez les ensembles de valeurs suivants
+
+- **Ensemble A** : [1, 1, 1, 1, 1, 1]
+- **Ensemble B** : [2, 2, 2]
+- **Ensemble C** : [2, 4]
+
+Alors que les trois ensembles ont des sommes totales équivalentes, le transfert de valeur maximale qui peut être traité par les ensembles *A*, *B* et *C* est respectivement de 2, 4 et 6. C'est l'une des raisons pour lesquelles les grandes valeurs d'engagement sont préférées. La stratégie de sélection des engagements utilisée atténue ce risque en donnant la priorité à l'utilisation d'engagements de faible valeur, tout en minimisant la création d'engagements relatifs aux résidus.
+
+
+## Que sont les nullificateurs ? {#what-are-nullifiers}
+Un **nullificateur** est le résultat de la combinaison d'un engagement et de la clé du nullificateur. Une fois que le nullificateur est diffusé sur la chaîne, l'engagement est considéré comme dépensé.
+Les nullificateurs sont stockés sur la chaîne dans le cadre des données d'appel pendant la proposition de bloc.
+
+![](../imgs/nullifier.png)
+
+
+
