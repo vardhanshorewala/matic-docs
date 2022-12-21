@@ -1,45 +1,61 @@
 ---
 id: commitments
-title: Commitment Selection
-sidebar_label: Commitment Selection
-description: "Single and double transfer."
+title: 커밋먼트와 널리파이어
+sidebar_label: Commitment and Nullifiers
+description: "단일 및 이중 이전"
 keywords:
   - docs
   - polygon
   - nightfall
   - commitment
-  - selection
-  - transfer
+  - nullifier
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Current ZKP transfer circuits used in Nightfall are restricted to 2 input - 2 output and 1 input - 1 output transfers, with all inputs and outputs having a value > 0. If a transactor's set of commitments contain primarily low value commitments (dust), they may find it hard to conduct future transfers.
 
-Observe the following value sets
+## 커밋먼트란 무엇입니까? {#what-are-commitments}
+커밋먼트는 선택한 가치를 커밋하고 다른 사람에게 이를 숨길 수 있도록 사용자를 지원하는 암호화 프리미티브입니다.
+커밋한 가치는 나중에 공개할 수 있습니다.
+이러한 방식으로 가치 및 수령인의 기밀성을 확보합니다.
 
-- Set A: [1, 1, 1, 1, 1, 1]
-- Set B: [2, 2, 2]
-- Set C: [2, 4]
+사용자가 나이트폴을 사용하여 트랜잭션을 수행할 때마다 브라우저 지갑은 영지식
+증명(ZKP)을 계산하고 커밋먼트를 생성(또는 무효화)합니다.
+예를 들어, 입금 또는 이전을 할 때는 커밋먼트를 생성하고
+이전 또는 출금을 할 때는 커밋먼트를 무효화합니다.
 
-While all three sets have equivalent total sums, the maximum value transfer that can be transacted by sets A, B, and C are 1, 3, and 5 respectively. This is one of the reasons why large commitments values are preferred. The commitment selection strategy used mitigates this risk by prioritising the use of small value commitments while also minimising the creation of dust commitments.
+ZKP 계산은 올바른 것으로 간주되기 위해 트랜잭션이 따라야만 하는 규칙을 정의하는 [서킷](../protocol/circuits.md)에
+의존합니다.
 
-## Single Transfer
-In the base case, whereby a transactor's set contains a commitment of exact value to the target value, it will be used for the transfer.
+커밋먼트는 다음 속성을 숨기기 위해 사용됩니다.
+- **토큰의 ERC 주소**
+- **토큰 아이디**
+- **값**
+- **소유자**
 
-## Double Transfer
-If a single transfer is not possible, a double transfer will be attempted.
+커밋먼트는 *머클 트리* 구조에 저장됩니다. 이 *머클 트리*의 루트는 온체인에 저장됩니다.
 
-1. Sort all commitments by value.
-2. Split commitments into two sets based on whether their values are less than (`LT`) or greater than (`GT`) the target value.
-3. If the sum of the two largest values in set `LT` is LESS than the target value:
-    - We cannot arrive at the target value with two elements in this set.
-    - Our two selected commitments will be the smallest commitment in `LT` and the smallest commitment in `GT`.
-    - It is guaranteed that the output (change) commitments will be larger than the input commitment from `LT`.
-4. If the sum of the two largest values in set `LT` is GREATER than the target value:
-    - We use a standard inward search whereby we begin with two pointers, `lhs` and `rhs` at the start and end of the `LT`.
-    - We also track the change difference, this is the change in size of the smallest commitment in this set resulting from this transaction's output.
-    - If the sum of the commitments at the pointers is greater than the target value, we move pointer `rhs` to the left.
-    - Otherwise, we move pointer `lhs` to the right.
-    - The selected commitments are the pair that minimise the change difference. The best case in this scenario is a change difference of -1.
+![](../imgs/commitment.png)
 
-The following picture depicts the commitment selection mechanism. ![](../imgs/commitment-selection-info.png)
+### UTXO {#utxo}
+커밋먼트는 입금 및 이전 중에 생성되고 이전 및 출금 트랜잭션 중에 소비됩니다. **커밋먼트는 함께 집계되지 않습니다**. 커밋먼트를 소비할 때 소비하는 커밋먼트의 가치는 소유한 커밋먼트 중 최대 2개 커밋먼트의 가치로 제한됩니다.
+
+나이트폴에서 현재 사용되는 ZKP 이전 및 출금 서킷은 지불을 제외하고 2개의 입력 - 2개의 출력(이전/출금 커밋먼트 및 차액)으로 제한됩니다.
+거래자의 커밋먼트 세트에 주로 가치가 낮은 커밋먼트(더스트)가 포함된 경우 향후 이전 작업을 수행하는 것이 어려울 수 있습니다.
+
+다음 가치 세트를 관찰해 보십시오.
+
+- **세트 A**: [1, 1, 1, 1, 1, 1]
+- **세트 B**: [2, 2, 2]
+- **세트 C**: [2, 4]
+
+세 세트 모두 총합은 동일하지만, 세트 *A*, *B*, *C*에 의해 거래될 수 있는 최대 가치 이전은 각각 2, 4, 6입니다. 이것이 큰 커밋먼트 가치가 선호되는 이유 중 하나입니다. 사용되는 커밋먼트 선택 전략은 더스트 커밋먼트의 생성을 최소화하면서 가치가 낮은 커밋먼트의 사용을 우선시함으로써 이 위험을 완화합니다.
+
+
+## 널리파이어란 무엇입니까? {#what-are-nullifiers}
+**널리파이어**는 커밋먼트 및 널리파이어 키 조합의 결과입니다. 온체인에서 널리파이어가 브로드캐스트되면 커밋먼트는 소비된 것으로 간주됩니다.
+널리파이어는 블록 제안 중에 콜 데이터의 일부로 온체인에 저장됩니다.
+
+![](../imgs/nullifier.png)
+
+
+
