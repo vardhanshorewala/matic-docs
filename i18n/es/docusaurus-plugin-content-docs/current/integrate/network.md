@@ -1,7 +1,7 @@
 ---
 id: network
-title: Networks
-description: Current Testnet and Mainnet status and information.
+title: Redes
+description: Información y estado actual de Testnet y de la red principal.
 keywords:
   - docs
   - matic
@@ -9,18 +9,18 @@ image: https://matic.network/banners/matic-network-16x9.png
 ---
 
 
-- [Network Details](/docs/develop/network-details/network) -> To view network details
-- [Polygon Faucet](https://faucet.polygon.technology/) -> Get TestTokens at Polygon faucet
+- [Detalles de la red](/docs/develop/network-details/network) -> Para ver los detalles de la red
+- [Polygon Faucet](https://faucet.polygon.technology/) -> Obtén TestTokens (tokens de prueba) en Polygon Faucet
 
 
-## Testnets
-| Network        | RPC                                                        | Status  | Parent Chain | Block Explorer                              |
-| -------------- | ---------------------------------------------------------- | ------- | ------------ | ------------------------------------------- |
-| Mumbai Testnet | Sign up for a free RPC link at https://rpc.maticvigil.com/ | Running | Goërli       | [:ledger:](https://mumbai.polygonscan.com/) |
+## Testnets {#testnets}
+| Red | RPC | Estado | Cadena principal | Explorador de bloques |
+|-----------|------|----------------|----------------------------------------------------------------------------------------------------------------|------------------------------------|
+| Testnet de Mumbai | Regístrate para obtener un enlace RPC gratuito en https://rpc.maticvigil.com/ | En ejecución | Goërli | [:libro mayor:](https://mumbai.polygonscan.com/) |
 
 
-## Mainnets
-| Network             | RPC                                                        | Status  | Parent Chain | Block Explorer                       |
-| ------------------- | ---------------------------------------------------------- | ------- | ------------ | ------------------------------------ |
-| **Polygon Mainnet** | Sign up for a free RPC link at https://rpc.maticvigil.com/ | Running | Ethereum     | [:ledger:](https://polygonscan.com/) |
+## Redes principales {#mainnets}
+| Red | RPC | Estado | Cadena principal | Explorador de bloques |
+|---------------|------|------------|------------------------------------------------------------------------------|-------------------------------------
+| **Red principal de Polygon** | Regístrate para obtener un enlace RPC gratuito en https://rpc.maticvigil.com/ | En ejecución | Ethereum | [:libro mayor:](https://polygonscan.com/) |
 
