@@ -1,8 +1,8 @@
 ---
 id: faq
-title: FAQ
+title: Preguntas frecuentes
 sidebar_label: FAQ
-description: Frequently asked questions about Nightfall
+description: Preguntas frecuentes acerca de Nightfall
 keywords:
   - docs
   - polygon
@@ -12,71 +12,65 @@ image: https://matic.network/banners/matic-network-16x9.png
 ---
 
 :::tip
-If you do not find your question in this list, please submit your question on the <ins>**[Polygon Nightfall discord server](https://discord.com/invite/pZkC3JV2bR)**</ins>.
+
+Si no encuentras tu pregunta en esta lista, envía tu pregunta en el <ins>**[servidor Discord de Polygon Nightfall](https://discord.com/invite/pZkC3JV2bR)**</ins>
 :::
 
-## Where can I find the Smart Contracts?
+## ¿Dónde puedo encontrar los contratos inteligentes? {#where-can-i-find-the-smart-contracts}
 
-Polygon Nightfall contracts have been deployed in [testnet Goerli](../deployments/testnet.md) and [mainnet](../deployments/mainnet.md).
+Los contratos Polygon nightfall están desplegados en [la red de pruebas Goerli](../deployments/testnet.md) y en [mainnet](../deployments/mainnet.md).
 
-## What's the state of Polygon Nightfall's security audit?
-Polygon Nightfall is currently undergoing a security audit that is planned to be finished during Q3. Meanwhile, several restrictions have been added to the protocol:
+## ¿Cuál es el estado de la auditoría de seguridad de Polygon Nightfall? {#what-s-the-state-of-polygon-nightfall-s-security-audit}
+Actualmente, Polygon Nightfall está bajo auditoría de seguridad que está prevista terminar durante el tercer trimestre. Mientras tanto, se añadieron varias restricciones al protocolo:
 
-- Single proposer running, and managed by Polygon
-- [Restricted deposit and withdrawal amounts](../tools/nightfall-wallet.md#deposit-and-withdraw-restrictions)
+- Un proponente único en ejecución y gestionado por Polygon
+- [Restricción de los importes de depósito y retiro](../tools/nightfall-wallet.md#deposit-and-withdraw-restrictions)
 
-## How do I set up my Nightfall Wallet?
-There is a complete wallet tutorial [here](../tools/nightfall-wallet.md) with all details on how to get started with Polygon Nightfall wallet.
+## ¿Cómo configuro mi billetera Nightfall? {#how-do-i-set-up-my-nightfall-wallet}
+Puedes encontrar un tutorial completo de la billetera [aquí](../tools/nightfall-wallet.md) con todos los detalles sobre cómo empezar con la billetera Polygon Nightfall.
 
-## How do I connect a Ledger Hardware Wallet to Nightfall Wallet?
-There is a section in the wallet tutorial that explains [how to connect a Ledger Hardware Wallet with Metamask](../tools/nightfall-wallet.md#how-to-connect-a-ledger-hardware-wallet-to-nightfall).
+## ¿Cómo conectar una billetera Ledger Hardware a la billetera Nightfall? {#how-do-i-connect-a-ledger-hardware-wallet-to-nightfall-wallet}
+Hay una sección en el tutorial de la billetera que explica [cómo conectar una billetera Ledger Hardware con Metamask](../tools/nightfall-wallet.md#how-to-connect-a-ledger-hardware-wallet-to-nightfall).
 
-## How long do transfers take on Polygon Nightfall Network from start to finish?
-Current proposer takes transactions from users and makes blocks of up to 32 transactions. As soon as enough transactions are collected to build a block, the transaction will be processed.
+## ¿Cuánto tiempo toman las transferencias en la red de Polygon Nightfall de principio a fin? {#how-long-do-transfers-take-on-polygon-nightfall-network-from-start-to-finish}
+El proponente actual toma las transacciones de los usuarios y hace bloques de hasta 32 transacciones. La transacción se procesará tan pronto como se cobren suficientes transacciones para construir un bloque.
 
-Additionally, there is an upper limit on the block generation period so that at least one block is proposed every 6 hours (regardless of the number of transactions collected by the proposer).
+Además, hay un límite superior en el período de generación de bloques para que por lo menos se proponga un bloque cada 6 horas (independientemente del número de transacciones cobradas por el proponente).
 
-## Who can I transact with?
-To transfer assets within Polygon Nightfall one only needs the `Destination Wallet Address`. Read the wallet tutorial to understand [how to share your Wallet Address](../tools/nightfall-wallet.md#your-wallet-address) to receive funds.
+## ¿Con quién puedo hacer transacciones? {#who-can-i-transact-with}
+Para realizar transferencia de activos dentro de Polygon Nightfall solo se necesita la `Destination Wallet Address`. Lee el tutorial de la billetera para entender [cómo compartir tu dirección de la billetera](../tools/nightfall-wallet.md#your-wallet-address) para recibir fondos.
 
-## What are some privacy recommendations?
+## ¿Dónde están respaldados los compromisos? {#where-are-commitments-backed-up}
 
-Some privacy guidelines include:
-- Don't deposit a very unique coin value (e.g. 3.1415 USDC) and then withdraw the same amount. People will be able to guess who you probably sent it to. Likewise don't deposit and withdraw exceptionally large values.
-- Withdraw different amounts from what you deposit. This makes it harder to guess who you paid.
-- Wait a while. You should ensure that there are at least a few other transactions between the deposit and withdraw. If there are no other transactions during the time you make a deposit and withdraw, people may be able to guess that they are connected.
-- Don't make regular or predictable transactions. For example, if a deposit from a particular Ethereum address is always made at 12:01 on the first of the month and a withdraw is always made to a particular Ethereum address at 12:05 on the second of the month people may guess that they are related; you expose yourself to statistical analysis even if the amounts are uncorrelated.
+Las pruebas de conocimiento cero se calculan en el navegador para que tus claves secretas permanezcan contigo, y la billetera realiza un seguimiento de cualquier compromiso que poseas, en su IndexedDb. Cualquier persona con acceso a estos datos puede averiguar qué compromisos posees, aunque no pueden robarlos sin tus claves. Las claves solo se descifran al ingresar el mnemónico. Por lo tanto, solo deberías usar la billetera en una máquina en la que confías.
 
-When used correctly, the Polygon Nightfall wallet can provide fully private transfers of ERC20 tokens.
+Por ahora, estos datos no se exportan a ninguna parte. Por lo tanto, si usas un navegador en una máquina diferente, no tendrás acceso a tus compromisos a menos que transfieras los contenidos del IndexedDB. Proporcionamos un mecanismo para exportar e importar compromisos a través de la billetera.
 
-**Privacy of commitments** Zero Knowledge proofs are computed in the browser, so that your secret keys remain with you, and the wallet keeps track of any commitments that you own, in its IndexedDb. Anyone with access to this data can find out which commitments you own, although they can't steal them without your keys. Keys are only decrypted when you enter the mnemonic. Thus you should only use the wallet on a machine which you trust.
+## Privacidad de las transacciones {#privacy-of-transactions}
+Es importante entender que las transacciones de depósito y retiro no son privadas. Eso se debe a que interactúan con la capa 1 y esta no es privada. Esto significa que todo el mundo sabe si creas un compromiso capa 2 y cuánto contiene. Del mismo modo, si devuelves un token a la capa 1 al destruir un compromiso de la capa 2, todo el mundo sabe quién lo recibió y cuánto.
 
-For now, this data is not exported anywhere. Thus, if you use a browser on a different machine, you will not have access to your commitments unless you transfer the IndexedDB contents. We may change this in future, depending on Beta feedback. It's a security versus convenience debate.
-
-**On-chain privacy** It's important to understand that Deposit and Withdraw transactions are not private. That is because they interact with Layer 1 and Layer 1 is not private. This means that everyone knows if you create a Layer 2 commitment and how much it contains. Likewise, if you return a token back to Layer 1 by destroying a Layer 2 commitment, everyone knows who received it and how much.
-
-Privacy comes entirely from transfers within Layer 2. From the point of view of the Ethereum blockchain, these are fully private. The only data leaked is your IP address when you send a transfer transaction to a Block Proposer. For early Beta, Polygon runs the only Proposers.
+La privacidad viene por completo de transferencias dentro de la capa 2. Desde el punto de vista de la cadena de bloques Ethereum, estas son completamente privadas. El único dato filtrado es tu dirección IP cuando envías una transacción de transferencia a un Proponente de bloques. Para la beta inicial, Polygon ejecuta los únicos proponentes.
 
 
-## How to withdraw funds?
-Funds can be withdrawn with Polygon Nightfall wallet. Withdrawals have a **one week** finalization period from the moment when the block including the withdrawal transaction was created. Once this time period has elapsed, you can finalize the withdrawal to have your funds sent to your Ethereum account.
+## ¿Cómo retirar fondos? {#how-to-withdraw-funds}
+Los fondos pueden ser retirados de la billetera Polygon Nightfall. Los retiros tienen un período de finalización de**una semana** desde el momento en que se creó el bloque que incluye la transacción de retiro. Una vez transcurrido este período de tiempo, puedes finalizar el retiro para que tus fondos sean enviados a tu cuenta Ethereum.
 
-## How much will transactions cost on Nightfall?
-There are two types of transactions that bear different costs:
+## ¿Cuánto costarán las transacciones en Nightfall? {#how-much-will-transactions-cost-on-nightfall}
+Hay dos tipos de transacciones que poseen diferentes costos:
 
-- On-chain transactions: These transactions are sent to the smart contract and require gas fees on Ethereum to be mined. Any proposer can take this transaction and put it in a block. Currently, `deposit` and `finalize withdrawal` are on-chain transactions.
-- Off-chain transactions: These transactions are sent directly to the proposer. Currently, all `transfer` and `withdrawals` are configured as off-chain transactions. These transactions cost `1 MATIC` paid in the PoS network.
+- Transacciones en cadena: estas transacciones se envían al contrato inteligente y requieren que se minen las tarifas de gas de Ethereum. Cualquier proponente puede tomar esta transacción y ponerla en un bloque. Actualmente, `deposit` y `finalize withdrawal` son transacciones en cadena.
+- Transacciones fuera de la cadena: estas transacciones se envían directamente al proponente Actualmente, todas las `transfer` y `withdrawals` son configuradas como transacciones fuera de cadena.
 
-## Which tokens can I use on Nightfall Network?
-The following tokens are operative on Nightfall:
+## ¿Qué tokens puedo usar en la red Nightfall? {#which-tokens-can-i-use-on-nightfall-network}
+Los siguientes tokens son operativos en Nightfall:
 
 - MATIC
 - WETH
 - DAI
 - USDC
 
-## Do I need MATIC tokens to use Nightfall?
-Yes. You need MATIC on PoS to be able to send off-chain transactions to the proposer.
+## ¿Necesito tokens MATIC para usar Nightfall? {#do-i-need-matic-tokens-to-use-nightfall}
+Sí. Necesitarás depositar algunos tokens MATIC en Nightfall para poder pagar por `transfers` y `withdrawals`.
 
-## Where can I submit a bug report or contact Nightfall for additional help?
-Best way is to join our [Polygon Nightfall discord server](https://discord.com/invite/pZkC3JV2bR) and submit your question.
+## ¿Dónde puedo presentar un informe de errores o contactar a Nightfall para recibir ayuda adicional? {#where-can-i-submit-a-bug-report-or-contact-nightfall-for-additional-help}
+La mejor manera es unirse a nuestro [servidor Discord de Polygon Nightfall](https://discord.com/invite/pZkC3JV2bR) y enviar tu pregunta.
