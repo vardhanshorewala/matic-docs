@@ -1003,6 +1003,13 @@ module.exports = {
       ]
     },
     "zkEVM/Architecture/zkProver",
+    "zkEVM/1-intro-zkprovers-design-approach",
+    "zkEVM/2-overview-mfibonacci-eg",
+    "zkEVM/3-mfibonacci-state-machine-eg",
+    "zkEVM/4-zkprovers-commitment-scheme",
+    "zkEVM/5-constructing-the-proof-verification",
+    "zkEVM/6-pil-stark-verification",
+    "zkEVM/7-pil-stark-demo",
     "zkEVM/lx-ly-bridge",
     {
       type: "category",
