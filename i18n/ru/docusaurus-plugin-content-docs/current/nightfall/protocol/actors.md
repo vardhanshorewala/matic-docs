@@ -1,8 +1,8 @@
 ---
 id: actors
-title: Actors
+title: Участники
 sidebar_label: Actors
-description: "Types of Actors on Nightfall"
+description: "Типы участников в Nightfall"
 keywords:
   - docs
   - polygon
@@ -15,30 +15,38 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-There are four actors involved in the network:
+В сети действуют четыре участника:
 
-- [Transactors](#transactor)
-- [Proposers](#proposer)
-- [Challengers](#challenger)
-- [Liquidity Providers](#liquidity-provider)
+- [Участники транзакций](#transactor)
+- [Авторы предложений](#proposer)
+- [Оспаривающие узлы](#challenger)
 
-## Transactor
-A Transactor is a regular customer of the service. They wish to make transactions, i.e. Deposit, Transfer and Withdraw privately. These customers typically will use a web wallet or a dedicated server (Client) to perform the ZK Proofs required to generate the transactions.
+## Участник транзакции {#transactor}
+Участник транзакции — это обычный пользователь сервиса. Они хотят совершать транзакции, т. е. выполнять депозит, трансфер и вывод в приватном режиме.
+Эти пользователи обычно используют веб-кошелек или выделенный сервер (клиент) для выполнения доказательств с нулевым разглашением, необходимых для генерации транзакций.
 
-## Proposer
-A Proposer collects the transactions from customers and proposes new updates to the state of the Shield contract. By state, we mean specifically the storage variables associated with a ZKP Transaction: nullifiers, and commitment roots. Update proposals contain several transactions, rolled up into a Layer 2 Block. Only a hash of the final state that would exist after all the transactions in the Block were processed is stored on chain. Transactions become final after a period of 1 week.
+## Автор предложения {#proposer}
+Автор предложения собирает транзакции от пользователей и предлагает новые обновления состояния
+контракта Schield.
+Под состоянием мы понимаем конкретно переменные хранилища, связанные с транзакцией ZKP:
+обнулители и корни обязательств.
+Предложения об обновлении содержат несколько транзакций, свернутых в блок второго уровня. Только хэш
+конечного состояния, который существовал бы после обработки всех транзакций в блоке,
+сохраняется в цепочке. Транзакции становятся окончательными по истечении одной недели.
 
-Anyone can become a Proposer, but they must post some stake. The stake is intended to incentivize good behavior. Proposers make money by providing correct Blocks, collecting fees from transactors. They are somewhat analogous to Miners in a conventional blockchain.
+Любые лица могут стать автором предложения, но они должны разместить определенный стейк. Стейк призван стимулировать добросовестное поведение.
+Авторы предложений зарабатывают деньги, предоставляя правильные блоки, собирая комиссии с участников транзакций. Они в некотором отношении аналогичны майнерам в традиционном блокчейне.
 
-## Challenger
-A Challenger oversees the correctness of blocks proposed within one week after the block was submitted. Anyone can be a Challenger. Challengers take the stake posted by proposers when building their blocks when they successfully submit a challenge.
+## Оспаривающий узел {#challenger}
+Оспаривающий узел контролирует правильность блоков, предложенных в течение одной недели после отправки блока. Любое лицо может выступать в роли оспаривающего узла.
+Оспаривающие узлы берут стейк, размещенный авторами предложений при построении блоков, если они успешно отправят вызов.
 
-## Liquidity Provider
-A Liquidity Provider advances the withdrawal of funds to Transactors for a fee without waiting for the seven days period required to challenge blocks.
 
-## Notes
-In Polygon’s reference implementation, both the Proposer and the Challenger offload some functionality to one common module called Optimist. This Optimist module provides some services to a number of Proposers and Challengers, such as generating and challenging blocks (Proposer and Challengers would need to sign these transactions), synchronizing with blockchain events, etc.
+## Заметки {#notes}
+В эталонной реализации Polygon как автор предложения, так и оспаривающий узел выгружают некоторые функциональные возможности в один общий модуль под названием Optimist.
+Этот модуль Optimist предоставляет определенные сервисы ряду авторов предложений и оспаривающим узлам, такие как генерация и оспаривание блоков
+(автору предложения и оспаривающим узлам необходимо подписать эти транзакции), синхронизация с событиями блокчейна и т. д.
 
-Apart from the Actors described above, there is an additional actor called Client. A Client acts as a trusted service that collects user transactions, performs the ZK Proofs on their behalf, sends transactions to the Proposer, listens to Blockchain events etc. In summary, the Client acts as a trusted relayer for a collection of users that want to offload heavy proof computation and that trust each other.
+Помимо вышеописанных участников, имеется еще один участник, который называется клиентом. Клиент выступает в качестве доверенного сервиса, который собирает транзакции пользователей, выполняет доказательства с нулевым разглашением от их имени, отправляет транзакции автору предложения, отслеживает события блокчейна и т. д. В целом, клиент выступает в качестве доверенного ретранслятора для совокупности пользователей, которые хотят выгрузить интенсивные вычисления доказательства и которые доверяют друг другу.
 
-The alternative to the Client is to use the browser wallet, a serverless service provided by Polygon. This wallet manages all transaction activities for a single user while maintaining privacy.
+Альтернативой клиенту является использование кошелька в браузере (бессерверного сервиса, предоставляемого Polygon). Этот кошелек управляет всеми транзакционными действиями одного пользователя, обеспечивая при этом конфиденциальность.
