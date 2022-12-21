@@ -1,42 +1,48 @@
 ---
 id: ethereum-polygon
 title: Ethereum ↔ Polygon
-description: Build your next blockchain app on Polygon.
+description: Desarrolla tu próxima app de cadena de bloques en Polygon.
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Plasma Secured Solution to transfer your assets from Ethereum to Polygon and vice-versa.
-* Use [matic.js](https://github.com/maticnetwork/matic.js) to interact with the Polygon Plasma contracts.
-
+Solución asegurada por plasma para transferir tus activos Ethereum a Polygon y vice-versa.
+* Utiliza [matic.js](https://github.com/maticnetwork/matic.js) para interactuar con los contratos de Polygon Plasma.
 
 <!-- * [getting-started](https://maticnetwork.github.io/matic.js/): Set-up the environment for maticjs.
 1. [(Ethereum → Matic)](/docs/develop/maticjs/deposit): Deposit assets from root chain to Matic.
 2. [(Matic ↔ Matic)](/docs/develop/maticjs/transfer): Transfer assets between accounts on Matic.
 3. [(Matic → Ethereum)](/docs/develop/maticjs/withdraw): Withdraw assets from Matic to root chain. -->
 
-## Flow
-Here is the Flow with the deployment of your contracts on Polygon and Support for Ethereum↔Polygon.
+## Flujo {#flow}
+Aquí está el flujo con la implementación de tus contratos en Polygon y soporte para Ethereum↔Polygon.
 
-1. User deploys ERC-20 token to Ethereum - XToken
+1. El usuario implementa el token ERC-20 en Ethereum - XToken
 
-2. Now share your contract address with [Polygon](https://t.me/joinchat/HkoSvlDKW0qKs_kK4Ow0hQ). Here is an example request...
-> Hello everyone, We are AwesomeDApp deployed on Polygon. Looking for a solution to transfer my assets from Ethereum to Polygon and vice-versa. <br/><br/> A short description on my AwesomeDApp...<br/><br/> Token_Address on Ropsten-> "0x.."<br/> Token_Name-> "XToken"<br/> Token_Symbol-> "X"<br/> Token_Decimals-> "18"<br/><br/> Requesting you to Map these tokens to Polygon Testnet Version.<br/>
+2. Ahora comparte la dirección de tu contrato con [Polygon](https://t.me/joinchat/HkoSvlDKW0qKs_kK4Ow0hQ). Este es un ejemplo de solicitud...
 
-We will deploy a Child Contract for you on Polygon which can be flexible based on the requirements and mapped to your tokens Ethereum ↔ Polygon.(Deployment on Polygon requires it native token Polygon, which can be deposited from Ethereum to Polygon or can be bought at Secondary Market Place.)
+> Hola a todos, somos AwesomeDApp implementada en Polygon. Buscando una solución para transferir mis activos de Ethereum a Polygon y vice-versa. <br/><br/>
+> Una breve descripción en mi AwesomeDApp...<br/><br/>
+> Token_Address (dirección de token) en Ropsten-> "0x.."<br/>
+> Token_Name-> (nombre de token) "XToken"<br/>
+> Token_Symbol-> (símbolo de token) "X"<br/>
+> Token_Decimals-> (decimales de token) "18"<br/><br/>
+> Se solicita que mapees estos tokens a la versión testnet de Polygon.<br/>
 
-3. User can mint the Xtokens and Transfer on Ethereum. For example let's say 100XToken are mint and then transfer to other another account.
+Implementaremos un contrato secundario para ti en Polygon que puede ser flexible en función de los requisitos y mapeado a tus tokens Ethereum ↔ Polygon.( La implementación en Polygon requiere su token nativo Polygon, que se puede depositar desde Ethereum a Polygon o se puede comprar en el mercado secundario).
 
-4. To avail these tokens on Polygon Chain, Call function deposit which will call for two transactions first approve and then depositERC20.
+3. El usuario puede acuñar los Xtokens y transferir en Ethereum. Por ejemplo, digamos que se acuñan 100XToken y luego se transfieren a otra cuenta.
 
-5. Now 100XTokens are available on Polygon Chain at the same address.
+4. Para aprovechar estos tokens en la cadena de Polygon, llama al depósito de la función, que requerirá dos transacciones: primero aprueba y luego deposita ERC20.
 
-6. You can transfer 50 XToken from YourAddress to NewAddress. Again for transactions on Polygon similar to Ethereum, Polygon uses it own Native token.
+5. Ahora 100XTokens están disponibles en la cadena de Polygon en la misma dirección.
 
-7. If the users want to get back these Xtoken on Ethereum Chain, then call StartWithdraw which will withdraw from childTokenContract and Burn these tokens on Polygon Chain. To avoid any bad participation, A set of validation will take place. Once it is done the tokens will be available at Ethereum Chain.
+6. Puedes transferir 50 XToken desde TuDirección a la NuevaDirección. Nuevamente, para transacciones en Polygon similares a Ethereum, Polygon utiliza su propio token nativo.
 
-8. Call processExits() to receive those tokens back to your EOA or your account address.
+7. Si los usuarios quieren recuperar estos Xtokens en la cadena de Ethereum, entonces llama a StartWithdraw (iniciar retiro), que se retirará del contrato de token secundario y quemará estos tokens en la cadena de Polygon. Para evitar cualquier mala participación, se realizará una serie de validaciones. Una vez hecho esto, los tokens estarán disponibles en la cadena de Ethereum.
 
-9. You should see the 50 XToken on the Ethereum mainnet at you Account Address.
+8. Llama a las salidas del proceso para recibir esos tokens en tu EOA o en la dirección de tu cuenta.
+
+9. Deberías ver los 50 XToken en la red principal de Ethereum en la dirección de tu cuenta.
