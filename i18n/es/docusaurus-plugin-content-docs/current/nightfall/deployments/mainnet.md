@@ -1,8 +1,8 @@
 ---
 id: mainnet
-title: Mainnet
+title: Red principal
 sidebar_label: Mainnet
-description: "Herramientas, direcciones y enlaces útiles para el despliegue de mainnet."
+description: "Herramientas, avisos y enlaces útiles para la implementación de la red principal"
 keywords:
   - docs
   - polygon
@@ -14,10 +14,10 @@ image: https://matic.network/banners/matic-network-16x9.png
 
 :::note
 
-Actualmente, Nightfall está bajo auditoría de seguridad, y se espera terminar en el tercer trimestre de 2022. Ten cuidado al usar Nightfall en mainnet.
+Nightfall se encuentra actualmente en una auditoría de seguridad y se espera que finalice en el 3er trimestre de 2022. Por favor, ten cuidado cuando uses Nightfall en la red principal.
 
 :::
 
 
-**Polygon Nightfall será desplegado en Mainnet en el cuarto trimestre de 2022. Está disponible en la [red de pruebas](./testnet)**
+**Polygon Nightfall se desplegará en la red principal en el 4to. trimestre de 2022. Está disponible en la [red de prueba](./testnet)**
 
