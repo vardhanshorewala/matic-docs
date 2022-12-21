@@ -1,8 +1,8 @@
 ---
 id: overview
-title: Overview
+title: Descripción general
 sidebar_label: Overview
-description: An overview on Nightfall
+description: Una descripción general de lo que es Nightfall
 keywords:
   - docs
   - polygon
@@ -13,56 +13,90 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Polygon believes in a vision that sees many companies in the near future interacting with each other through smart contracts for executing business logic and managing the exchange of goods and services.
+Polygon cree en una visión que ve muchas empresas en un futuro cercano interactuando entre si
+a través de contratos inteligente para ejecutar la lógica de negocio y gestionar el intercambio de bienes y servicios.
 
-In collaboration with [Ernst & Young](https://blockchain.ey.com/), Polygon offers a public, privacy-focused Layer 2 rollup solution called Polygon Nightfall to enable accessibility and privacy for companies wanting to use Ethereum.
+En colaboración con [Ernst & Young](https://blockchain.ey.com/), Polygon ofrece una solución rollup pública de capa 2 enfocada en la privacidad llamada Polygon Nightfall para habilitar la accesibilidad y la privacidad de las empresas que desean
+usar Ethereum.
 
-## A ZK-Proof Protocol for Enterprises
+## Un protocolo a prueba de conocimiento cero para las empresas {#a-zk-proof-protocol-for-enterprises}
 
-Polygon Nightfall is part of Polygon's suite of scalability solutions, which include [Polygon Hermez](https://polygon.technology/solutions/polygon-hermez/), [Polygon Miden](https://polygon.technology/solutions/polygon-miden/) and [Polygon Zero](https://polygon.technology/solutions/polygon-zero/). The key difference is that Nightfall is a privacy-focused rollup designed for enterprise use cases by combining the concepts of optimistic rollups and Zero-Knowledge (ZK) cryptography to offer private and scalable transactions.
+Polygon Nightfall es parte del paquete de las soluciones de escalabilidad de Polygon, que incluyen
+[Polygon Hermez](https://polygon.technology/solutions/polygon-hermez/),
+[Polygon Miden](https://polygon.technology/solutions/polygon-miden/)
+y [Polygon Zero](https://polygon.technology/solutions/polygon-zero/).
+La diferencia clave es que Nightfall es un rollup enfocado en la privacidad diseñado para los casos de uso de las empresas al combinar
+los conceptos de rollups optimistas y criptografía de conocimiento cero (ZK) para ofrecer transacciones privadas y escalables.
 
-While Nightfall enables scalability, it is also set to remove a major barrier companies face today when using blockchain: the lack of privacy of transactions. Nightfall adds a layer of privacy so that key transaction parameters (e.g. value and destination) cannot traceback. These two features have fed the interest of private enterprises that see Nightfall as a way to execute their business logic and coordinate with their supply chain in a decentralized network at a sustainable price, all while maintaining security and privacy.
+Mientras que Nightfall habilita la escalabilidad, también está configurado para eliminar una barrera importante que las empresas enfrentan hoy
+cuando utilizan cadena de bloques: la falta de privacidad de las transacciones. Nightfall añade una capa de privacidad para que los parámetros clave de transacción (por ejemplo, valor y destino) no sean rastreables. Estas dos características han alimentado el interés de las empresas privadas que ven a Nightfall como una manera de ejecutar su lógica de negocio y coordinar con su cadena de suministro en una red descentralizada a un precio sostenible, todo mientras se mantiene la seguridad y la privacidad.
 
-## Nightfall's Pillars
+## Los pilares de Nightfall {#nightfall-s-pillars}
 
-Polygon Nightfall's main value proposition is to enable secure, private, low-cost transfers of data in a decentralized network.
+La propuesta de valor principal de Polygon Nightfall es habilitar las transferencias de datos seguras, privadas y de bajo costo
+en una red descentralizada.
 
-![](../imgs/transfer.png)
+![](../imgs/overview.png)
 
-## Privacy
+## Privacidad {#privacy}
 
-Polygon Nightfall uses ZK proofs to send private transactions. A user can generate a ZK proof of the transaction without revealing key transaction parameters such as the destination or the value of the transaction. More details about the privacy component of Nightfall are available in the [protocol](../protocol/protocol.md) guide.
+Polygon Nightfall utiliza las pruebas de conocimiento cero para enviar transacciones privadas. Un usuario puede generar una prueba de conocimiento cero de
+la transacción sin revelar los parámetros clave de la transacción como el destino o el valor de
+la transacción. Más detalles sobre el componente de privacidad de Nightfall están disponibles en la
+guía de [protocolo](../protocol/protocol.md).
 
-## Security
+## Seguridad {#security}
 
-> Nightfall is currently undergoing a security audit, and it is expected to complete around mid-June 2022. Once the audit process is complete, the results will be posted here.
+> Actualmente, Nightfall está bajo auditoría de seguridad, y se espera terminar aproximadamente a mediados de junio del 2022.
+> Una vez que el proceso de auditoría se haya completado, los resultados se publicarán aquí.
 
-> As a new network with a bootstrap period, Nightfall has transitory security measures to protect the system with the objective to remove them and leave it fully decentralized.
+> Al ser una red nueva en período de arranque, Nightfall tiene medidas de seguridad transitorias para
+> proteger el sistema con el objetivo de eliminarlos y dejarlo completamente descentralizado.
 
-Polygon Nightfall is a Layer 2 construction because it leverages Ethereum by borrowing its security as a robust public blockchain. Nightfall relies on certain assumptions that guarantee asset recovery. These assumptions are based on several design and architectural decisions revolving around ZK-SNARKS. These ZK-SNARKs use certain cryptographic primitives, such as hashes and signatures, that make additional security assumptions. Finally, Nightfall embeds operating rules in different smart contracts to guarantee that operators don't block user transactions and that users can withdraw their assets at all times.
+Polygon Nightfall es una construcción de capa 2 porque aprovecha a Ethereum al tomar prestada su seguridad como una
+robusta cadena de bloques pública. Nightfall depende de ciertas suposiciones que garantizan la recuperación del activo. Estas suposiciones están
+basadas en varias decisiones de diseño y arquitectura que giran alrededor de ZK-SNARKS, que utilizan
+ciertas criptográficas primitivas, como hashes y firmas.
+Por último, Nightfall embebe reglas operativas en diferentes contratos inteligentes para garantizar que los operadores no bloqueen
+las transacciones de los usuarios y que estos puedan retirar sus activos en todo momento.
 
-As a summary, Nightfall makes the following security assumptions:
+En resumen, Nightfall realiza las siguientes suposiciones de seguridad:
 
-1. Security assumptions of Ethereum.
-2. Groth16 assumptions (knowledge of exponent assumption).
-3. Certain cryptographic assumptions from primitives such as hashes and signatures.
-4. Software security assumptions that rely on correct design and implementation.
+1. Suposiciones de seguridad de Ethereum
+2. Supuestos de Groth16 (suposición de conocimiento del exponente).
+3. Ciertas suposiciones criptográficas de primitivos como hashes (Poseidón) y firmas.
+4. Supuestos de seguridad de software que dependen del diseño e implementación correctos.
 
-## Efficiency
+## Eficiencia {#efficiency}
 
-Block proposers collect transactions from various users and batch them together into an L2 Block. Typical L2 block sizes contain about 32 transactions.
+Los proponentes de bloque recopilan transacciones de varios usuarios y los agrupan en un bloque de L2.
+Los tamaños de bloque L2 típicos contienen cerca de 32 transacciones.
 
-The expected gas costs for a deposit, single transfer, double transfer, and withdrawal are 8200, 11400, 12200, 8500 respectively. This cost is due to store 634Bytes of calldata per transaction, plus some fixed calldata and computation to process an L2 block. Costs will be up to 80% lower after [EIP 4488](https://eips.ethereum.org/EIPS/eip-4488).
+Los costos de gas previstos para un depósito, transferencia y retiro son 9.000, 1.200 y 9.500. Este costo se debe al almacenamiento de 574 bytes de datos de llamada por transacción, más algunos datos de llamadas fijos y la computación para procesar un bloque L2. Los costos serán hasta un 80 % más bajos después de
+[EIP 4488](https://eips.ethereum.org/EIPS/eip-4488).
 
-## Non-deniable Transfers
+## Transferencias no denegables {#non-deniable-transfers}
 
-As part of the transfer transaction ZK proof, Nightfall includes encrypting the secrets (token address, value, id, and salt) required to process the transferred commitment. This forces the user to encrypt the secrets with a key known to the recipient. As the key is part of the ZK proof, the receiver relies on plausible deniability as the sender can prove that the correct encryption key was used.
+Como parte de la prueba de conocimiento cero de la transacción de transferencia, Nightfall incluye el cifrado de los secretos (dirección del token,
+valor, Id., y sal) requeridos para procesar el compromiso transferido. Esto obliga al usuario a cifrar los secretos
+con una clave conocida por el destinatario. Como la clave es parte de la prueba de conocimiento cero, el receptor se basa en la denegación plausible
+ya que el remitente puede probar que se utilizó la clave de cifrado correcta.
 
-## Decentralization
+## Descentralización {#decentralization}
 
-Validators and [Challengers](../protocol/challengers.md) are an integral part of Nightfall. They ensure that transactions and L2 blocks produce timely and correctly. A proof-of-stake (PoS) based consensus mechanism is used to select the next [Proposer](../protocol/proposers.md) of the network. On the other hand, Challengers monitor the correct operation of the network by raising challenges when an incorrect block is detected and by retaining the stake advanced by the Proposer.
+Los validadores y [los desafiantes](docs/nightfall/protocol/actors) son una parte integral de Nightfall. Se aseguran de que
+las transacciones y los bloques L2 produzcan de manera oportuna y correcta. Un mecanismo de consenso basado en prueba de participación (PoS) es
+utilizado para seleccionar el [proponente](docs/nightfall/protocol/actors) siguiente de la red. Por otro lado, los desafiantes monitorean
+el funcionamiento correcto de la red al plantear los desafíos cuando se detecta un bloque incorrecto y al retener la
+participación avanzada por el proponente.
 
-## References
 
-1. [A Multi-Sided Approach to ZK Scaling](https://messari.io/article/polygon-a-multi-sided-approach-to-zk-scaling)
-2. [Paul's Brody view on Nightfall](https://www.linkedin.com/pulse/say-hello-nightfall-paul-brody-1f/)
+## Prueba de futuro {#future-proof}
+Gracias a la flexibilidad proporcionada por la implementación rollup optimista de Nightfall, es posible incluir nuevas transacciones
+en el futuro sin comprometer las transacciones existentes al solo definir y registrar un nuevo tipo de circuito que implementó la
+transacción en conocimiento cero.
+
+## Referencias {#references}
+
+1. [Un enfoque multilateral para la escalabilidad ZK](https://messari.io/article/polygon-a-multi-sided-approach-to-zk-scaling)
+2. [La opinión de Paul Brody sobre Nightfall](https://www.linkedin.com/pulse/say-hello-nightfall-paul-brody-1f/)
