@@ -1,19 +1,19 @@
 ---
 id: network-detail
-title: How to read Network Details?
-description: "How to understand the JSON response to Network Details."
+title: Чтение сведений о сети
+description: "Интерпретация ответа JSON на запрос сведений о сети."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-You can have the network details by visting the below shared support links.
-- Network config: <static.matic.network/network/"network_name"/"version"/index.json>
+Для получения сведений о сети перейдите по приведенным ниже справочным ссылкам.
+- Конфигурация сети: <static.matic.network/network/"network_name"/"version"/index.json>
 
-## Example
+## Пример {#example}
 
-For TestnetV3: https://static.matic.network/network/testnet/v3/index.json
+Для тестовой сети версии 3: https://static.matic.network/network/testnet/v3/index.json
 
 ```js
 {
