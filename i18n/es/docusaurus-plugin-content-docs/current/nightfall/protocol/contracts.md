@@ -1,8 +1,8 @@
 ---
 id: contracts
-title: Smart Contracts
+title: Contratos inteligentes
 sidebar_label: Smart Contracts
-description: "Shield, proposers, challenges and Merkle Tree Computations."
+description: "Escudo, proponentes, desafíos y cálculos de árboles de Merkle."
 keywords:
   - docs
   - polygon
@@ -13,38 +13,47 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Contracts define the rules that each Nightfall actor needs to follow in order to operate in the network. The Smart Contracts include:
+Los contratos definen las reglas que cada actor de Nightfall necesita seguir para operar en la red.
+Los contratos inteligentes incluyen:
 
 - [Shield.sol](#shield)
 - [Proposers.sol](#proposers)
 - [Challenges.sol](#challenges)
 - [MerkleTree_Computations.sol](#merkletree_computations)
 
-## Shield
-This contract enables a user to submit a transaction for processing by a Proposer. If it's a deposit Transaction, it will take payment. It also allows anyone to request that the state of the Shield contract (commitment root and nullifier lists) is updated. When the state is updated, any withdrawals in the update will be processed.
+## Escudo {#shield}
+Este contrato permite a un usuario enviar una transacción para su procesamiento por un proponente. Si se trata de una transacción de depósito, tomará el pago.
+También permite a cualquiera solicitar que el estado del contrato de Escudo (listas de compromiso raíz y anuladores) se actualice. Cuando se actualiza el estado, cualquier retiro en la actualización se procesará.
 
-There is no fundamental need to post a transfer or withdraw transaction to the blockchain: it's simply acting as a message board for proposers to pick up the transaction and incorporate them into a Layer 2 Block.
+No hay una necesidad fundamental de publicar una transacción de transferencia o retiro a la cadena de bloques: simplemente actúa como un tablero de mensajes para
+que los proponentes recojan las transacciones y las incorporen en un bloque de capa 2.
 
-Since Nightfall interacts with real ERC contracts, the following checks cannot be made private:
+Dado que Nightfall interactúa con contratos ERC reales, las siguientes verificaciones no se pueden hacer privadas:
 
-- During **Deposit/Withdraw**, ERC token address is valid.
-- During **Deposit**, user has balance or owns token to create commitment.
+- Durante el **depósito / retiro**, la dirección del token ERC es válida.
+- Durante el **depósito**, el usuario tiene saldo o posee token para crear el compromiso.
 
-## Proposers
-Contract includes functionality for registering, de-registering, paying and rotating proposers, and proposing a new Layer 2 Block to the blockchain. First version of Nightfall only accepts a single Boot Proposer operated by Polygon. In the upcoming versions, this restriction will be lifted where multiple proposers will be allowed.
+## Proponentes {#proposers}
+El contrato incluye la funcionalidad para registrar, anular el registro, pagar y rotar proponentes, y proponer un nuevo bloque de capa 2 a la cadena de bloques.
+La primera versión de Nightfall solo acepta un único proponente boot operado por Polygon. En las versiones siguientes, esta restricción se levantará y varios proponentes serán permitidos.
 
-## Challenges
-Functionality enables a Block to be challenged as incorrect.
+## Desafíos {#challenges}
+La funcionalidad permite que se desafíe un bloque como incorrecto.
 
-## MerkleTree_Stateless
-A stateless (pure function) version of the original `MerkleTree.sol`, used by `Challenges.sol` to help compute block challenges on-chain.
+## MerkleTree_Stateless {#merkletree_stateless}
+Una versión de la `MerkleTree.sol` original sin estado (pura función), utilizada por `Challenges.sol` para ayudar a calcular desafíos en bloque de cadena.
 
-## Other contracts
-- `Utils.sol` - collects together functionality which is either used in multiple contracts or which, if left inline, would affect readability of code.
-- `Config.sol` - holds constants, similar to a Node.js config file.
-- `Structures.sol` - defines global structs, enums, events, mappings and state variables. It makes these easier to find.
+## Otros contratos {#other-contracts}
+- `Utils.sol`- reúne la funcionalidad que se utiliza ya sea en múltiples contratos o que, si se deja en línea, afectaría la legibilidad del código.
+- `Config.sol`- mantiene constantes, similares a un archivo config Node.js.
+- `Structures.sol`- define las estructuras globales, los enums, los eventos, los mappings y las variables de estado. Hace que estos sean más fáciles de encontrar.
 
-## Upgradability
-At least initially, Polygon retains the ability to upgrade the Nightfall contracts following deployment. We use Openzeppelin [Upgrades Plugins](https://docs.openzeppelin.com/upgrades-plugins/1.x/) for Truffle to do that.
+## Actualización {#upgradability}
+Al menos al principio, Polygon conserva la capacidad de actualizar los contratos de Nighfall tras su despliegue.
+Utilizamos [los plugins de las actualizaciones](https://docs.openzeppelin.com/upgrades-plugins/1.x/) de Openzeppelin para Truffle para hacerlo.
 
-Polygon uses a [deployer](https://github.com/EYBlockchain/nightfall_3/tree/master/nightfall-deployer) module to upgrade contracts. The `deployer` has 4 migrations stored in its migration folder. The first three migrations perform a 'normal' deployment of the Polygon Nightfall contract suite. They do however make sure that all contracts (but not libraries) are deployed with a proxy to enable them to be upgraded at a later date. The fourth migration is used to upgrade contracts.
+Polygon utiliza un módulo de [despliegue](https://github.com/EYBlockchain/nightfall_3/tree/master/nightfall-deployer) para actualizar los contratos.
+El `deployer` tiene 4 migraciones almacenadas en su carpeta de migración.
+Las primeras tres migraciones realizan un despliegue 'normal' del paquete de contratos de Nightfall Polygon. Sin embargo,
+ellos se aseguran de que todos los contratos (pero no las bibliotecas) se desplieguen con un proxy para permitirles que
+se actualicen en una fecha posterior. La cuarta migración se utiliza para actualizar los contratos.
