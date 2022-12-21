@@ -1,8 +1,8 @@
 ---
 id: actors
-title: Actors
+title: 행위자
 sidebar_label: Actors
-description: "Types of Actors on Nightfall"
+description: "나이트폴의 행위자 유형"
 keywords:
   - docs
   - polygon
@@ -15,30 +15,38 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-There are four actors involved in the network:
+이 네트워크에는 4가지 유형의 행위자가 관련되어 있습니다.
 
-- [Transactors](#transactor)
-- [Proposers](#proposer)
-- [Challengers](#challenger)
-- [Liquidity Providers](#liquidity-provider)
+- [거래자](#transactor)
+- [제안자](#proposer)
+- [챌린저](#challenger)
 
-## Transactor
-A Transactor is a regular customer of the service. They wish to make transactions, i.e. Deposit, Transfer and Withdraw privately. These customers typically will use a web wallet or a dedicated server (Client) to perform the ZK Proofs required to generate the transactions.
+## 거래자 {#transactor}
+거래자는 서비스를 이용하는 일반 고객입니다. 이들은 거래, 즉 비공개로 입금, 이전 및 출금 거래를 성사시키고자 합니다.
+이러한 고객은 일반적으로 웹 지갑 또는 전용 서버(클라이언트)를 사용하여 트랜잭션을 생성하는 데 필요한 ZK 증명을 수행합니다.
 
-## Proposer
-A Proposer collects the transactions from customers and proposes new updates to the state of the Shield contract. By state, we mean specifically the storage variables associated with a ZKP Transaction: nullifiers, and commitment roots. Update proposals contain several transactions, rolled up into a Layer 2 Block. Only a hash of the final state that would exist after all the transactions in the Block were processed is stored on chain. Transactions become final after a period of 1 week.
+## 제안자 {#proposer}
+제안자는 고객으로부터 트랜잭션을 수집하고 쉴드 계약의 상태에
+새로운 업데이트를 제안합니다.
+여기에서 상태는 구체적으로 ZKP 트랜잭션과 관련된 스토리지 변수인
+널리파이어와 커밋먼트 루트를 의미합니다.
+업데이트 제안에는 레이어 2 블록으로 롤업되는 몇 가지 트랜잭션이 포함됩니다. 블록의 모든
+트랜잭션을 처리한 후 존재할 최종 상태의 해시만이
+체인에 저장됩니다. 트랜잭션은 일주일의 기간 후 최종 확정됩니다.
 
-Anyone can become a Proposer, but they must post some stake. The stake is intended to incentivize good behavior. Proposers make money by providing correct Blocks, collecting fees from transactors. They are somewhat analogous to Miners in a conventional blockchain.
+누구나 제안자가 될 수 있지만, 제안자는 일부 스테이크를 배치해야 합니다. 스테이크는 선량한 행동을 장려하기 위한 것입니다.
+제안자는 올바른 블록을 제공하고 거래자로부터 수수료를 징수함으로써 수익을 창출합니다. 기존 블록체인의 채굴자와 다소 유사합니다.
 
-## Challenger
-A Challenger oversees the correctness of blocks proposed within one week after the block was submitted. Anyone can be a Challenger. Challengers take the stake posted by proposers when building their blocks when they successfully submit a challenge.
+## 챌린저 {#challenger}
+챌린저는 블록 제출 후 일주일 이내에 제안된 블록의 정확성을 감독합니다. 누구나 챌린저가 될 수 있습니다.
+챌린저는 성공적으로 이의를 제기하는 경우 제안자가 블록 구축 시 배치한 스테이크를 취합니다.
 
-## Liquidity Provider
-A Liquidity Provider advances the withdrawal of funds to Transactors for a fee without waiting for the seven days period required to challenge blocks.
 
-## Notes
-In Polygon’s reference implementation, both the Proposer and the Challenger offload some functionality to one common module called Optimist. This Optimist module provides some services to a number of Proposers and Challengers, such as generating and challenging blocks (Proposer and Challengers would need to sign these transactions), synchronizing with blockchain events, etc.
+## 참고 {#notes}
+Polygon의 참조 구현에서 제안자와 챌린저는 모두 Optimist라는 하나의 공통 모듈에 일부 기능을 위탁합니다.
+이 Optimist 모듈은 블록 생성 및 이의 제기(제안자와 챌린저는 이러한 트랜잭션에 서명해야 함), 블록체인 이벤트와의 동기화 등과 같은
+일부 서비스를 여러 제안자 및 챌린저에게 제공합니다.
 
-Apart from the Actors described above, there is an additional actor called Client. A Client acts as a trusted service that collects user transactions, performs the ZK Proofs on their behalf, sends transactions to the Proposer, listens to Blockchain events etc. In summary, the Client acts as a trusted relayer for a collection of users that want to offload heavy proof computation and that trust each other.
+위에서 설명한 행위자 외에도 클라이언트라는 추가 행위자가 있습니다. 클라이언트는 사용자 트랜잭션을 수집하고 사용자 대신 ZK 증명을 수행하고 제안자에게 트랜잭션을 전송하고 블록체인 이벤트를 수신하는 등 신뢰할 수 있는 서비스로서의 역할을 수행합니다. 요약하면, 클라이언트는 과도한 증명 계산을 위탁하고자 하며 서로를 신뢰하는 사용자 집단을 위해 신뢰할 수 있는 중계자 역할을 수행합니다.
 
-The alternative to the Client is to use the browser wallet, a serverless service provided by Polygon. This wallet manages all transaction activities for a single user while maintaining privacy.
+클라이언트의 대안은 Polygon이 제공하는 서버리스 서비스인 브라우저 지갑을 사용하는 것입니다. 이 지갑은 프라이버시를 유지하면서 단일 사용자를 위해 모든 트랜잭션 활동을 관리합니다.
