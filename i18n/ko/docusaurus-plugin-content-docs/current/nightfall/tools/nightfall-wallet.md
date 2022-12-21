@@ -1,8 +1,8 @@
 ---
 id: nightfall-wallet
-title: Nightfall Wallet
+title: 나이트폴 지갑
 sidebar: Nightfall Wallet
-description: "Polygon Nightfall wallet guide."
+description: "Polygon 나이트폴 지갑 가이드입니다."
 keywords:
   - docs
   - matic
@@ -10,177 +10,182 @@ keywords:
   - nightfall
   - wallet
 image: https://matic.network/banners/matic-network-16x9.png
+
 ---
 
-The Polygon Nightfall wallet is a browser wallet that is able to interact with the Nightfall mainnet beta release.
+Polygon 나이트폴 지갑은 나이트폴 메인넷 베타 릴리스와 상호 작용할 수 있는
+브라우저 지갑입니다.
 
-:::note Use the Nightfall wallet to make deposits, transfers, and withdrawals
+:::info 나이트폴 지갑을 사용하여 입금, 이전 및 출금하기
 
-The following tokens are currently operative:
+### 제한 사항 {#restrictions}
 
-- MATIC
-- WETH
-- DAI
-- USDC
-
-### Note the following deposit and withdrawal restrictions:
+나이트폴이 성숙 상태에 이르면 다음과 같은 제한 사항이 적용됩니다.
 
 
-| ERC20 token | Max Deposit | Max Withdraw |
-| ----------- | ----------- | ------------ |
-| MATIC       | 250 MATIC   | 1000 MATIC   |
-| WETH        | 0.25 WETH   | 1 WETH       |
-| DAI         | 250 DAI     | 1000 DAI     |
-| USDT        | 250 USDT    | 1000 USDT    |
-| USDC        | 250 USDC    | 1000 USDC    |
+| ERC20 토큰 | 최대 입금 | 최대 출금 |
+|-------------|-------------|--------------|
+| 매틱 | 250매틱 | 1000매틱 |
+| WETH | 0.25WETH | 1WETH |
+| DAI | 250DAI | 1000DAI |
+| USDT | 250USDT | 1000USDT |
+| USDC | 250USDC | 1000USDC |
 
 :::
 
-:::caution Security measures
+:::caution 보안 조치
 
-The Nightfall wallet is tested on a Chrome browser. During Beta, mileage may vary on other browsers.
+나이트폴 지갑은 Chrome 브라우저에서 테스트됩니다. 베타 기간에는 다른 브라우저의 경우 마일리지가
+다르게 나타날 수 있습니다.
 
-**We highly recommend you to use Nightfall on Chrome**.
-
-Your wallet keys and transactions are stored in the browser (IndexedDb). This data is currently not exported anywhere for security measures. As a result, you will not have access to your wallet when using a different browser or a different machine unless you transfer the IndexedDB contents, or recover your account.
-
-We may change this in future depending on the Beta phase feedback.
+**나이트폴은 Chrome에서 사용하실 것을 강력히 권장합니다**.
 
 :::
 
-## How to connect a Ledger Hardware Wallet to Nightfall
-There is a guide to connect your Ledger Hardware Wallet with Metamask in the official Metamask site [here](https://support.ledger.com/hc/en-us/articles/4404366864657-How-to-access-your-Ledger-Ethereum-ETH-account-via-Metamask?docs=true).
 
-Be sure to connect the Ethereum App in your wallet and enable "blind signing" in the Ethereum App settings.
 
-## What are Commitments?
+## 시작하기 {#getting-started}
 
-A commitment is a cryptographic primitive that allows a user to commit to a chosen value while keeping it hidden to others, with the ability to reveal the committed value later.
-
-Every time a user performs a transaction using Nightfall, the browser wallet computes a Zero Knowledge Proof (ZKP) and creates (or nullifies) a commitment. For instance, you create a commitment when you make a deposit and nullify a commitment when you make a withdrawal.
-
-ZKP computation relies on [circuits](../protocol/circuits.md) that define the rules which a transaction must follow to be correct. During Beta, there are a limited number of rules in place which require you to operate as follows:
-
-- The Withdraw value must exactly match the amount in one of the commitments owned
-- [About transfers](#important-information-about-transfers)
-
-The key takeaway is that Nightfall handles commitments. Commitments are created during deposits and transfers, and are spent during transfers and withdrawals transactions. Even though the wallet shows the aggregated commitment value per asset, **commitments are not aggregated together**. When spending a commitment, its value of the commitment spent needs to match exactly an existing commitment, (`withdraw` and `single transfer`) or must be a linear combination of any two commitments owned (`double transfer`).
-
-## Getting Started
-
-Visit the Polygon web [mainnet wallet](https://wallet-beta.polygon.technology) or [testnet wallet](https://wallet.testnet.polygon-nightfall.technology/), connect your MetaMask account and select the Polygon Wallet on the left. If you need help with MetaMask, refer to the [Polygon documentation on MetaMask](../../develop/metamask/tutorial-metamask.md)
+Polygon 웹 [메인넷 지갑](https://wallet-beta.polygon.technology) 또는
+[테스트넷 지갑](https://wallet.testnet.polygon-nightfall.technology/)을 방문하여 메타 마스크
+계정을 연결하고 왼쪽에서 Polygon 지갑을 선택합니다. 메타 마스크와 관련해 도움이 필요한 경우,
+[메타 마스크에 대한 Polygon 문서](../../develop/metamask/tutorial-metamask.md)를 참조해 주세요.
 
 ![](../imgs/tools-wallet/polygon-wallet-click-nf.png)
 
-At this point, the wallet will prompt you to Switch to Polygon Network, and a Metamask popup will request to confirm the switch.
+이제 지갑은 Polygon 네트워크로 전환하라는 메시지를 표시하고 메타 마스크 팝업이
+나타나 전환을 확인하도록 요청합니다.
 
 ![](../imgs/tools-wallet/polygon-network.png)
 
-Next, in the top wallet section, click in the Dropdown menu and select `Polygon Nightfall`, and a new request to switch to Ethereum Mainnet will appear. Please, accept to switch to Ethereum mainnet to operate with Polygon Nightfall.
+그런 다음 지갑의 상단 섹션에서 드롭다운 메뉴를 클릭하여 `Polygon Nightfall`을 선택하면
+이더리움 메인넷으로 전환하라는 새로운 요청이 나타납니다. Polygon 나이트폴로 작동할 수 있도록 요청을 수락해
+이더리움 메인넷으로 전환해 주세요.
 
 ![](../imgs/tools-wallet/polygon-network-dropdown-nf.png)
 
-If you are working on testnet, the wallet URL will immediatelly take you to the landing page of Polygon Nightfall wallet.
+테스트넷에서 작업하는 경우, 지갑 URL이 즉시 Polygon 나이트폴 지갑의 랜딩 페이지로 안내합니다.
 
-<!-- ![](../imgs/tools-wallet/wallet-main-screen.png) -->
+![](../imgs/tools-wallet/wallet-main-screen.png)
 
-On your first visit your Nightfall wallet will have to be created. A pop-up should appear for generating a mnemonic and creating the wallet. Click `Generate Mnemonic`, then `Create Wallet`. **Note that you can only use this wallet on your current device**.
+첫 방문인 경우에는 나이트폴 지갑을 생성해야 합니다. 니모닉과 지갑을 차례로 생성하기 위한 팝업이 나타납니다. `Generate Mnemonic`을 클릭한 다음 `Create Wallet`을 클릭하세요. **이 지갑은 현재 장치에서만 사용할 수 있음을 참고해 주세요**.
 
 ![](../imgs/tools-wallet/generate-mnemonic-create-wallet.png)
 
-At this point you should be able to see both your Metamask and your Nightfall wallet addresses (top-right).
+:::caution 커밋 및 니모닉 백업하기
 
-**Allow a few more minutes to complete wallet setup before start making transactions**.
+지갑 키와 트랜잭션은 브라우저(IndexedDb)에 보관됩니다. 나이트폴 지갑을 처음 액세스할 때 설정하는 니모닉과 동일합니다.
 
-On the bottom left corner of the wallet, the wallet status will show as `Syncing Nightfall`. In this state, the wallet is retrieving the ZK circuits and network state required to perform transactions.
+이 니모닉은 반드시 안전한 곳에 보관하세요. L2에서 자금과 호환 가능한 증명을 생성할 수 있는 유일한 방법입니다. 커밋에서도 마찬가지입니다. 다른 브라우저나 시스템을 사용할 때마다 `export commitments`를 클릭하여 반드시 안전하게 보관해야 합니다.
+
+:::
+
+**커밋을 잃어버리면 자금을 영원히 잃게 됩니다.**
+
+
+이제 메타 마스크와 나이트폴 지갑 주소가 모두 보입니다(오른쪽 상단).
+
+**트랜잭션을 시작하기 전에 지갑 설정이 완료되도록 몇 분 더 기다려 주세요**.
+
+지갑의 왼쪽 하단 구석에 지갑 상태가 `Syncing Nightfall`로 표시됩니다. 이 상태에서 지갑은 트랜잭션을 수행하는 데 필요한
+ZK 회로와 네트워크 상태를 가져옵니다.
 
 ![](../imgs/tools-wallet/wallet-state-syncing.png)
 
-Please, wait until wallet status changes to `Nightfall Synced`
+지갑 상태가 `Nightfall Synced`로 바뀔 때까지 기다려 주세요.
 
 ![](../imgs/tools-wallet/wallet-state-synced.png)
 
-### Your wallet address
-Get your Nightfall wallet address from the Nightfall Assets page by clicking on `Receive`.
+
+## 원장 하드웨어 지갑을 나이트폴에 연결하는 방법 {#how-to-connect-a-ledger-hardware-wallet-to-nightfall}
+원장 하드웨어 지갑을 공식 메타 마스크 사이트의 메타 마스크와 연결하는 방법에 대한 가이드는 [여기](https://support.ledger.com/hc/en-us/articles/4404366864657-How-to-access-your-Ledger-Ethereum-ETH-account-via-Metamask?docs=true)에서 확인할 수 있습니다.
+
+반드시 지갑의 이더리움 앱을 연결하고 이더리움 앱 설정에서 "블라인드 서명(blind signing)"을 활성화해 주세요.
+
+
+### 지갑 주소 {#your-wallet-address}
+`Receive`를 클릭하여 나이트폴 자산 페이지에서 나이트폴 지갑 주소를 가져올 수 있습니다.
 
 ![](../imgs/tools-wallet/nightfall-wallet-address.png)
 
-## How to make deposits
-From the Nightfall Assets page, click on the `Deposit` button to the right of the chosen asset, or navigate to the L2 Bridge page.
+## 입금하는 방법 {#how-to-make-deposits}
+나이트폴 자산 페이지에서 선택한 자산의 오른쪽에 표시되는 `Deposit` 버튼을 클릭하거나 L2 브리지 페이지로 이동합니다.
 
-1. Check that Transfer mode is set to `Deposit`
-2. Check that the desired token is selected (WETH, MATIC, etc.)
-3. Enter the value to be deposited in your Nightfall wallet, click `Transfer`
-4. Review the transaction on the pop-up
-5. Click `Create Transaction`
+1. 이전 모드가 `Deposit`으로 설정되어 있는지 확인합니다.
+2. 원하는 토큰이 선택되었는지 확인합니다(WETH, 매틱 등).
+3. 나이트폴 지갑에 입금할 값을 입력하고 `Transfer`를 클릭합니다.
+4. 팝업에 표시된 트랜잭션을 검토합니다.
+5. `Create Transaction`을 클릭합니다.
 
 ![](../imgs/tools-wallet/deposit-click-transfer.png)
 
-A process will kick off to compute the ZKP and prepare the transaction - grant Metamask with access to your account balances. When this ends, click `Send Transaction` - grant Metamask with further permissions for contract interaction.
+ZKP를 계산하고 트랜잭션을 준비하는 프로세스가 시작되어 메타 마스크에 계정 잔액을 액세스할 수 있는 권한을 부여합니다. 이 작업이 끝나면 `Send Transaction`을 클릭하여 메타 마스크에 계약 상호 작용을 위한 추가 권한을 부여하세요.
 
 ![](../imgs/tools-wallet/deposit-tx-created-and-ready-to-be-sent.png)
 
-Go to the Transactions page to [view your deposit](#view-transactions).
+트랜잭션 페이지로 가서 [입금 결과를 확인](#view-transactions)합니다.
 
-### Important information about deposits
-- [Deposit amounts are restricted](#note-the-following-deposit-and-withdrawal-restrictions) while in Beta
+### 입금에 대한 중요 정보 {#important-information-about-deposits}
+- 베타 단계에서는 [입금 금액이 제한됩니다](#note-the-following-deposit-and-withdrawal-restrictions).
 
-## How to make transfers
-From the Nightfall Assets page, click on the `Send` button to the right of the chosen asset.
+## 이전하는 방법 {#how-to-make-transfers}
+나이트폴 자산 페이지에서 선택한 자산의 오른쪽에 표시되는 `Send` 버튼을 클릭합니다.
 
-1. Enter a valid address existing on the Polygon Nightfall L2
-2. Check that the desired token is selected (WETH, MATIC, etc.)
-3. Enter the value to be transferred from your Nightfall wallet, click `Continue`
+1. Polygon 나이트폴 L2에 존재하는 유효한 주소를 입력합니다.
+2. 원하는 토큰이 선택되었는지 확인합니다(WETH, 매틱 등).
+3. 나이트폴 지갑에서 이전할 값을 입력하고 `Continue`를 클릭합니다.
 
 ![](../imgs/tools-wallet/send-nf.png)
 
-A process will kick off to compute the ZKP and prepare the transaction. When this ends, click `Send Transaction`.
+ZKP를 계산하고 트랜잭션을 준비하는 프로세스가 시작됩니다. 이 작업이 끝나면 `Send Transaction`을 클릭합니다.
 
-Go to the Transactions page to [view your transfer](#view-transactions).
+트랜잭션 페이지로 가서 [이전 결과를 확인](#view-transactions)합니다.
 
-### Important information about transfers
-Current ZKP transfer circuits used in Nightfall restrict transfer amounts to either exactly matching the value of one of an existing commitment, or any linear combination of two existing commitments.
+### 이전에 대한 중요 정보 {#important-information-about-transfers}
+현재 나이트폴에서 사용되는 ZKP 이전 회로는 기존 커밋 중 하나와 정확히 일치하는 금액으로
+또는 기존 두 개 커밋의 선형 결합으로 이전 금액을 제한합니다.
 
-To illustrate transfer restrictions with an example, observe the following commitment sets:
+이전 금액 제한을 설명하기 위해 다음의 커밋 세트를 이용한 예가 나와 있습니다.
 
-- Set A: [1, 1, 1, 1, 1, 1]
-- Set B: [2, 2, 2]
-- Set C: [2, 4]
+- 세트 A: [1, 1, 1, 1, 1, 1]
+- 세트 B: [2, 2, 2]
+- 세트 C: [2, 4]
 
-While all three sets have equivalent total sums of 6, only the following transfers are available:
+세 개 세트 모두 각 총합은 6이지만, 다음의 이전만 가능합니다.
 
-- Set A: Any transfer between 0 and 2 (both excluded)
-- Set B: Any transfer between 0 and 4 (both excluded)
-- Set C: Any transfer between 0 and 6 (both excluded)
+- 세트 A: 0과 2 사이의 모든 이전(0과 2는 제외)
+- 세트 B: 0과 4 사이의 모든 이전(0과 4는 제외)
+- 세트 C: 0과 6 사이의 모든 이전(0과 6은 제외)
 
-To continue with the example, if Alex owns Set C of commitments, available transfers include any amount between 0 and 6, excluding both limit values. If Alex decides to transfer 3.5 to Bob, Alex will end up with a single commitment of 2.5 and Bob will receive a commitment of 3.5 once the block is proposed.
+계속 이 예시를 이용해 설명하자면, 만약 알렉스가 세트 C의 커밋을 보유한 경우, 가능한 이전에는 0과 6 사이의 모든 금액이 포함되며 제한 값인 0과 6은 제외됩니다. 알렉스가 로버트에게 3.5를 이전하기로 결정하면 알렉스는 결국 2.5의 단일 커밋을 갖게 되고 로버트는 블록이 제안되면 3.5의 커밋을 받게 됩니다.
 
-On the other hand, if Alex decides to transfer an amount of 6 to Bob, the ZK proof will fail because there won't be a valid combination of commitments.
+만약 알렉스가 로버트에게 6이라는 금액을 이전하기로 결정할 경우에는 유효한 커밋 결합이 없어 ZK 증명이 실패하게 됩니다.
 
-**It is important to note that these values represent commitments owned**, not e.g. deposits. Further information available on the [commitments](../protocol/commitments.md) section of these docs.
+**여기서 명심할 중요한 사항은 이러한 값이 소유한 커밋을 나타내며** 예시 입금액이 아니라는 것입니다. 이러한 문서의 [커밋](../protocol/commitments.md) 섹션에 보다 자세한 내용이 나와 있습니다.
 
-## How to make withdrawals
-From the Nightfall Assets page, click on the `Withdraw` button to the right of the chosen asset, or navigate to the L2 Bridge page.
+## 출금하는 방법 {#how-to-make-withdrawals}
+나이트폴 자산 페이지에서 선택한 자산의 오른쪽에 표시되는 `Withdraw` 버튼을 클릭하거나 L2 브리지 페이지로 이동합니다.
 
-1. Check that Transfer mode is set to `Withdraw`
-2. Check that the desired token is selected (WETH, MATIC, etc.)
-3. Enter the value to be withdrawn from your Nightfall wallet, click on `Transfer`
-4. Review the transaction on the pop-up
-5. Click `Create Transaction`
+1. 이전 모드가 `Withdraw`로 설정되어 있는지 확인합니다.
+2. 원하는 토큰이 선택되었는지 확인합니다(WETH, 매틱 등).
+3. 나이트폴 지갑에서 출금할 값을 입력하고 `Transfer`를 클릭합니다.
+4. 팝업에 표시된 트랜잭션을 검토합니다.
+5. `Create Transaction`을 클릭합니다.
 
-A process will kick off to compute the ZKP and prepare the transaction. When this ends, click `Send Transaction`.
+ZKP를 계산하고 트랜잭션을 준비하는 프로세스가 시작됩니다. 이 작업이 끝나면 `Send Transaction`을 클릭합니다.
 
-Go to the Transactions page to [view your withdrawal](#view-transactions). After the one week finalization period expires, user will be able to finalize and claim withdrawal amount.
+트랜잭션 페이지로 가서 [출금 결과를 확인](#view-transactions)합니다. 일주일의 최종화 기간이 끝나면 사용자는
+최종화하고 출금 금액을 청구할 수 있습니다.
 
-### Important information about withdrawals
-- Withdraw value must exactly match the amount in one of the commitments owned (more about [about commitments](#learn-about-commitments))
-- Withdrawals have a **one week** finalization period from the moment when the block including the withdraw transaction was created. Once this time period has elapsed, you can finalize the withdrawal to have your funds sent to your Ethereum account.
-- [Withdraw amounts are restricted](#note-the-following-deposit-and-withdrawal-restrictions) while in Beta
-- Withdrawals are an onchain transaction, and will pay for gas fees during the transaction request and also when withdraw is finalized.
+### 출금에 대한 중요 정보 {#important-information-about-withdrawals}
+- 출금 값은 소유한 커밋 중 하나의 금액과 정확히 일치해야 합니다([커밋에 대한](#learn-about-commitments) 보다 자세한 내용 확인).
+- 출금에는 출금 트랜잭션이 포함된 블록이 생성된 시점부터 **일주일**의 최종화 기간이 있습니다. 이 기간이 지나면 출금을 최종화하여 이더리움 계정으로 자금을 보낼 수 있습니다.
+- 베타 단계에서는 [출금 금액이 제한됩니다](#note-the-following-deposit-and-withdrawal-restrictions).
+- 출금은 온체인 트랜잭션이며, 트랜잭션이 요청될 때와 출금이 최종화될 때 가스 요금을 지불합니다.
 
 ![](../imgs/tools-wallet/cooling-off-vs-ready.png)
 
-## View transactions
-Check the status of your deposits, transfers and withdrawals on the Transactions page. Note that each transaction is processed as soon as there are enough transactions to produce a block or after 6 hours.
+## 트랜잭션 보기 {#view-transactions}
+트랜잭션 페이지에서 입금, 이전 및 출금의 상태를 확인할 수 있습니다. 각 트랜잭션은 블록을 생성하기에 충분한 트랜잭션이 모이는 즉시 또는 6시간 후에 처리됩니다.
 
 ![](../imgs/tools-wallet/transactions.png)
