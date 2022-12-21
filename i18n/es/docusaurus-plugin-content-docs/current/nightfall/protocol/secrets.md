@@ -1,8 +1,8 @@
 ---
 id: secrets
-title: Distribución secreta en banda
+title: Distribución Secreta en Banda
 sidebar_label: In Band Secret Distribution
-description: "Una solución para cifrar los secretos y asegurar su descifrado."
+description: "Una solución para encriptar secretos y asegurar su descripción."
 keywords:
   - docs
   - polygon
@@ -14,31 +14,31 @@ image: https://matic.network/banners/matic-network-16x9.png
 ---
 import katex from 'katex';
 
-## Descripción general {#overview}
+## Resumen {#overview}
 
-Para garantizar que un destinatario recibe la información secreta necesaria para usar sus compromisos, el remitente
-cifra los secretos (*salt*, *valor*, *tokenId*, *ercAddress*) del compromiso presentado al destinatario y
-prueba, usando ZKP, que cifraron esto correctamente con la clave pública del destinatario. Se utiliza el paradigma de cifrado híbrido [**KEM-DEM**](https://eprint.iacr.org/2006/265.pdf).
+Para garantizar que un destinatario recibe la información secreta necesaria para gastar sus compromisos, el remitente
+encripta los secretos (*sal*, *valor*, *Id de token*, *ercAddress*) del compromiso enviado al destinatario y
+demuestra el uso de ZKP que ellos encriptaron esto correctamente con la clave pública del destinatario. La [**KEM-DEM**](https://eprint.iacr.org/2006/265.pdf) se utiliza el paradigma de encriptado híbrido.
 
-## Cifrado híbrido KEM-DEM {#kem-dem-hybrid-encryption}
+## Encriptado híbrido de KEM-DEM {#kem-dem-hybrid-encryption}
 
 
-### Creación de clave {#key-creation}
+### Creación de Clave {#key-creation}
 
-Utiliza la curva elíptica (aquí utilizamos la curva de Baby Jubjub) `E` sobre un campo finito `Fp` donde `p` es un gran
-primo y `G`es el generador.
+Usa la curva elíptica (aquí usamos la curva Baby Jubjub)`E` sobre un campo finito `Fp`donde`p` es una gran
+prima y `G` es el generador.
 
-Alice genera una clave asimétrica temporal par   :
+Alice genera un par de claves asimétricas efímeras   :
 $x_e \; \leftarrow\; \{0, 1\}^{256} \qquad Q_e \coloneqq x_eG$
 
-Estas claves se utilizan solo una vez y son únicas para esta transacción, otorgándonos un secreto perfecto por delante.
+Estas claves se utilizan solo una vez, y son exclusivas para esta transacción, lo que nos brinda un secreto de avance perfecto.
 
-### Cifrado {#encryption}
+### Encriptado {#encryption}
 
-El proceso de cifrado implica 2 pasos: un paso KEM para derivar una clave de cifrado simétrica de un secreto compartido y un paso DEM para cifrar los textos sin formato utilizando la clave de cifrado.
+El proceso de encriptación implica 2 pasos: un paso de KEM para obtener una clave de encriptación simétrica de un secreto compartido, y un paso de DEM para encriptar los textos sin formato usando la clave de encriptado.
 
-### Método clave de encapsulamiento (cifrado) {#key-encapsulation-method-encryption}
-Utilizando la clave privada asimétrica previamente generada, obtenemos un secreto compartido, $key_{DH}$, utilizando Diffie-Hellman estándar. Esto se encuentra en hash junto con la clave pública temporal para obtener la clave de cifrado.
+### Método Clave de Encapsulado (Encriptado) {#key-encapsulation-method-encryption}
+Usando la clave privada asimétrica generada previamente, obtenemos un secreto compartido, $key_{DH}$ usando el estándar Diffie-Hellman. Esto se hashea junto con la efímera clave pública para obtener la clave de encriptado.
 
 $key_{DH} \coloneqq x_eQ_r \qquad key_{enc} \coloneqq H_{K}(key_{DH} \; + \;Q_e)$
 
@@ -49,44 +49,44 @@ donde
 $Domain_{K} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-kem'}))$
 
 
-### Método de encapsulamiento de datos (cifrado) {#data-encapsulation-method-encryption}
-Para la eficiencia del circuito, el cifrado utilizado es un bloque de cifrado en modo de contador donde el algoritmo de cifrado es un hash mimc. Dado que las claves temporales son únicas para cada transacción, no hay necesidad de que se incluya un nonce. El cifrado del mensaje $i^{th}$ es el siguiente:
+### Método de Encapsulado de Datos (Encriptado) {#data-encapsulation-method-encryption}
+Para la eficiencia de circuitos, la encriptación que se usa es un bloque cifrado en modo de contador donde el algoritmo de cifrado es un hash de mimc. Dado que las claves efímeras son exclusivas para cada transacción, no hay necesidad de un mientras tanto para ser incluidos. El encriptado del mensaje $i^{th}$ es como sigue:
 
 $c_i \coloneqq H_{D}(key_{enc} + i) + p_i$
 
-donde  
+Donde  
 
 $Domain_{D} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-dem'}))$
 
-Después, el remitente proporciona al destinatario con $(Q_e, \text{ciphertexts})$. Estos se incluyen como parte de la transacción estructurada presentada en cadena.
+El remitente entonces proporciona al destinatario con $(Q_e, \text{ciphertexts})$. Estos son incluidos como parte de la transacción que se envía en cadena.
 
-### Descifrado {#decryption}
-Para poder descifrar, el destinatario realiza una versión ligeramente modificada de los pasos KEM-DEM.
+### Desencriptado {#decryption}
+Con el fin de desencriptar, el destinatario realiza una versión ligeramente modificada de los pasos de KEM-DEM.
 
-### Método de encapsulamiento de la clave (descifrado) {#key-encapsulation-method-decryption}
-Dado $Q_e$, el destinatario es capaz de calcular la clave de cifrado localmente realizando los siguientes pasos.
+### Método Clave de Encapsulado (Desencriptado) {#key-encapsulation-method-decryption}
+Dado $Q_e$, el destinatario puede calcular la clave de cifrado localmente realizando los siguientes pasos.
 
 $$key_{DH} \coloneqq x_eQ_e \qquad key_{enc} \coloneqq H_{K}(key_{DH} \; + \;Q_e)$$
 
 donde  
-   es la clave pública del destinatario  
+   es la clave pública efímera  
 
 $Domain_{K} \coloneqq \text{to\_field}(\text{SHA256}(\text{'nightfall-kem'}))$
 
-### Método de encapsulamiento de datos (descifrado) {#data-encapsulation-method-decryption}
-Con $key_{enc}$ and an array of ciphertexts, the $i_{th}$, el texto sin formato  puede ser recuperado mediante lo siguiente:
+### Método de Encapsulado de Datos (Desencriptado) {#data-encapsulation-method-decryption}
+Con el texto sin formato $key_{enc}$ and an array of ciphertexts, the $i_{th}$ se puede recuperar con lo siguiente:
 
 $$p_i \coloneqq c_i - H_{D}(key_{enc} + i)$$
 
-donde  
+Donde  
 
 $Domain_{D} \coloneqq \text{to\_field}(SHA256(\text{'nightfall-dem'}))$
 
 
-## Derivación y generación de las diversas claves involucradas en el cifrado, propiedad de los compromisos y el gasto {#derivation-and-generation-of-the-various-keys-involved-in-encryption-ownership-of-commitments-and-spending}
+## La derivación y la generación de las diversas claves involucradas en el encriptado, la propiedad de los compromisos y el gasto {#derivation-and-generation-of-the-various-keys-involved-in-encryption-ownership-of-commitments-and-spending}
 
-Utiliza BIP39 para generar una palabra de 12 `mnemonic` y a partir de esto genera una `seed` llamando `mnemonicToSeedSync`.
-Después, siguiendo los estándares de BIP32 y BIP44, genera una `rootKey` basada en esta `seed` y `path`.
+Usando BIP39 generar una `mnemonic` de 12 palabras y desde esta generar un `seed` llamando `mnemonicToSeedSync`.
+Luego, siguiendo los estándares de BIP32 y BIP44, genere un `rootKey` basado en esto`seed` y `path`.
 
 ```
 zkpPrivateKey = mimc(rootKey, 2708019456231621178814538244712057499818649907582893776052749473028258908910)
@@ -98,15 +98,15 @@ where 78051874391181984688098968222999738975931083794940792138705622082294921090
 zkpPublicKey = zkpPrivateKey * G
 ```
 
-Si `rootKey` o `mnemonic` se compromete, entonces el adversario puede calcular la `zkpPrivateKey` y `nullifierKey`.
-La `zkpPrivateKey` puede ser utilizada para descifrar los secretos de un compromiso mientras que la `nullifierKey` puede ser utilizada para gastar el compromiso.
-Por lo tanto, `rootKey` y `mnemonic` deben ser almacenados de manera muy segura.
+Si se `rootKey` o `mnemonic` está comprometida, entonces el adversario puede calcular él `zkpPrivateKey` y `nullifierKey`.
+Él `zkpPrivateKey` se puede usar para descifrar los secretos de un compromiso, mientras que `nullifierKey` se puede usar para gastar el compromiso.
+Por lo tanto `rootKey` y `mnemonic` deben almacenarse de forma muy segura.
 
-Las aplicaciones que utilizarán la `ZkpKeys` para generar estas claves pueden almacenar la `rootKey` en diferentes dispositivos mediante la división
-de estos en acciones utilizando el compartimiento secreto de Shamir.
+Las aplicaciones que usarán él `ZkpKeys` para generar estas claves pueden almacenar él `rootKey` en diferentes dispositivos dividiendo
+esto en acciones usando Compartir el Secreto de Shamir.
 
-También se recomienda almacenar `zkpPrivateKey` y `nullifierKey` por separado para evitar el robo de los compromisos en caso de que uno de estos
-esté en peligro.
+También se recomienda almacenar `zkpPrivateKey` y `nullifierKey` por separado para evitar el robo de compromisos en caso de que uno de estos
+esté comprometido.
 
-La figura abajo muestra los pasos para derivar las diferentes claves en Nightfall
+La siguiente figura muestra los pasos para derivar las diferentes claves en Nightfall
 ![](../imgs/key-derivation.png)
