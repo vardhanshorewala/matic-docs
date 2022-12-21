@@ -1,8 +1,8 @@
 ---
 id: overview
-title: Overview
+title: 개요
 sidebar_label: Overview
-description: An overview on Nightfall
+description: 나이트폴에 대한 개요입니다.
 keywords:
   - docs
   - polygon
@@ -13,56 +13,91 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Polygon believes in a vision that sees many companies in the near future interacting with each other through smart contracts for executing business logic and managing the exchange of goods and services.
+Polygon이 예측하는 세상은 가까운 미래에 많은 기업이 비즈니스 논리를 실행하고
+물품 및 서비스 교환을 관리하는 데 있어 스마트 계약을 통해 서로 상호 작용하는 세상입니다.
 
-In collaboration with [Ernst & Young](https://blockchain.ey.com/), Polygon offers a public, privacy-focused Layer 2 rollup solution called Polygon Nightfall to enable accessibility and privacy for companies wanting to use Ethereum.
+[언스트 & 영](https://blockchain.ey.com/)과 협력하여 Polygon은 이더리움 사용을 원하는 기업에게 액세스 용이성과 프라이버시를 제공하기 위해 Polygon 나이트폴이라는 프라이버시 중심의 공개 계층 2 롤업 솔루션을
+제공합니다.
 
-## A ZK-Proof Protocol for Enterprises
+## 기업용 ZK-증명 프로토콜 {#a-zk-proof-protocol-for-enterprises}
 
-Polygon Nightfall is part of Polygon's suite of scalability solutions, which include [Polygon Hermez](https://polygon.technology/solutions/polygon-hermez/), [Polygon Miden](https://polygon.technology/solutions/polygon-miden/) and [Polygon Zero](https://polygon.technology/solutions/polygon-zero/). The key difference is that Nightfall is a privacy-focused rollup designed for enterprise use cases by combining the concepts of optimistic rollups and Zero-Knowledge (ZK) cryptography to offer private and scalable transactions.
+Polygon 나이트폴은
+[Polygon 헤르메즈](https://polygon.technology/solutions/polygon-hermez/),
+[Polygon 마이든](https://polygon.technology/solutions/polygon-miden/),
+[Polygon 제로](https://polygon.technology/solutions/polygon-zero/) 등이 포함된 Polygon의 확장성 솔루션 제품군에 속하는 제품입니다.
+주요한 차이점은 나이트폴의 경우 프라이버시 중심의 롤업으로서, 낙관적인 롤업과 영지식(ZK) 암호화의 개념을 결합하여
+확장 가능한 비공개 트랜잭션을 제공하도록 기업용으로 설계되었다는 점입니다.
 
-While Nightfall enables scalability, it is also set to remove a major barrier companies face today when using blockchain: the lack of privacy of transactions. Nightfall adds a layer of privacy so that key transaction parameters (e.g. value and destination) cannot traceback. These two features have fed the interest of private enterprises that see Nightfall as a way to execute their business logic and coordinate with their supply chain in a decentralized network at a sustainable price, all while maintaining security and privacy.
+나이트폴은 확장성을 제공할 뿐만 아니라 오늘날 기업들이 블록체인을 사용할 때 마주치게 되는 큰 장애물 즉,
+트랜잭션의 프라이버시가 없다는 문제도 해결해 줍니다. 나이트폴은 핵심 트랜잭션 매개변수(예: 가치 및 대상)가 역추적할 수 없도록 프라이버시 층을 추가합니다. 이 두 가지 기능에 관심을 보인 민간 기업들은 분산형 네트워크에서 지속 가능한 수준의 가격으로 공급망을 조정하고 비즈니스 논리를 실행하면서 동시에 보안과 프라이버시도 유지할 수 있는 방법으로 나이트폴을 주목하게 되었습니다.
 
-## Nightfall's Pillars
+## 나이트폴의 주요 원칙 {#nightfall-s-pillars}
 
-Polygon Nightfall's main value proposition is to enable secure, private, low-cost transfers of data in a decentralized network.
+Polygon 나이트폴의 주요한 가치 제안은 분산형 네트워크에서 안전하고, 프라이버시가 유지되며, 저렴한
+데이터 전송을 가능하게 하는 것입니다.
 
-![](../imgs/transfer.png)
+![](../imgs/overview.png)
 
-## Privacy
+## 프라이버시 {#privacy}
 
-Polygon Nightfall uses ZK proofs to send private transactions. A user can generate a ZK proof of the transaction without revealing key transaction parameters such as the destination or the value of the transaction. More details about the privacy component of Nightfall are available in the [protocol](../protocol/protocol.md) guide.
+Polygon 나이트폴은 ZK 증명을 사용하여 비공개 트랜잭션을 전송합니다. 사용자는 트랜잭션의 가치나 대상과 같은
+핵심 트랜잭션 매개변수를 노출하지 않고 트랜잭션의 ZK 증명을
+생성할 수 있습니다. 나이트폴의 프라이버시 구성 요소에 대한 보다 자세한 내용은
+[프로토콜](../protocol/protocol.md) 가이드에 나와 있습니다.
 
-## Security
+## 보안 {#security}
 
-> Nightfall is currently undergoing a security audit, and it is expected to complete around mid-June 2022. Once the audit process is complete, the results will be posted here.
+> 나이트폴은 현재 보안 감사를 받고 있으며 2022년 6월 중순에 완료할 것으로 예상됩니다.
+> 감사 프로세스가 완료되면 여기에 결과가 게시됩니다.
 
-> As a new network with a bootstrap period, Nightfall has transitory security measures to protect the system with the objective to remove them and leave it fully decentralized.
+> 나이트폴은 부트스트랩 기간이 있는 새로운 네트워크로서, 시스템을 보호하기 위한
+> 임시 보안 조치를 갖고 있으며 결국 이러한 조치를 제거하고 완전히 분산형으로 만드는 것이 목표입니다.
 
-Polygon Nightfall is a Layer 2 construction because it leverages Ethereum by borrowing its security as a robust public blockchain. Nightfall relies on certain assumptions that guarantee asset recovery. These assumptions are based on several design and architectural decisions revolving around ZK-SNARKS. These ZK-SNARKs use certain cryptographic primitives, such as hashes and signatures, that make additional security assumptions. Finally, Nightfall embeds operating rules in different smart contracts to guarantee that operators don't block user transactions and that users can withdraw their assets at all times.
+Polygon 나이트폴은 강력한 공개 블록체인으로서의 보안성을 차용하는 방식으로 이더리움을 활용하기 때문에 계층 2
+구조입니다. 나이트폴은 자산 복구를 보장하는 어떤 가정에 의존합니다. 이러한 가정은
+해시나 서명과 같은 일부 암호화 프리미티브를 사용하는 ZK-SNARK를 둘러싼
+몇 가지 디자인 및 아키텍처 관련 결정을 기반으로 합니다.
+마지막으로, 나이트폴은 여러 스마트 계약에 운영 규칙을 포함하여 운영자가
+사용자 트랜잭션을 차단하지 않고 사용자가 언제든지 자산을 출금할 수 있도록 보장합니다.
 
-As a summary, Nightfall makes the following security assumptions:
+요약하자면 나이트폴은 다음과 같은 보안 가정을 합니다.
 
-1. Security assumptions of Ethereum.
-2. Groth16 assumptions (knowledge of exponent assumption).
-3. Certain cryptographic assumptions from primitives such as hashes and signatures.
-4. Software security assumptions that rely on correct design and implementation.
+1. 이더리움의 보안 가정
+2. Groth16 가정(KE 가정: Knowledge of Exponent Assumption)
+3. 해시(포세이돈) 및 서명 등의 프리미티브를 기반으로 하는 일부 암호화 가정
+4. 올바른 디자인 및 구현에 의존하는 소프트웨어 보안 가정
 
-## Efficiency
+## 효율성 {#efficiency}
 
-Block proposers collect transactions from various users and batch them together into an L2 Block. Typical L2 block sizes contain about 32 transactions.
+블록 제안자는 다양한 사용자로부터 트랜잭션을 수집하여 L2 블록으로 함께 일괄 처리합니다.
+일반적인 크기의 L2 블록에는 약 32개의 트랜잭션이 포함됩니다.
 
-The expected gas costs for a deposit, single transfer, double transfer, and withdrawal are 8200, 11400, 12200, 8500 respectively. This cost is due to store 634Bytes of calldata per transaction, plus some fixed calldata and computation to process an L2 block. Costs will be up to 80% lower after [EIP 4488](https://eips.ethereum.org/EIPS/eip-4488).
+입금, 이전 및 출금에 대한 예상 가스 비용은 9000, 1200 및 9500입니다. 이런 비용이 지불되는 이유는 트랜잭션당 574바이트의 콜데이터와
+L2 블록 처리를 위한 일부 고정 콜데이터 및 계산을 저장하기 위해서입니다. 비용은
+[EIP 4488](https://eips.ethereum.org/EIPS/eip-4488) 후에 최대 80% 낮아집니다.
 
-## Non-deniable Transfers
+## 이전 부인 방지 {#non-deniable-transfers}
 
-As part of the transfer transaction ZK proof, Nightfall includes encrypting the secrets (token address, value, id, and salt) required to process the transferred commitment. This forces the user to encrypt the secrets with a key known to the recipient. As the key is part of the ZK proof, the receiver relies on plausible deniability as the sender can prove that the correct encryption key was used.
+이전 트랜잭션 ZK 증명의 일부로, 나이트폴은 이전된 커밋을 처리하는 데 필요한 비밀(토큰 주소,
+가치, ID 및 솔트) 암호화를 포함합니다. 이로 인해 사용자는 수신자에게 알려진 키로
+비밀을 암호화해야 합니다. 이 키는 ZK 증명의 일부라서 전송자는 올바른 암호화 키가 사용되었음을
+증명할 수 있기 때문에 수신자는 그럴듯한 부인에 의존하게 됩니다.
 
-## Decentralization
+## 분산화 {#decentralization}
 
-Validators and [Challengers](../protocol/challengers.md) are an integral part of Nightfall. They ensure that transactions and L2 blocks produce timely and correctly. A proof-of-stake (PoS) based consensus mechanism is used to select the next [Proposer](../protocol/proposers.md) of the network. On the other hand, Challengers monitor the correct operation of the network by raising challenges when an incorrect block is detected and by retaining the stake advanced by the Proposer.
+유효성 검사자와 [이의 제기자](docs/nightfall/protocol/actors)는 나이트폴에서 필수적인 역할을 합니다. 이들은
+트랜잭션과 L2 블록이 적시에 올바로 생산하도록 해줍니다. 합의 메카니즘을 기반으로 하는 스테이크 증명(PoS)을
+사용해 네트워크의 다음 [제안자](docs/nightfall/protocol/actors)가 선택됩니다. 한편 이의 제기자는 잘못된 블록이 탐지될 때
+이의를 제기하고 제안자가 내놓은 스테이크를 보유함으로써 네트워크의 올바른 작동을
+모니터링합니다.
 
-## References
 
-1. [A Multi-Sided Approach to ZK Scaling](https://messari.io/article/polygon-a-multi-sided-approach-to-zk-scaling)
-2. [Paul's Brody view on Nightfall](https://www.linkedin.com/pulse/say-hello-nightfall-paul-brody-1f/)
+## 미래 증명 {#future-proof}
+나이트폴의 낙관적인 롤업 구현이 제공하는 유연성 덕분에 ZK에서 트랜잭션을 구현한 새로운 회로 유형만 정의해서 등록하면
+기존 트랜잭션을 손상시키지 않으면서 미래에 새로운 트랜잭션을 포함하는 것이
+가능합니다.
+
+## 참고 자료 {#references}
+
+1. [ZK 스케일링을 위한 다각적 접근 방식](https://messari.io/article/polygon-a-multi-sided-approach-to-zk-scaling)
+2. [나이트폴에 대한 폴 브로디의 관점](https://www.linkedin.com/pulse/say-hello-nightfall-paul-brody-1f/)
