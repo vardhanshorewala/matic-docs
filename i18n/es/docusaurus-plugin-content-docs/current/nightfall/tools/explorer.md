@@ -12,7 +12,7 @@ keywords:
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-:::note Esta página se encuentra en construcción
+:::note Esta página está en construcción
 
 :::
 
