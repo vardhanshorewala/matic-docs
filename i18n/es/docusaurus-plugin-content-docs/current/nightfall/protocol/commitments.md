@@ -1,45 +1,61 @@
 ---
 id: commitments
-title: Commitment Selection
-sidebar_label: Commitment Selection
-description: "Single and double transfer."
+title: Compromisos y anuladores
+sidebar_label: Commitment and Nullifiers
+description: "Transferencia única y doble."
 keywords:
   - docs
   - polygon
   - nightfall
   - commitment
-  - selection
-  - transfer
+  - nullifier
 image: https://matic.network/banners/matic-network-16x9.png
 ---
 
-Current ZKP transfer circuits used in Nightfall are restricted to 2 input - 2 output and 1 input - 1 output transfers, with all inputs and outputs having a value > 0. If a transactor's set of commitments contain primarily low value commitments (dust), they may find it hard to conduct future transfers.
 
-Observe the following value sets
+## ¿Qué son los compromisos? {#what-are-commitments}
+Un compromiso es una primitiva criptográfica que permite a un usuario a comprometerse con un valor elegido
+mientras lo mantiene oculto a otros, con la capacidad de revelar el valor comprometido más adelante.
+De esta manera se logra la confidencialidad del valor y del destinatario.
 
-- Set A: [1, 1, 1, 1, 1, 1]
-- Set B: [2, 2, 2]
-- Set C: [2, 4]
+Cada vez que un usuario realiza una transacción utilizando Nightfall, la billetera del navegador calcula una
+prueba de conocimiento cero (ZKP) y crea (o anula) un compromiso.
+Por ejemplo, creas un compromiso cuando haces un depósito o una transferencia y anulas un compromiso cuando
+realizas una transferencia o retiro.
 
-While all three sets have equivalent total sums, the maximum value transfer that can be transacted by sets A, B, and C are 1, 3, and 5 respectively. This is one of the reasons why large commitments values are preferred. The commitment selection strategy used mitigates this risk by prioritising the use of small value commitments while also minimising the creation of dust commitments.
+El cómputo ZKP depende de [circuitos](../protocol/circuits.md) que definen las reglas que una
+transacción debe seguir para ser correcta.
 
-## Single Transfer
-In the base case, whereby a transactor's set contains a commitment of exact value to the target value, it will be used for the transfer.
+El compromiso es utilizado para ocultar las siguientes propiedades:
+- **dirección ERC del token**
+- **Id. del token**
+- **Valor**
+- **Propietario**
 
-## Double Transfer
-If a single transfer is not possible, a double transfer will be attempted.
+Los compromisos se almacenan en una estructura de *árbol de Merkle*. La raíz de este *árbol de Merkle* se almacena en cadena.
 
-1. Sort all commitments by value.
-2. Split commitments into two sets based on whether their values are less than (`LT`) or greater than (`GT`) the target value.
-3. If the sum of the two largest values in set `LT` is LESS than the target value:
-    - We cannot arrive at the target value with two elements in this set.
-    - Our two selected commitments will be the smallest commitment in `LT` and the smallest commitment in `GT`.
-    - It is guaranteed that the output (change) commitments will be larger than the input commitment from `LT`.
-4. If the sum of the two largest values in set `LT` is GREATER than the target value:
-    - We use a standard inward search whereby we begin with two pointers, `lhs` and `rhs` at the start and end of the `LT`.
-    - We also track the change difference, this is the change in size of the smallest commitment in this set resulting from this transaction's output.
-    - If the sum of the commitments at the pointers is greater than the target value, we move pointer `rhs` to the left.
-    - Otherwise, we move pointer `lhs` to the right.
-    - The selected commitments are the pair that minimise the change difference. The best case in this scenario is a change difference of -1.
+![](../imgs/commitment.png)
 
-The following picture depicts the commitment selection mechanism. ![](../imgs/commitment-selection-info.png)
+### UTXO {#utxo}
+Los compromisos se crean durante los depósitos y las transferencias, y se gastan durante las transacciones de transferencias y retiros. **Los compromisos no se agregan juntos**. Al gastar un compromiso, el valor del compromiso gastado se limita al valor de hasta dos compromisos que se posean.
+
+Los circuitos actuales de transferencia y de retiro ZKP utilizados en Nightfall se restringen a 2 entradas - 2 salidas (compromiso de transferencia/retiro y cambio) excluyendo los pagos.
+Si el conjunto de compromisos de un transactor contiene principalmente compromisos de valores bajos (polvo), puede que les resulte difícil realizar futuras transferencias.
+
+Observa los valores de los siguientes conjuntos
+
+- **Conjunto A**: [1, 1, 1, 1, 1, 1]
+- **Conjunto B**: [2, 2, 2]
+- **Conjunto C**: [2, 4]
+
+Mientras que los tres conjuntos tienen sumas totales equivalentes, la transferencia de valor máximo que se puede realizar por los conjuntos *A*, *B* y *C* son 2, 4 y 6 respectivamente. Esta es una de las razones por las que se prefieren los valores de los compromisos grandes. La estrategia de selección de compromiso utilizada mitiga este riesgo al priorizar el uso de pequeños compromisos de valor al tiempo que minimiza la creación de compromisos de polvo.
+
+
+## ¿Qué son los anuladores? {#what-are-nullifiers}
+Un **anulador** es el resultado de la combinación de un compromiso y la clave anuladora. Una vez que el anulador se transmite en cadena, se considera que el compromiso. está usado.
+Los anuladores se almacenan en cadena como parte de los datos de llamada durante la propuesta de bloque.
+
+![](../imgs/nullifier.png)
+
+
+
