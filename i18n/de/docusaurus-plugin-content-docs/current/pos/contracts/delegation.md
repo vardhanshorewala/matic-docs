@@ -1,28 +1,27 @@
 ---
 id: delegation
-title: Delegation (Validator shares)
-description: For the Polygon's Proof of Security based consensus, all the 2/3+1 proof verification and handling of staking, rewards are executed on the Ethereum smart contract. The whole design follows this philosophy of doing less on the Mainnet contract.
+title: Delegation (Validator-Anteile)
+description: "Delegation über Validator-Anteile."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+## Übersicht {#overview}
 
-## Overview
+Polygon unterstützt Delegation über Validator-Anteile. Mithilfe dieses Modells ist es einfacher, auf Ethereum-Contracts Prämien ohne große Rechenleistung auszuschütten und im Rahmen des Slashing in großem Umfang abzustrafen (Tausende von Delegierende).
 
-Polygon supports delegation via validator shares. By using this design, it is easier to distribute rewards and slash with scale (thousands of delegators) on Ethereum contracts without much computation.
+Die Delegierenden delegieren, indem sie von den Validatoren-Anteile eines begrenzten Pools erwerben. Jeder Validator wird seinen eigenen Validator-Anteils-Token haben. Nennen wir diese Fungible Token `VATIC` für einen Validator `A`. Sobald ein Benutzer `A` an einen Validator delegiert, werden diese `VATIC` auf Basis des Wechselkurses eines `MATIC/VATIC`-Paares ausgestellt. Solange Benutzer Beträge anhäufen lassen, zeigt der Wechselkurs an, dass sie jetzt mehr `MATIC` pro `VATIC` abheben können; werden Benutzer hingegen abgestraft, können diese weniger `MATIC` für ihre `VATIC` abheben.
 
-Delegators delegate by purchasing shares of a finite pool from validators. Each validator will have their own validator share token. Let's call these fungible tokens `VATIC` for a validator `A`. As soon as a user delegates to a validator `A`, they will be issued `VATIC` based on an exchange rate of `MATIC/VATIC` pair. As users accrue value the exchange rate indicates that they can now withdraw more `MATIC` for each `VATIC` and when users get slashed, users withdraw less `MATIC` for their `VATIC`.
+Beachte, dass `MATIC` ein Staking-Token ist. Ein Delegierender muss über `MATIC`-Token verfügen, um an der Delegation teilzunehmen.
 
-Note that `MATIC` is a staking token. A delegator needs to have `MATIC` tokens to participate in the delegation.
+Zunächst kauft ein Delegierender `D` Token vom Validator `A` aus einem bestimmten Pool, wenn `1 MATIC per 1 VATIC`.
 
-Initially, a delegator `D` buys tokens from validator `A` specific pool when `1 MATIC per 1 VATIC`.
+Wenn ein Validator mit mehr `MATIC`-Token belohnt wird, werden dem Pool neue Token hinzugefügt. Nehmen wir an, bei dem aktuellen Pool mit `100 MATIC`-Token  werden `10 MATIC` Prämien dem Pool hinzugefügt. Doch da sich die Gesamtversorgung der `VATIC`-Token aufgrund der Prämien nicht verändert, fällt der Wechselkurs dann folgendermaßen aus: `1 MATIC per 0.9 VATIC`. Nun erhält der Delegierende `D` mehr `MATIC` für die gleichen Anteile. Ähnlich läuft es auch beim Slashing ab, wenn `10 MATIC` aus dem Pool abgestraft werden, wird der neue Wechselkurs folgendermaßen ausfallen: `1 Matic per 1.1 VATIC`.
 
-When a validator gets rewarded with more `MATIC` tokens, new tokens are added to the pool. Let's say with the current pool of `100 MATIC` tokens,  `10 MATIC` rewards are added to the pool. But since the total supply of `VATIC` tokens didn't change due to rewards, the exchange rate becomes `1 MATIC per 0.9 VATIC`. Now, delegator `D` gets more `MATIC` for the same shares. Similar to slashing, if `10 MATIC` gets slashed from the pool, the new exchange rate will be `1 Matic per 1.1 VATIC`.
+`VATIC`: Validatoren-spezifische gemintete Validator-Anteils-Token (ERC20-Token)
 
-`VATIC`: Validator specific minted validator share tokens (ERC20 tokens)
-
-## Technical specification
+## Technische Spezifikation {#technical-specification}
 
 ```java
 uint256 public validatorId; // Delegation contract for validator
@@ -35,69 +34,69 @@ uint256 public rewards; // rewards for pool of delegation stake
 uint256 public activeAmount; // # of tokens delegated which are part of active stake
 ```
 
-Exchange rate is calculated as below:
+Der Wechselkurs wir wie folgt berechnet:
 
 ```js
 ExchangeRate = (totalDelegatedPower + delegatorRewardPool) / totalDelegatorShares
 ```
 
-### buyVoucher
+### buyVoucher {#buyvoucher}
 
 ```js
 function buyVoucher(uint256 _amount) public;
 ```
 
-- Transfer the `_amount` to stakeManager and update the timeline data structure for active stake.
-- `updateValidatorState` is used to update timeline DS.
-- `Mint` delegation shares using current `exchangeRate` for `_amount`.
-- `amountStaked` is used to keep track of active stake of each delegator in order to calculate liquid rewards.
+- Übertrage die `_amount` an den stakeManager und aktualisiere die Timeline-Datenstruktur für den aktiven Stake.
+- `updateValidatorState` wird verwendet, um die Timeline-DS zu aktualisieren.
+- `Mint` Delegationsanteile, die die aktuellen `exchangeRate` für `_amount` verwenden.
+- `amountStaked` wird verwendet, um den aktiven Stake eines jeden Delegierenden zu verfolgen, um liquide Prämien zu berechnen.
 
-### sellVoucher
+### sellVoucher {#sellvoucher}
 
 ```js
 function sellVoucher() public;
 ```
 
-- Using current  `exchangeRate` and # of shares calculate total amount(active stake+ rewards).
-- unBond active stake from validator and transfer rewards to delegator if any.
-- Must remove active stake from timeline using `updateValidatorState` in stakeManger.
-- Move active stake of delegator into withdrawal period for slashing reasons.
-- `delegators` mapping is used to keep track of stake in withdrawal period.
+- Mithilfe des aktuellen  `exchangeRate` und # an Anteilen Gesamtbetrag berechnen (aktiver Stake+ Prämien).
+- Den aktiven Stake vom Validator entbinden und Prämien an den Delegierenden übertragen, falls vorhanden.
+- Du musst den aktiven Stake von der Timeline entfernen, indem du `updateValidatorState` im stakeManger nutzt.
+- Verschiebe den aktiven Stake des Delegierenden in die Abhebungsperiode, damit du beim Slashing nicht abgestraft wirst.
+- Das `delegators`-Mapping wird verwendet, um den Stake in der Abhebungsperiode im Blick zu behalten.
 
-### withdrawRewards
+### withdrawRewards {#withdrawrewards}
 
 ```js
 function withdrawRewards() public;
 ```
 
-- For a delegator calculate the rewards and transfer and depending upon `exchangeRate` burn # of shares.
-- i.e. delegator owns 100 share and exchange rate is 200 so rewards are 100 tokens, transfer 100 tokens to delegator, remaining stake is 100 so using exchange rate 200 now it is worth 50 shares so burn 50 shares. Delegator now has 50 shares worth 100 tokens(which he initially staked/delegated).
+- Damit ein Delegierender die Prämien berechnen und diese übertragen kann je nach `exchangeRate` Verbrennung # von Anteilen.
+- d. h. der Delegierende besitzt 100 Anteile und der Wechselkurs steht bei 200, dann sind die Prämien 100 Token wert, werden 100 Token an den Delegierenden übertragen, ist der verbleibende Stake 100; wird nun der Wechselkurs angewendet, liegen 200 nun bei 50 Anteilen und 50 Anteile werden verbrannt. Der Delegierende verfügt nun über 50 Anteile im Wert von 100 Token (welche er anfänglich gestaket/delegiert hatte).
 
-### reStake
+### reStake {#restake}
 
-- Restake can work in two ways delegator can buy more shares using `buyVoucher` or reStake rewards.
+- Um Gelder wieder ins Staking zu legen (Restake), gibt es zwei Vorgehensweisen: Der Delegierende kann weitere Anteile kaufen, indem er `buyVoucher` verwendet oder er legt seine Prämien wieder zurück ins Staking.
 
 ```js
 function reStake() public;
 ```
 
-- Above function is used to reStake rewards
-- The number of shares aren’t affected because `exchangeRate` is the same; so just the rewards are moved into active stake for both validator share contract and stakeManager timeline.
-- `getLiquidRewards` is used for calculating accumulated rewards.
-- i.e. delegator owns 100 share and exchange rate is 200 so rewards are 100 tokens, move 100 tokens into active stake, since exchange rate is still same number of share will also remain same. Only difference is that now 200 tokens are considered into active stake and can't be withdrawn immediately(not a part of liquid rewards).
-- Purpose of reStaking is that since delegator's validator has now more active stake and she will earn more rewards for that so will the delegator.
+- Die oben genannte Funktion wird verwendet, um Prämien zu restaken.
+- Die Anzahl an Anteilen ist nicht davon betroffen, weil `exchangeRate` dasselbe ist; also werden nur die Prämien in den aktiven Stake verschoben, sowohl für den Validator-Anteils-Contract als auch für die stakeManager-Timeline.
+- `getLiquidRewards` wird verwendet, um angesammelte Prämien zu berechnen.
+- D. h., der Delegierende besitzt 100 Anteile und der Wechselkurs liegt bei 200, demnach sind die Prämien 100 Token wert; werden 100 Token in den aktiven Stake verschoben, verfügt der Wechselkurs demnach weiterhin über dieselbe Anzahl von Anteilen und bleibt dementsprechend gleich. Der einzige Unterschied ist, dass nun 200 Token als im aktiven Stake-liegend betrachtet werden und nicht sofort abgehoben werden können (da sie nicht Teil der liquiden Prämien sind).
+- Der Zweck des ReStaking ist, dass der Validator des Delegierenden nun über einen höheren aktiven Stake verfügt und mehr Prämien dafür verdienen wird, gleichermaßen wie der Delegierende.
 
-### unStakeClaimTokens
+### unStakeClaimTokens {#unstakeclaimtokens}
 
 ```js
 function unStakeClaimTokens()
 ```
 
-- Once withdrawal period is over delegators who've sold their shares can claim their matic tokens.
-- Must transfer tokens to user.
-- Once slashing is in place must check for all the slashing happened in that withdrawal period and take into account.
+- Sobald die Abhebungsperiode vorüber ist, können Delegierende, die ihre Anteile verkauft haben, Matic-Token beanspruchen.
+- Es müssen Token an den Benutzer übertragen werden.
+- Sobald das Slashing vor Ort durchgeführt wurde, muss überprüft werden, ob das gesamte Slashing in der Abhebungsperiode stattgefunden hat und als gültig betrachtet werden kann.
 
-### updateCommissionRate
+### updateCommissionRate {#updatecommissionrate}
 
 ```js
 function updateCommissionRate(uint256 newCommissionRate)
@@ -105,9 +104,9 @@ function updateCommissionRate(uint256 newCommissionRate)
         onlyValidator
 ```
 
-- Updates commission % for the validator.
+- Aktualisierungs-Provision % für den Validator.
 
-### updateRewards
+### updateRewards {#updaterewards}
 
 ```js
 function updateRewards(uint256 reward, uint256 checkpointStakePower, uint256 validatorStake)
@@ -116,6 +115,10 @@ function updateRewards(uint256 reward, uint256 checkpointStakePower, uint256 val
         returns (uint256)
 ```
 
-- When a validator gets rewards for submitting checkpoint this function is called for disbursements of rewards between validator and delegators.
+- Wenn ein Validator Prämien für die Einreichung von Checkpoints erhält, wird diese Funktion für Prämienauszahlungen zwischen dem Validator und dem Delegierenden aufgerufen.
 
-For more details here is a video explaining the whole mechanism in details:<!-- \[https://www.youtube.com/watch?v=8nODLU9C3mw\](https://www.youtube.com/watch?v=8nODLU9C3mw) -->[![create liquid staking assets - video](https://img.youtube.com/vi/8nODLU9C3mw/0.jpg)](https://www.youtube.com/watch?v=8nODLU9C3mw)
+Für weitere Details findest du hier ein Video, das den gesamten Mechanismus detailliert erklärt:
+
+<!-- [https://www.youtube.com/watch?v=8nODLU9C3mw](https://www.youtube.com/watch?v=8nODLU9C3mw) -->
+
+[![Liquide Staking-Assets anlegen – Video](https://img.youtube.com/vi/8nODLU9C3mw/0.jpg)](https://www.youtube.com/watch?v=8nODLU9C3mw)
