@@ -1,84 +1,83 @@
 ---
 id: topup
-title: Topup
-description: Heimdall Topup is an amount which will be used to pay fees on Heimdall chain.
+title: Top-up
+description: "Betrag, der für die Bezahlung von Gebühren auf der Heimdall-Chain verwendet werden wird."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+## Übersicht {#overview}
 
-## Overview
+Das Heimdall-Top-up ist der Betrag, der für die Bezahlung von Gebühren auf der Heimdall-Chain verwendet werden wird.
 
-Heimdall Topup is an amount which will be used to pay fees on Heimdall chain.
+Es gibt zwei Möglichkeiten, deinen Account aufzutoppen.
 
-There are two ways to topup your account.
+1. Wenn sich ein neuer Validator anschließt, kann dieser zusätzlich zu dem gestakten Betrag einen `topup`-Betrag als Top-up angeben, welcher als Saldo auf die Heimdall-Chain verschoben werden wird, um die Gebühren auf Heimdall zu bezahlen
+2. Benutzer können die Top-up-Funktion direkt auf dem Staking-Smart Contract auf Ethereum abrufen, um ihr Top-up-Saldo auf Heimdall zu erhöhen
 
-1. When new validator joins, they can mention a `topup` amount as top-up in addition to the staked amount, which will be moved as balance on Heimdall chain to pays fees on Heimdall
-2. A user can directly call the top-up function on the staking smart contract on Ethereum to increase top-up balance on Heimdall
+## Nachrichten {#messages}
 
-## Messages
+### MsgTopup {#msgtopup}
 
-### MsgTopup
+Die `MsgTopup`-Transaktion ist dafür zuständig, das Saldo auf eine Adresse auf Heimdall zu minten, welche wiederum auf einem `TopUpEvent` auf der Ethereum-Chain, der auf dem Staking-Manager-Contract liegt, basiert.
 
-`MsgTopup` transaction is responsible for minting balance to an address on Heimdall based on Ethereum chain's `TopUpEvent` on staking manager contract.
+Der Abwickler dieser Transaktion führt das Top-up aus und erhöht den Saldo nur einmal für jedes vorliegende `msg.TxHash` und `msg.LogIndex`. Beim Versuch, das Top-up mehr als einmal auszuführen, wird der Fehler `Older invalid tx found` angezeigt.
 
-Handler for this transaction processes top-up and increases the balance only once for any given `msg.TxHash` and `msg.LogIndex`. It throws `Older invalid tx found` error, if trying to process the top-up more than once.
-
-Here is the structure for the top-up transaction message:
+Hier siehst du die Struktur einer Top-Up-Transaktionsnachricht:
 
 ```go
 type MsgTopup struct {
-    FromAddress types.HeimdallAddress `json:"from_address"`
-    ID          types.ValidatorID     `json:"id"`
-    TxHash      types.HeimdallHash    `json:"tx_hash"`
-    LogIndex    uint64                `json:"log_index"`
+	FromAddress types.HeimdallAddress `json:"from_address"`
+	ID          types.ValidatorID     `json:"id"`
+	TxHash      types.HeimdallHash    `json:"tx_hash"`
+	LogIndex    uint64                `json:"log_index"`
 }
 ```
 
-### MsgWithdrawFee
+### MsgWithdrawFee {#msgwithdrawfee}
 
-`MsgWithdrawFee` transaction is responsible for withdrawing balance from Heimdall to Ethereum chain. A Validator can withdraw any amount from Heimdall.
+`MsgWithdrawFee`Die -Transaktion ist dafür zuständig, Auszahlungen vom Saldo der Heimdall- auf die Ethereum-Chain auszuführen. Ein Validator kann einen beliebigen Betrag von Heimdall abheben.
 
-Handler processes the withdraw by deducting the balance from the given validator and prepares the state to send the next checkpoint. The next possible checkpoint will contain the withdraw related state for the specific validator.
+Der Abwickler verarbeitet die Auszahlung, indem er den Saldo vom jeweiligen Validators abzieht und den Status vorbereitet, um ihn an den nächsten Checkpoint zu senden. Der nächstmögliche Checkpoint wird den mit der Abhebung verbundenen Status für den bestimmten Validator enthalten.
 
-Handler gets validator information based on `ValidatorAddress` and processes the withdraw.
+Der Abwickler erhält die Information über den Validator basierend auf `ValidatorAddress` und verarbeitet die Abhebung.
 
 ```go
 // MsgWithdrawFee - high-level transaction of the fee coin withdrawal module
 type MsgWithdrawFee struct {
-    ValidatorAddress types.HeimdallAddress `json:"from_address"`
-    Amount           types.Int             `json:"amount"`
+	ValidatorAddress types.HeimdallAddress `json:"from_address"`
+	Amount           types.Int             `json:"amount"`
 }
 ```
 
-## CLI commands
+## CLI-Befehle {#cli-commands}
 
-### Topup fee
+### Top-up-Gebühr {#topup-fee}
 
 ```bash
 heimdallcli tx topup fee
-    --log-index <log-index> 
-    --tx-hash <transaction-hash> 
-    --validator-id <validator ID here>
-    --chain-id <heimdall-chain-id>
+	--log-index <log-index>
+	--tx-hash <transaction-hash>
+	--validator-id <validator ID here>
+	--chain-id <heimdall-chain-id>
 ```
 
-### Withdraw fee
+### Abhebungsgebühr {#withdraw-fee}
 
 ```bash
 heimdallcli tx topup withdraw --chain-id <heimdall-chain-id>
 ```
 
-To check reflected topup on account run following command
+Zur Kontrolle des auf dem Account reflektierten Top-ups führe folgenden Befehl aus
 
 ```bash
 heimdallcli query auth account <validator-address> --trust-node
 ```
 
-## REST APIs
+## REST APIs {#rest-apis}
 
-| Name         | Method | URL             | Body Params                                                                                                                                               |
-| ------------ | ------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Topup Fee    | POST   | /topup/fee      | `id` Validator id, `tx_hash` Transaction hash of successful topup event on Ethereum chain, `log_index` Log index of topup event emitted on Ethereum chain |
-| Withdraw Fee | POST   | /topup/withdraw | `amount` Withdraw amount                                                                                                                                  |
+| Name | Methode | URL | Body-Parameter |
+|----------------------|------|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Top-up-Gebühren | POST | /topup/fee | `id`Validator-ID, `tx_hash` Transaktions-Hash eines erfolgreichen Top-up-Ereignisses auf der Ethereum-Chain, `log_index` Log-Index eines auf der Ethereum-Chain ausgestellten Top-up-Ereignisses |
+| Abhebunggebühr | POST | /topup/withdraw | `amount` Betrag abheben |
