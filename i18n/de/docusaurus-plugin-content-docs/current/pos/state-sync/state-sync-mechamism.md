@@ -1,25 +1,24 @@
 ---
 id: state-sync
-title: State Sync Mechanism
-description: Build your next blockchain app on Matic.
+title: State-Sync-Mechanismus
+description: "Mechanismus, um Ethereum-Daten von der Matic-EVM-Chain auszulesen."
 keywords:
   - docs
   - matic
 image: https://matic.network/banners/matic-network-16x9.png
 ---
+`State Sync` ist der ursprüngliche Mechanismus, um Ethereum-Daten von der Matic-EVM-Chain auszulesen.
 
-`State Sync` is the native mechanism to read Ethereum data from Matic EVM chain.
+Validatoren auf der Heimdall-Layer greifen das [StateSynced](https://github.com/maticnetwork/contracts/blob/a4c26d59ca6e842af2b8d2265be1da15189e29a4/contracts/root/stateSyncer/StateSender.sol#L24)-Ereignis auf und geben es an die Bor-Layer weiter (lies mehr über die Architektur [hier](/docs/pos/bor/overview).
 
-Validators on the Heimdall layer pickup the [StateSynced](https://github.com/maticnetwork/contracts/blob/a4c26d59ca6e842af2b8d2265be1da15189e29a4/contracts/root/stateSyncer/StateSender.sol#L24) event and pass it on to the Bor layer (read more about the architecture [here](/docs/pos/bor/overview).
-
-The receiver contract inherits [IStateReceiver](https://github.com/maticnetwork/genesis-contracts/blob/master/contracts/IStateReceiver.sol), and custom logic sits inside [onStateReceive](https://github.com/maticnetwork/genesis-contracts/blob/05556cfd91a6879a8190a6828428f50e4912ee1a/contracts/IStateReceiver.sol#L5) function.
+Der Empfänger-Contract erbt [IStateReceiver](https://github.com/maticnetwork/genesis-contracts/blob/master/contracts/IStateReceiver.sol) und die benutzerdefinierte Logik befindet sich in der Funktion [onStateReceive](https://github.com/maticnetwork/genesis-contracts/blob/05556cfd91a6879a8190a6828428f50e4912ee1a/contracts/IStateReceiver.sol#L5).
 
 
-This is the flow required from dapps/users to work with state-sync:
+Dies ist der Flow, der für Dapps/Benutzer erforderlich ist, um mit State-Sync zu arbeiten:
 
-1. Call the smart contract function present here: [https://github.com/maticnetwork/contracts/blob/19163ddecf91db17333859ae72dd73c91bee6191/contracts/root/stateSyncer/StateSender.sol#L33](https://github.com/maticnetwork/contracts/blob/19163ddecf91db17333859ae72dd73c91bee6191/contracts/root/stateSyncer/StateSender.sol#L33)
-2. Which emits an event called `StateSynced(uint256 indexed id, address indexed contractAddress, bytes data);`
-3. All the validators on the heimdall chain receive this event and one of them, whoever wishes to get the tx fees for state sync sends this transaction to heimdall
-4. Once `state-sync` transaction on heimdall has been included in a block it is added to pending state-sync list.
-5. After every sprint on `bor` the `bor` node fetches the pending state-sync events from heimdall via an API call.
-6. The receiver contract inherits `IStateReceiver` interface, and custom logic of decoding the data bytes and performing any action sits inside `onStateReceive` function: [https://github.com/maticnetwork/genesis-contracts/blob/master/contracts/IStateReceiver.sol](https://github.com/maticnetwork/genesis-contracts/blob/master/contracts/IStateReceiver.sol)
+1. Rufe die Smart Contract-Funktion hier auf: [https://github.com/maticnetwork/Contracts/blob/19163ddecf91db17333859ae72dd73c91bee6191/Contracts/root/stateSyncer/StateSender.sol#L33](https://github.com/maticnetwork/contracts/blob/19163ddecf91db17333859ae72dd73c91bee6191/contracts/root/stateSyncer/StateSender.sol#L33)
+2. Welche ein Ereignis ausgibt, das sich `StateSynced(uint256 indexed id, address indexed contractAddress, bytes data);` nennt
+3. Alle Validatoren auf der Heimdall-Chain erhalten dieses Ereignis und einer von ihnen, wer auch immer es wünscht, die tx-Gebühren für State-Sync zu erhalten, sendet diese Transaktion an Heimdall
+4. Sobald die `state-sync`-Transaktion auf Heimdall in einem Block eingeschlossen wurde, wird sie der ausstehenden State-Sync-Liste hinzugefügt.
+5. Nach jedem Sprint auf  greift `bor`der `bor`-Knoten die ausstehenden State-Sync-Ereignisse von Heimdall über einen API-Aufruf auf.
+6. Der Empfänger-Contract erbt die `IStateReceiver` -Schnittstelle, und die benutzerdefinierte Logik zum Dekodieren der Datenbytes und zum Ausführen von Aktionen befindet sich in der `onStateReceive` -Funktion: [https://github.com/maticnetwork/genesis-contracts/blob/master/contracts/IStateReceiver.sol](https://github.com/maticnetwork/genesis-contracts/blob/master/contracts/IStateReceiver.sol)
