@@ -42,13 +42,13 @@ The `--json` flag is supported on some commands. This flag instructs the command
 | [max-peers](/docs/edge/get-started/cli-commands#max-peers) | [max-inbound-peers](/docs/edge/get-started/cli-commands#max-inbound-peers) |
 | [max-outbound-peers](/docs/edge/get-started/cli-commands#max-outbound-peers) | [max-enqueued](/docs/edge/get-started/cli-commands#max-enqueued) |
 | [log-level](/docs/edge/get-started/cli-commands#log-level) | [log-to](/docs/edge/get-started/cli-commands#log-to) |
-| [chain](/docs/edge/get-started/cli-commands#chain) | [join](/docs/edge/get-started/cli-commands#join) |
-| [nat](/docs/edge/get-started/cli-commands#nat) | [dns](/docs/edge/get-started/cli-commands#dns) | 
-| [price-limit](/docs/edge/get-started/cli-commands#price-limit) | [max-slots](/docs/edge/get-started/cli-commands#max-slots) |
-| [config](/docs/edge/get-started/cli-commands#config) | [secrets-config](/docs/edge/get-started/cli-commands#secrets-config) | 
-| [dev](/docs/edge/get-started/cli-commands#dev) | [dev-interval](/docs/edge/get-started/cli-commands#dev-interval) | 
-| [no-discover](/docs/edge/get-started/cli-commands#no-discover) | [restore](/docs/edge/get-started/cli-commands#restore) | 
-| [block-time](/docs/edge/get-started/cli-commands#block-time) | [access-control-allow-origins](/docs/edge/get-started/cli-commands#access-control-allow-origins) |
+| [chain](/docs/edge/get-started/cli-commands#chain) | [nat](/docs/edge/get-started/cli-commands#nat) |
+| [dns](/docs/edge/get-started/cli-commands#dns) | [price-limit](/docs/edge/get-started/cli-commands#price-limit) | 
+|[max-slots](/docs/edge/get-started/cli-commands#max-slots) | [config](/docs/edge/get-started/cli-commands#config) | 
+|[secrets-config](/docs/edge/get-started/cli-commands#secrets-config) | [dev](/docs/edge/get-started/cli-commands#dev) |
+| [dev-interval](/docs/edge/get-started/cli-commands#dev-interval) | [no-discover](/docs/edge/get-started/cli-commands#no-discover) | 
+| [restore](/docs/edge/get-started/cli-commands#restore) | [block-time](/docs/edge/get-started/cli-commands#block-time) | 
+| [access-control-allow-origins](/docs/edge/get-started/cli-commands#access-control-allow-origins) |
 
 
 #### <h4><i>data-dir</i></h4>
@@ -349,25 +349,6 @@ but if the flag is set, there will be no output to the console when running serv
 </Tabs>
 
 Specifies the genesis file used for starting the chain. Default: `./genesis.json`.
-
----
-
-#### <h4><i>join</i></h4>
-
-<Tabs>
-  <TabItem value="syntax" label="Syntax" default>
-
-    server [--join JOIN_ADDRESS]
-
-  </TabItem>
-  <TabItem value="example" label="Example">
-
-    server --join /ip4/127.0.0.1/tcp/10001/p2p/16Uiu2HAmJxxH1tScDX2rLGSU9exnuvZKNM9SoK3v315azp68DLPW
-
-  </TabItem>
-</Tabs>
-
-Specifies the address of the peer that should be joined.
 
 ---
 
