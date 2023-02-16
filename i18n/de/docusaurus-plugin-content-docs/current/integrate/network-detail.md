@@ -1,19 +1,24 @@
 ---
 id: network-detail
-title: How to read Network Details?
-description: "How to understand the JSON response to Network Details."
+title: Auslesen von Netzwerkdetails
+description: "So verstehen Sie die JSON-Ergebnisse der Netzwerkdetails."
 keywords:
   - docs
   - matic
-image: https://matic.network/banners/matic-network-16x9.png
+  - polygon
+  - network details
+  - how to read
+image: https://wiki.polygon.technology/img/polygon-wiki.png
 ---
 
-You can have the network details by visting the below shared support links.
-- Network config: <static.matic.network/network/"network_name"/"version"/index.json>
+# Network Details lesen {#reading-network-details}
 
-## Example
+Nähere Informationen zum Netzwerk erhalten Sie über die unten angeführten freigegebenen Support-Links.
+- Netzwerkkonfiguration: <static.matic.network/network/"network_name"/"version"/index.json>
 
-For TestnetV3: https://static.matic.network/network/testnet/v3/index.json
+## Beispiel {#example}
+
+Für TestnetV3: https://static.matic.network/network/testnet/v3/index.json
 
 ```js
 {
