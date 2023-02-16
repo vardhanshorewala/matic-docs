@@ -1,6 +1,6 @@
 ---
 id: contributor-guidelines
-title: Cómo contribuir
+title: Cómo Contribuir
 sidebar_label: Contributor guidelines
 description: Prepárate para tu próxima contribución
 keywords:
@@ -15,64 +15,53 @@ slug: orientation
 ---
 
 :::tip
-Siéntete libre de [plantear un problema en nuestro repositorio de Wiki](https://github.com/maticnetwork/matic-docs/issues)
+Siéntase libre de [plantear un problema en nuestro repositorio de la Wiki de Polygon](https://github.com/maticnetwork/matic-docs/issues)
 :::
 
-## Identifica un área en la cual contribuir {#identify-an-area-to-contribute-to}
+## Identificar un área para contribuir a {#identify-an-area-to-contribute-to}
 
-Hay varias maneras de identificar un área en la cual contribuir a Wiki:
+Hay varias formas de identificar un área en Wiki donde puedes contribuir:
 
-- Lo más fácil es ponerse en contacto con uno de los [mantenedores de Wiki](/docs/contribute/community-maintainers)
-y decirle que quieres hacer una contribución a Polygon Wiki. La persona trabajará contigo para encontrar
-un área en la cual puedas contribuir.
-- Si tienes una contribución específica en mente, pero no estás seguro al respecto, confirma si
-la contribución es apropiada al contactar a uno de los [mantenedores de Wiki](/docs/contribute/community-maintainers) directamente.
-- Si no tienes una contribución específica en mente, también puedes navegar por los problemas,
-según se encuentran etiquetados `help wanted`en el [repositorio de Polygon GitHub](https://github.com/maticnetwork).
-- Los problemas que además tienen la `good first issue`etiqueta se consideran ideales
-para los novatos.
+- Lo más fácil es ponerse en contacto con uno de los [mantenedores de Wiki](/docs/contribute/community-maintainers)  diciendo "Quiero ayudar a contribuir a Polygon Wiki". Trabajarán contigo para encontrar un área para que contribuyas.
+- Si tienes una contribución específica en mente, pero no estás seguro de ello, confirma si la contribución es apropiada poniéndote en contacto directamente con uno de los [mantenedores](/docs/contribute/community-maintainers) de Wiki.
+- Si no tienes una contribución específica en mente, también puedes navegar por los problemas etiquetados como `help wanted` en el [repositorio Polygon GitHub](https://github.com/maticnetwork).
+- Los problemas que adicionalmente tiene la etiqueta `good first issue` son considerados ideales para
+los primerizos.
 
-## Añadir a la documentación de Polygon {#add-to-the-polygon-documentation}
+## Agregarlos a la documentación de Polygon {#add-to-the-polygon-documentation}
 
-  - Si necesitas agregar o cambiar algo en Polygon Wiki, presenta un pull request (PR)
-  contra la `master`rama (consulta la PR de muestra).
-  - El equipo de documentación revisará la PR o se comunicará, según corresponda.
+  - Si necesitas agregar o cambiar algo en Polygon Wiki tramita una solicitud de extracción dirigida a la sucursal `master` (véase el ejemplo PR).
+  - El equipo de documentación revisará el PR o se pondrá en contacto como corresponda.
   - Repositorio: https://github.com/maticnetwork/matic-docs
-  - Muestra de PR: https://github.com/maticnetwork/matic-docs/pull/360
+  - Muestra PR: https://github.com/maticnetwork/matic-docs/pull/360
 
 :::tip
-Si quieres ejecutar nuestra Wiki localmente en tu máquina, consulta la sección [que ejecuta la](https://github.com/maticnetwork/matic-docs#run-the-wiki-locally) Wiki localmente. Si estás añadiendo un nuevo documento, se recomienda tener un resumen o introducción básico y un enlace a tu Github o documentación para obtener más detalles.
+Si quieres ejecutar nuestro Wiki de forma local en tu máquina, revisa la sección [que ejecuta el](https://github.com/maticnetwork/matic-docs#run-the-wiki-locally) Wiki de forma local. Si estás agregando un nuevo documento, se recomienda tener un resumen o introducción básica y un enlace a tu Github o la documentación para obtener más detalles.
 :::
 
 ## Reglas de Git {#git-rules}
 
-Para cambiar entradas, usamos `gitchangelog` para todos nuestros repositorios. Para eso, tenemos que
-cumplir con la siguiente convención para el mensaje de compromiso. Si no sigues esta convención,
-no habrá ninguna fusión.
+Usamos `gitchangelog` para todos nuestros repositorios para cambiar registros. Para eso, necesitamos cumplir con la siguiente convención para un mensaje de confirmación. No habrá fusión si no sigues esta convención.
 
-### Convención para comprometer mensajes {#commit-message-convention}
+### La convención de mensajes de confirmación  {#commit-message-convention}
 
-Las siguientes son sugerencias de temas útiles en los que pensar al agregar
-tus mensajes de compromiso. Puede que quieras separar tus compromisos en secciones grandes:
+A continuación encontrarás sugerencias de lo que podría ser útil para que te plantees agregar a tus mensajes de confirmación. Quizás quieras separar más o menos tus confirmaciones en grandes secciones:
 
-- Por intención (por ejemplo: nuevo, corrección, cambio...)
-- Por objetivo (por ejemplo: documento, empaque, código...)
-- Por audiencia (por ejemplo: desarrolladores, testers, usuarios...)
+- por intención (por ejemplo: nuevo, corregir, cambiar...)
+- por objeto (por ejemplo: documento, embalaje, código...)
+- por audiencia (por ejemplo: devolución, probador, usuarios...)
 
-Además, podrías etiquetar algunos compromisos como:
+Además, podrías desear etiquetar algunas confirmaciones:
 
-- Compromisos "menores": son los que no deberían generar resultados en tu registro de cambios (cambios cosméticos,
-pequeños errores tipográficos en los comentarios...).
-- "Refractores: si en realidad no hay cambios significativos de las características. Por lo tanto, esto
-tampoco debería formar parte del registro de cambios que se le muestra al usuario final, pero
-podría ser de tu interés si tienes un registro de cambios para desarrollador.
-- También, podrías etiquetar con "api" para marcar cambios de API, o si es una nueva API o algo similar.
+- Como confirmaciones "menores" que no deberían obtener salida a tu registro de cambios (cambios cosméticos, pequeños errores en las confirmaciones...).
+- Como "refactor" si realmente no tienes ningún cambio significativo de características. Así esto no debería ser también parte del cambio de registros mostrado al usuario final, por ejemplo, pero podría ser de algún interés si tienes un cambio de registros de desarrollador.
+- Puedes etiquetar también con "api" para marcar los cambios API o si se trata de una API nueva o similar.
 
-Intenta escribir tu mensaje de compromiso al dirigirte a la funcionalidad del usuario tan a menudo como puedas.
+Intenta escribir tu mensaje de confirmación centrándote en la funcionalidad del usuario tantas veces como puedas.
 
 :::note Ejemplo
 
-Este es un `--oneline` de registro de Git estándar para mostrar cómo se podría guardar esta información:
+Esto es un registro estándar de git `--oneline` para mostrar cómo esta información puede guardarse:
 
 ```
 * 5a39f73 fix: encoding issues with non-ascii chars.
@@ -85,7 +74,6 @@ Este es un `--oneline` de registro de Git estándar para mostrar cómo se podrí
 
 :::
 
-Para obtener más información, consulta
-[¿Cuáles son algunas buenas formas de administrar un registro de cambios con Git?](https://stackoverflow.com/questions/3523534/good-ways-to-manage-a-changelog-using-git/23047890#23047890).
+Para obtener más información, consulta [¿Cuáles son algunas buenas formas de administrar un registro de cambios utilizando Git?](https://stackoverflow.com/questions/3523534/good-ways-to-manage-a-changelog-using-git/23047890#23047890)
 
-Para obtener más información, consulta [https://chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/).
+Para obtener más información, visita [https://chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/).
