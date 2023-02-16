@@ -1,8 +1,8 @@
 ---
 id: wiki-maintainers
-title: Wiki Maintainers
+title: Mantenedores de Wiki
 sidebar_label: Maintainers
-description: A list of Polygon Wiki maintainers
+description: Una lista de mantenedores de Polygon Wiki
 keywords:
   - docs
   - matic
@@ -11,34 +11,35 @@ keywords:
   - docs
   - maintainers
   - contributors
-image: https://matic.network/banners/matic-network-16x9.png
+image: https://wiki.polygon.technology/img/polygon-wiki.png
 slug: community-maintainers
 ---
 
-The following is a list of regular contributors to the Polygon Wiki that include their contact information.
+La siguiente es una lista de los contribuyentes regulares de Polygon Wiki que
+incluye sus datos de contacto.
 
-If one of these people ever contacts you directly, first check the contact information to see that it matches the origin of the message, and then feel free to get in touch with someone else on this list to verify the legitimacy of the original inquiry.
+Si alguna de estas personas te contacta directamente, primero, comprueba los datos
+de contacto para ver si coinciden con el origen del mensaje y, segundo, siéntete
+en libertad de comunicarte con alguien más de esta lista para verificar la legitimidad de la consulta
+original.
 
-:::warning Employee impersonation is a common type of scam
+:::warning Hacerse pasar por un empleado es un tipo común de estafa.
 
-Always validate the person you are in contact with and see if their contact information matches the origin of the message. It is also a good idea to get in touch with someone else on this list to verify the legitimacy of the original inquiry.
+Siempre debes validar a la persona con la que te comunicas, para
+verificar que su información de contacto coincida con el origen del mensaje.
+Asimismo, es una buena idea contactar a alguien
+más en esta lista para verificar la legitimidad de la consulta original.
 
 :::
 
-## Nazim Faour
+## Ashutosh Tripathi {#ashutosh-tripathi}
 
-- email: [nazim@polygon.technology](mailto:nazim@polygon.technology)
-- telegram: [@NazimFa](https://t.me/NazimFa)
-- github: [Nazeim](https://github.com/Nazeim)
+[Github:](https://github.com/ashucoder9)
 
-## Vinícius Gomes
+## Danny Salman {#danny-salman}
 
-- email: [vinicius@polygon.technology](mailto:vinicius@polygon.technology)
-- telegram: [@cerberushades86](https://t.me/cerberushades86)
-- github: [cerberushades](https://github.com/cerberushades)
+github: [dannys03](https://github.com/DannyS03)
 
-## Danny Salman
+## Vinícius Gomes {#vinícius-gomes}
 
-- email: [danny@polygon.technology](mailto:danny@polygon.technology)
-- telegram: [@dannysalman](https://t.me/dannysalman)
-- github: [dannys03](https://github.com/DannyS03)
+github: [cerberushades](https://github.com/cerberushades)
