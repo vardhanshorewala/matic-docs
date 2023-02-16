@@ -15,26 +15,19 @@ image: https://wiki.polygon.technology/img/polygon-wiki.png
 slug: community-maintainers
 ---
 
-La siguiente es una lista de los contribuyentes regulares de Polygon Wiki que
-incluye sus datos de contacto.
+La siguiente es una lista de colaboradores regulares en el Wiki de Polygon que incluyen su información de contacto.
 
-Si alguna de estas personas te contacta directamente, primero, comprueba los datos
-de contacto para ver si coinciden con el origen del mensaje y, segundo, siéntete
-en libertad de comunicarte con alguien más de esta lista para verificar la legitimidad de la consulta
-original.
+Si una de estas personas alguna vez te contacta directamente, revisa la información de contacto para ver que coincide con el origen del mensaje y a continuación no dudes en contactar con alguien más de esta lista para verificar la legitimidad de la consulta original.
 
-:::warning Hacerse pasar por un empleado es un tipo común de estafa.
+:::warning La suplantación de empleados es un tipo de estafa
 
-Siempre debes validar a la persona con la que te comunicas, para
-verificar que su información de contacto coincida con el origen del mensaje.
-Asimismo, es una buena idea contactar a alguien
-más en esta lista para verificar la legitimidad de la consulta original.
+Verifica siempre a la persona con la que estás en contacto y comprueba si su información de contacto coincide con el origen del mensaje. También es una buena idea ponerte en contacto con alguien más de esta lista para verificar la legitimidad de la consulta original.
 
 :::
 
 ## Ashutosh Tripathi {#ashutosh-tripathi}
 
-[Github:](https://github.com/ashucoder9)
+Github: [ashucoder9](https://github.com/ashucoder9)
 
 ## Danny Salman {#danny-salman}
 
