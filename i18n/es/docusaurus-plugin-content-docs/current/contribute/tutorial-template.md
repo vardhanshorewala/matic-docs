@@ -1,8 +1,8 @@
 ---
 id: tutorial-template
-title: Plantilla general de tutoriales
+title: Plantilla de Tutorial General
 sidebar_label: Tutorial template
-description: Sigue la plantilla de tutoriales cuando escribas un tutorial técnico.
+description: Sigue la plantilla de tutorial al redactar un tutorial técnico.
 keywords:
   - docs
   - matic
@@ -15,54 +15,40 @@ image: https://wiki.polygon.technology/img/polygon-wiki.png
 slug: tutorial-template
 ---
 
-Debes usar esta plantilla para contribuir a Polygon Wiki
-con un tutorial. Puedes contribuir con un tutorial sobre un tema de tu elección.
+Esta plantilla debe usarse cuando contribuyas con un tutorial a Polygon Wiki. Puedes elegir contribuir con un tutorial sobre un tema de tu elección.
 
-## Directrices generales {#general-guidelines}
+## Guías generales {#general-guidelines}
 
-* El alcance del tutorial debe quedar claro desde el título.
-* El tutorial debe describir las características y funcionalidades
-de los productos o servicios con precision.
-* Trata de hacer el tutorial breve y conciso, pero amplia los conceptos clave
-cuando sea apropiado. Proporciona información de fondo y contexto adicional cuando sea posible.
-* Los pasos de configuración e implementación deben ser bien específicos.
-* Haz el esfuerzo de incluir imágenes, íconos o capturas de pantalla
-que complementen el contenido escrito.
-  > El equipo de documentación felizmente trabajará contigo en la creación de diagramas.
-* Recuerda el público para el que estás escribiendo. Si el material tiene cierto nivel de dificultad,
-debes mencionar eso en el tutorial.
-  > Si hay pasos que el usuario debe dar antes de implementar el tutorial, menciónalos.
-* El equipo de documentación estará encantado de trabajar conjuntamente en la creación del tutorial.
-* Ten presente la **[guía de estilo](writing-style.md)**.
+* El ámbito del tutorial debe quedar claro desde el título.
+* El tutorial debe ser capaz de describir con precisión las características y funcionalidades de los productos o servicios.
+* Trata de mantener el tutorial fluido y conciso, pero expande en los conceptos clave donde sea apropiado. Proporciona información de antecedentes y más contexto cuando sea posible.
+* Para la configuración e implementación de los pasos, sé específico.
+* Haz todo lo posible para agregar imágenes, iconos o capturas de pantalla de apoyo que complementen el contenido escrito.
+  > El equipo de documentación también estaría encantado de trabajar contigo en la creación de diagramas.
+* Recuerda la audiencia para quien escribes. Si el material tiene un cierto nivel de dificultad debes ser mencionarlo en el tutorial.
+  > Si hay pasos que un usuario debe dar antes de repasar un tutorial, por favor enuméralos.
+* El equipo de documentación estaría encantado de colaborar en la creación de un tutorial.
+* Recuerda considerar la **[guía de Estilo](writing-style.md)**.
 
-:::caution Actualización de tutoriales actuales
+:::caution Actualización de los tutoriales existentes
 
-Si te das cuenta de que los tutoriales actuales en Polygon Wiki
-no siguen esta plantilla, es porque el equipo de documentación
-decidió implementar un estándar, por lo que el flujo del tutorial es consistente
-en todos los tutoriales. El equipo está trabajando para actualizar estos tutoriales,
-de modo tal que se asemejen a esta plantilla. Si te interesa, también puedes actualizar
-un tutorial existente para reestructurarlo.
+Si notas que los tutoriales existentes en el Polygon Wiki no usan esta plantilla es porque el equipo de documentación decidió implementar un estándar, por lo que el flujo tutorial es consistente con todos los tutoriales. El equipo está trabajando en la actualización de estos tutoriales para que se parezcan a esta plantilla. Si estás interesado, también puedes actualizar un tutorial existente para reestructurarlo.
 
 :::
 
-## Secciones de los tutoriales {#tutorial-sections}
+## Secciones del tutorial {#tutorial-sections}
 
-### Descripción general {#overview}
+### Resumen {#overview}
 
-Explica los productos o los servicios que se discuten en el tutorial.
-Proporciona información de fondo para el propósito del tutorial y lo que
-tiene por objetivo presentar. El tutorial siempre se debe basar en un
-producto de Polygon.
+Explica el/los producto(s) o servicio(s) sobre el/los que versa el tutorial. Facilita información de antecedentes para el propósito del tutorial y explica lo que el tutorial pretende presentar. El tutorial debe estar siempre basado en el uso de un producto Polygon.
 
 ### Lo que aprenderás {#what-you-ll-learn}
 
-Resume lo que el usuario aprenderá en el tutorial.
+Resume lo que el usuario aprenderá a lo largo del tutorial.
 
 :::note Ejemplo
 
-Explorarás cómo usar el paquete de Truffle para desarrollar aplicaciones descentralizadas (dApps)
-de Polygon.
+Explorarás cómo usar la Suite Truffle para construir aplicaciones descentralizadas Polygon.
 
 :::
 
@@ -72,72 +58,63 @@ Describe los resultados del aprendizaje.
 
 :::note Ejemplo
 
-1. Aprenderás sobre la fauna.
-2. Aprenderás a usar ReactJS para la interfaz de usuario de tu dApp.
-3. Descubrirás cómo proteger los datos de tu dApp.
+1. Aprenderás sobre la Fauna.
+2. Aprenderás cómo puedes usar ReactJS para la interfaz de usuario de tu aplicación descentralizada.
+3. Aprenderás cómo proteger los datos de tu aplicación descentralizada.
 
 :::
 
-Menciona los prerrequisitos y con lo que el usuario
-ya debe estar familiarizado. Incluye los enlaces necesarios en la documentación para las áreas
-sobre las que el usuario ya debería estar bien informado.
+Menciona los prerrequisitos y con lo que el usuario ya debe de estar familiarizado. Enlaza la documentación necesaria para las áreas sobre las que el usuario ya debe de estar bien informado.
 
 :::note Ejemplo
 
-Antes de comenzar este tutorial, debes entender los conceptos básicos
-del desarrollo de dApps basado en EVM. Consulta estos documentos para obtener más información.
+Antes de comenzar este tutorial debes entender los fundamentos del desarrollo de la aplicación descentralizada basada en EVM. Para obtener más información, consulta "estos documentos".
 
 :::
 
 ### Lo que harás {#what-you-ll-do}
 
-Describe los pasos del tutorial y las herramientas que se utilizarán.
+Describe los pasos en el tutorial y las herramientas que se van a utilizar.
 
 :::note Ejemplo
 
-Usarás Solidity para crear un contrato inteligente en un entorno de ChainIDE.
+Utilizarás Solidity para crear un contrato inteligente en un entorno de ChainIDE.
 
-1. Configuración de billeteras
-2. Escribir un contrato inteligente de ERC-721
-3. Compilar un contrato inteligente de ERC-721
-4. Desplegar un contrato inteligente de ERC-721
-5. Crear un archivo aplanado con la biblioteca Flattener
-6. Verificar un contrato inteligente
-7. Acuñamiento de NFT
+1. Configurar una billetera
+2. Escribe un contrato inteligente ERC-721
+3. Compila un contrato inteligente ERC-721
+4. Despliega un contrato inteligente ERC-721
+5. Crea un archivo aplanado utilizando la biblioteca de Flattener
+6. Verifica un contrato inteligente
+7. Acuñando NFT
 
 :::
 
-### El tutorial en sí {#the-tutorial-itself}
+### El tutorial en sí mismo {#the-tutorial-itself}
 
-En general, el tutorial se puede presentar en la mejor categorización, a
-criterio del escritor; esto se debe reflejar en la sección [Lo que harás](#what-youll-do)
-. Sin embargo, las secciones del tutorial deberán abarcar estas tres categorías principales:
+En general, el tutorial puede ser presentado en la mejor categorización que si el escritor lo considera conveniente; esto debe reflejarse en la sección [que harás](#what-youll-do)
+. Sin embargo, el tutorial debería referirse a estas tres categorías principales:
 
-> Durante la creación de las secciones, considera las palabras clave
-> y ten en cuenta la SEO.
+> Asegúrate de considerar las palabras clave y ten en cuenta el SEO cuando llegues a las secciones.
 
-#### Desarrolla tu aplicación {#build-your-application}
+#### Construye tu aplicación {#build-your-application}
 
-Contenido del tutorial principal Esto puede incluir secciones como "configuración"
-e "implementación", para nombrar algunas.
+El principal contenido del tutorial. Este puede incluir secciones como "instalación", "configuración", e "implementación" para mencionar algunos.
 
-#### Ejecutar o desplegar tu aplicación {#run-or-deploy-your-application}
+#### Ejecuta o despliega tu aplicación {#run-or-deploy-your-application}
 
-Explica cómo debería el usuario ejecutar o desplegar su aplicación.
+Explica cómo el usuario debe ejecutar o desplegar su aplicación.
 
 #### Prueba tu aplicación {#test-your-application}
 
-Esto puede incluir pruebas de escritura para un contrato inteligente y verificación
-de un contrato inteligente, entre otros.
+Estas podrían ser las pruebas escritas para un contrato inteligente, verificación de un contrato inteligente, etc.
 
-### Próximos pasos {#next-steps}
+### Siguientes pasos {#next-steps}
 
-Concluye el tutorial y reflexiona sobre los resultados del aprendizaje.
-Enumera los siguientes pasos que el usuario puede dar.
+Concluye el tutorial y reflexiona sobre los resultados del aprendizaje. Describe los siguientes pasos que el usuario puede dar.
 
 :::note Ejemplo
 
-Felicidades por desplegar tu contrato inteligente. Ahora sabes cómo usar ChainIDE
-para crear y desplegar contratos inteligentes. Considera probar "este tutorial".
+Enhorabuena por desplegar tu contrato inteligente. Ahora sabes cómo utilizar ChainIDE para crear y desplegar contratos inteligentes. Considera probar "este tutorial".
 
 :::
