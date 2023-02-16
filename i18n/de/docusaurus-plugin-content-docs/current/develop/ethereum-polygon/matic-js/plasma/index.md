@@ -2,23 +2,23 @@
 id: index
 title: PlasmaClient
 keywords:
-  - 'maticjs, plasma client, contract, polygon, sdk'
-description: 'PlasmaClient allows you to interact with POS Bridge.'
+- 'maticjs, plasma client, contract, polygon, sdk'
+description: 'PlasmaClient ermöglicht den Datenaustausch mit POS-Bridge.'
 ---
 
-# Plasma Bridge
+# Plasma-Bridge {#plasma-bridge}
 
-Plasma bridge functionality is available in [seperate repository](https://github.com/maticnetwork/maticjs-plasma). So in order to use `plasma` bridge, you need to install seperate package.
+Die Plasma-Bridge steht im [separaten Repository](https://github.com/maticnetwork/maticjs-plasma) zur Verfügung. Um die `plasma`-Bridge nutzen zu können, müssen Sie ein separates Paket installieren.
 
-## Installation
+## Installation {#installation}
 
 ```
 npm i @maticnetwork/maticjs-plasma
 ```
 
-## Setup
+## Einrichtung {#setup}
 
-`PlasmaClient` can be used to interact with **Plasma** Bridge.
+`PlasmaClient`kann zum Datenaustausch mit **Plasma**-Bridge eingesetzt werden.
 
 ```
 import { PlasmaClient } from "@maticnetwork/maticjs-plasma"
@@ -44,4 +44,4 @@ await plasmaClient.init({
 
 ```
 
-Once `plasmaClient` is initiated, you can interact with all available APIS.
+Sobald `plasmaClient` gestartet wurde, können Sie sich mit allen verfügbaren APIS austauschen.
