@@ -1,59 +1,61 @@
 ---
 id: install-gcp
-title: Deploy Polygon nodes in Google Cloud
+title: Déployez des nœuds Polygon sur Google Cloud
 sidebar_label: Google Cloud Deployment
-description: "Simple deployment of your Polygon nodes in Google Cloud."
+description: déploiement simple de vos nœuds Polygon sur Google Cloud
 keywords:
-  - docs
-  - polygon
-  - gcp
-  - google cloud
+- docs
+- polygon
+- deploy
+- nodes
+- gcp
+- google cloud
 slug: install-gcp
+image: https://wiki.polygon.technology/img/polygon-wiki.png
 ---
-
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-## Description
+# Déployez des nœuds Polygon sur Google Cloud {#deploy-polygon-nodes-on-google-cloud}
 
-In this document, we will describe how to deploy Polygon nodes into VM instance in Google Cloud
+Dans ce document, nous décrirons comment déployer des nœuds Polygon dans une instance VM sur Google Cloud.
 
-## Hardware requirements
+### Configuration matérielle requise {#hardware-requirements}
 
-Check the minimum and recommended [hardware requirements](/docs/maintain/validate/validator-node-system-requirements) in Polygon docs
+Vérifiez les [exigences matérielles](/docs/maintain/validate/validator-node-system-requirements) minimales et recommandées dans Polygon Wiki.
 
-## Software requirements
+### Configuration logicielle requise {#software-requirements}
 
-Use any modern Debian or Ubuntu Linux OS with long-term support, i.e. Debian 11, Ubuntu 20.04. We'll focus on Ubuntu 20.04 in this manual
+Utilisez n'importe quel système d'exploitation moderne Debian ou Ubuntu Linux avec une prise en charge à long terme, par exemple Debian 11, Ubuntu 20.04. Nous nous concentrerons sur Ubuntu 20.04 dans ce manuel
 
-## Deploy instance (2 ways)
+## Déployer l'instance (2 façons) {#deploy-instance-2-ways}
 
-You may use at least two ways to create an instance in Google Cloud:
+Vous pouvez utiliser au moins deux méthodes pour créer une instance dans Google Cloud :
 
-* gcloud cli, local or [Cloud Shell](https://cloud.google.com/shell)
-* Web console
+* gcloud cli, local ou [Cloud Shell](https://cloud.google.com/shell)
+* Console web
 
-We'll cover the first case in this manual. Let's start with deployment using CLI:
-1. Follow ["Before you begin" section](https://cloud.google.com/compute/docs/instances/create-start-instance#before-you-begin) to install and configure gcloud command-line tool. Pay attention to default region and zone, choose ones closer to you or your customers. You may use [gcping.com](https://gcping.com) to measure latency to choose the closest location.
-2. Adjust the following command variables using your favorite editor prior executing, when required
-   * `POLYGON_NETWORK` - choose `mainnet` or `mumbai` testnet network to run
-   * `POLYGON_NODETYPE` - choose `archive`,`fullnode` node type to run
-   * `POLYGON_BOOTSTRAP_MODE` - choose bootstrap mode `snapshot` or `from_scratch`
-   * `POLYGON_RPC_PORT` - choose JSON RPC bor node port to listen on, the default value is what used on VM instance creation and in firewall rules
-   * `EXTRA_VAR` - choose Bor and Heimdall branches, use `network_version=mainnet-v1` with `mainnet` network and `network_version=testnet-v4` with `mumbai` network
-   * `INSTANCE_NAME` - the name of a VM instance with Polygon we are going to create
-   * `INSTANCE_TYPE` - GCP [machine type](https://cloud.google.com/compute/docs/machine-types), default value is recommended, You may change it later if required
-   * `BOR_EXT_DISK_SIZE` - additional disk size in GB to use with Bor, default value with `fullnode` is recommended, You may expand it later if required. You'll need 8192GB+ with `archive` node though
-   * `HEIMDALL_EXT_DISK_SIZE` - additional disk size in GB to use with Heimdall, default value is recommended
-   * `DISK_TYPE` - GCP [disk type](https://cloud.google.com/compute/docs/disks#disk-types), SSD is highly recommended. You may need to increase the total SSD GB quota in the region you are spinning up the node.
+Nous aborderons le premier cas dans ce manuel. Commençons par le déploiement en utilisant CLI :
+1. Suivez [la section « Avant de commencer](https://cloud.google.com/compute/docs/instances/create-start-instance#before-you-begin) pour installer et configurer l'outil de ligne de commande gcloud. Faites attention à la région et à la zone par défaut : choisissez celles qui sont plus proches de vous ou de vos clients. Vous pouvez utiliser [gcping.com](https://gcping.com) pour mesurer la latence afin de choisir l'emplacement le plus proche.
+2. Ajustez les variables de commande suivantes à l'aide de votre éditeur favori avant de l'exécuter, si nécessaire
+   * `POLYGON_NETWORK` - choisir le testnet du réseau `mainnet` ou `mumbai` à exécuter
+   * `POLYGON_NODETYPE` - choisir `archive``fullnode` le type de nœud à exécuter
+   * `POLYGON_BOOTSTRAP_MODE` - choisir le mode bootstrap `snapshot` ou `from_scratch`
+   * `POLYGON_RPC_PORT` - choisir le port de nœud JSON RPC Bor à écouter. La valeur par défaut est celle utilisée pour la création d'instance de VM et dans les règles de pare-feu
+   * `EXTRA_VAR` - choisir les branches Bor et Heimdall, les utiliser `network_version=mainnet-v1`avec le réseau `mainnet` et `network_version=testnet-v4` avec le réseau `mumbai`
+   * `INSTANCE_NAME` - le nom d'une instance de VM avec Polygon que nous allons créer
+   * `INSTANCE_TYPE` - [Type de machine](https://cloud.google.com/compute/docs/machine-types) GCP. La valeur par défaut est recommandée, vous pouvez la modifier ultérieurement si nécessaire
+   * `BOR_EXT_DISK_SIZE` - taille de disque supplémentaire en Go à utiliser avec Bor. La valeur par défaut avec `fullnode`est recommandée, vous pouvez l'augmenter plus tard si nécessaire. Vous aurez besoin de 8192 Go+ avec le nœud `archive`
+   * `HEIMDALL_EXT_DISK_SIZE` - taille de disque supplémentaire en Go à utiliser avec Heimdall. La valeur par défaut est recommandée
+   * `DISK_TYPE` - le [type de disque](https://cloud.google.com/compute/docs/disks#disk-types) GCP, SSD est fortement recommandé. Vous devrez peut-être augmenter le quota total de Go SSD dans la zone où vous faites tourner le nœud vers le haut.
 
-3. Use the following command to create an instance with correct hardware and software requirements. In the example below we deploy Polygon `mainnet` from `snapshot` with `fullnode` mode:
+3. Utilisez la commande suivante pour créer une instance avec les exigences matérielles et logicielles correctes. Dans l'exemple ci-dessous, nous déployons Polygon `mainnet`à partir de `snapshot` avec le `fullnode`mode:
 ```bash
    export POLYGON_NETWORK=mainnet
    export POLYGON_NODETYPE=fullnode
    export POLYGON_BOOTSTRAP_MODE=snapshot
    export POLYGON_RPC_PORT=8747
    export GCP_NETWORK_TAG=polygon
-   export EXTRA_VAR=(bor_branch=v0.2.16 heimdall_branch=v0.2.9  network_version=mainnet-v1 node_type=sentry/sentry heimdall_network=${POLYGON_NETWORK})
+   export EXTRA_VAR=(bor_branch=v0.3.3 heimdall_branch=v0.3.0  network_version=mainnet-v1 node_type=sentry/sentry heimdall_network=${POLYGON_NETWORK})
    gcloud compute firewall-rules create "polygon-p2p" --allow=tcp:26656,tcp:30303,udp:30303 --description="polygon p2p" --target-tags=${GCP_NETWORK_TAG}
    gcloud compute firewall-rules create "polygon-rpc" --allow=tcp:${POLYGON_RPC_PORT} --description="polygon rpc" --target-tags=${GCP_NETWORK_TAG}
    export INSTANCE_NAME=polygon-0
@@ -76,11 +78,12 @@ We'll cover the first case in this manual. Let's start with deployment using CLI
    bootcmd:
    - screen -dmS polygon su -l -c bash -c "curl -L https://raw.githubusercontent.com/maticnetwork/node-ansible/master/install-gcp.sh | bash -s -- -n '${POLYGON_NETWORK}' -m '${POLYGON_NODETYPE}' -s '${POLYGON_BOOTSTRAP_MODE}' -p '${POLYGON_RPC_PORT}' -e \"'${EXTRA_VAR}'\"; bash"'
 ```
-The instance should be created during a couple of minutes
+L'instance doit être créée pendant quelques minutes
 
-## Login to instance (optional)
+## Connexion à l'instance (facultatif) {#login-to-instance-optional}
 
-It will take a couple of minutes to install all the required software and a couple of hours to download a snapshot when chosen. You should see working `bor` and `heimdalld` processes filling up additional drives. You may run the following commands to check it. Connect to instance SSH service using `gcloud` SSH wrapper:
+Il faudra quelques minutes pour installer tous les logiciels requis et quelques heures pour télécharger un instantané au moment choisi. Vous devriez voir fonctionner `bor` et les processus `heimdalld` remplir des disques supplémentaires. Vous pouvez exécuter les commandes suivantes pour le vérifier.
+Se connecter au service SSH de l'instance à l'aide du `gcloud` wrapper SSH:
 ```bash
 gcloud compute ssh ${INSTANCE_NAME}
 # inside the connected session
@@ -89,24 +92,24 @@ sudo su -
 ps uax|egrep "bor|heimdalld"
 df -l -h
 ```
-You may use the following command to watch the installation progress, it's really handy in case of `snapshot` bootstrap
+Vous pouvez utiliser la commande suivante pour suivre la progression de l'installation, qui est vraiment pratique en cas de `snapshot` bootstrap
 ```bash
 # inside the connected session
 screen -dr
 ```
-Use `Control+a d` key combination to disconnect from progress review.
+Utilisez la combinaison de touches `Control+a d` pour vous déconnecter de l'aperçu de progression.
 
-You may use the following commands to get Bor and Heimdall logs:
+Vous pouvez utiliser les commandes suivantes pour obtenir les journaux Bor et Heimdall :
 ```bash
 # inside the connected session
 journalctl -fu bor
 journalctl -fu heimdalld
 ```
 :::note
-Blockchain data is saved onto additional drives which are kept by default on VM instance removal. You need to remove additional disks manually if you don't need this data anymore.
+
+Les données de la blockchain sont enregistrées sur des lecteurs supplémentaires qui sont conservés par défaut lors de la suppression de l'instance de VM. Vous devez supprimer manuellement des disques supplémentaires si vous n'avez plus besoin de ces données.
 :::
 
-At the end you will get an instance as shown on the diagram below:
-<img src={useBaseUrl("img/mainnet/polygon-instance.svg")} />
+À la fin, vous obtiendrez une instance comme indiqué sur le diagramme ci-dessous:<img src={useBaseUrl("img/mainnet/polygon-instance.svg")} />
 
-If you hit an issue with this manual - please feel free to open an [issue](https://github.com/maticnetwork/matic-docs/issues) or [create a PR](https://github.com/maticnetwork/matic-docs/pulls) on [GitHub](https://github.com/maticnetwork/matic-docs).
+Si vous rencontrez un problème avec ce manuel, n'hésitez pas à signaler un [problème](https://github.com/maticnetwork/matic-docs/issues) ou à [créer un PR](https://github.com/maticnetwork/matic-docs/pulls) sur [GitHub](https://github.com/maticnetwork/matic-docs).
