@@ -1,26 +1,32 @@
 ---
 id: network
-title: Networks
-description: Current Testnet and Mainnet status and information.
+title: Réseaux
+description: État et informations actuels du Testnet et du réseau principal.
 keywords:
   - docs
   - matic
-image: https://matic.network/banners/matic-network-16x9.png
+  - polygon
+  - networks
+  - testnet
+  - mainnet
+  - mumbai
+image: https://wiki.polygon.technology/img/polygon-wiki.png
 ---
 
+# Réseaux {#networks}
 
-- [Network Details](/docs/develop/network-details/network) -> To view network details
-- [Polygon Faucet](https://faucet.polygon.technology/) -> Get TestTokens at Polygon faucet
-
-
-## Testnets
-| Network        | RPC                                                        | Status  | Parent Chain | Block Explorer                              |
-| -------------- | ---------------------------------------------------------- | ------- | ------------ | ------------------------------------------- |
-| Mumbai Testnet | Sign up for a free RPC link at https://rpc.maticvigil.com/ | Running | Goërli       | [:ledger:](https://mumbai.polygonscan.com/) |
+- [Détails du réseau](/docs/integrate/network-detail) -> Pour afficher les détails du réseau
+- [Robinet Polygon](https://faucet.polygon.technology/) -> Obtenir des TestTokens au robinet Polygon
 
 
-## Mainnets
-| Network             | RPC                                                        | Status  | Parent Chain | Block Explorer                       |
-| ------------------- | ---------------------------------------------------------- | ------- | ------------ | ------------------------------------ |
-| **Polygon Mainnet** | Sign up for a free RPC link at https://rpc.maticvigil.com/ | Running | Ethereum     | [:ledger:](https://polygonscan.com/) |
+## Testnets {#testnets}
+| Réseau | RPC | Statut | Chaîne parent | Explorateur de blocs |
+|-----------|------|----------------|----------------------------------------------------------------------------------------------------------------|------------------------------------|
+| Mumbai Testnet | Inscrivez-vous pour obtenir un lien RPC gratuit sur https://rpc.maticvigil.com/ | Exécution | Goërli | [:ledger:](https://mumbai.polygonscan.com/) |
+
+
+## Réseaux principaux {#mainnets}
+| Réseau | RPC | Statut | Chaîne parent | Explorateur de blocs |
+|---------------|------|------------|------------------------------------------------------------------------------|-------------------------------------
+| **Réseau principal de Polygon** | Inscrivez-vous pour obtenir un lien RPC gratuit sur https://rpc.maticvigil.com/ | Exécution | Ethereum | [:ledger:](https://polygonscan.com/) |
 
