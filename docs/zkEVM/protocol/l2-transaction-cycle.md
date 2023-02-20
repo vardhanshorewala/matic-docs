@@ -280,9 +280,9 @@ require(
 
 ## Transactions and Blocks on zkEVM
 
-In our current design of the Polygon zkEVM, **one transaction is equivalent to one block on Layer 2 (i.e. zkEVM)**. This enhances RPC and peer-to-peer communication between nodes. Additionally, there is more compatibility with current tooling and a faster response time to locate the user's txs this way.
+In our current design of the Polygon zkEVM, **one transaction is equivalent to one block on Layer 2 (i.e. zkEVM)**. This enhances RPC and peer-to-peer communication between nodes. Additionally, there is more compatibility with current tooling and fast finality in L2 which helps in locating the user's txs this way.
 
-There is one L2 block per transaction on the zkEVM network. Later, **a collection of L2 transactions is combined into a batch. This batch is posted on L1 for data-availablity and it must be verified**. Therefore, a proof for a single batch or a proof for multiple batches can be created.
+There is one L2 block per transaction on the zkEVM network. Later, **a collection of L2 transactions is combined into a batch. This batch is posted on L1 for data-availablity and it must be verified**. Therefore, a proof for a single batch or a proof for a sequence of batches can be created.
 
 For example, imagine the case where batches 2 to 24 have been posted on-chain and are waiting to be verified. The aggregator could:
 
