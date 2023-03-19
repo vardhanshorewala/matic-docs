@@ -106,15 +106,15 @@ Security (as well as scalability) is a major benefit for the zkEVM when compared
 
 ### DeFi Applications
 
-Because of **Polygon zkEVM**’s high security and its censorship resistance nature, it is a good fit for DeFi applications. Unlike Optimistic Roll-ups where users have to wait for up to 7 days for deposits and withdrawals, ZK-rollups don’t have to wait for long periods in order to deposit / withdraw.
+Because of **Polygon zkEVM**’s high security and its censorship resistance nature, it is a good fit for [DeFi applications](https://www.alchemy.com/dapps?sub-category=Analytics+Tools%2CDapp+Templates%2CDecentralized+Oracles%2CGas+Tools%2CMEV+Analytics+Tools%2CMEV+Tools%2CQuest-to-Earn+Tools%2CRelayers%2CToken+Price+APIs%2CWeb3+Bridges&category=DeFi+Tools&chain=Polygon). Unlike Optimistic Roll-ups where users have to wait for up to 7 days for deposits and withdrawals, ZK-rollups don’t have to wait for long periods in order to deposit / withdraw.  
 
 ### NFT, GameFi, and Enterprise Applications
 
-Low gas cost, high TPS, and greater security level coupled with Ethereum composability will surely attract blue chip NFTs, GameFi, and Enterprise applications to build on top of zkEVM.
+Low gas cost, high TPS, and greater security level coupled with Ethereum composability will surely attract blue chip NFTs, GameFi, and Enterprise applications to build on top of zkEVM. Some popular NFT developer tools on the polygon ecosystem can be found [here](https://www.alchemy.com/list-of/nft-tools-on-polygon).
 
 ### Payments
 
-Users interested in transacting with each other in real-time with a near-instantaneous and low-fee environment will appreciate the value **Polygon zkEVM** provides.
+Users interested in transacting with each other in real-time with a near-instantaneous and low-fee environment will appreciate the value **Polygon zkEVM** provides. There are several [developer tools](https://www.alchemy.com/dapps/cask-protocol), which help in scaling the architecture of payment tools in Polygon.
 
 ## Further Reading
 
